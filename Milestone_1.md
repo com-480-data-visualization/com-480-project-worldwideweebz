@@ -40,11 +40,19 @@ The MyAnimeList dataset is composed of 9 csv files total. There are three main u
 
 Each of these files have a `filtered` version where only the rows that have some specific features are completed. Each of them also have a `cleaned` version where unrealistic values have been removed or corrected.
 
+The UserList dataset contains a lot of information about the users such as the genre, the birth date and location.
+
 ![Number of users per country](assets/users_per_country.jpg)
 
-We can see above the number of users per country on the plot above. Suprinsingly, Poland is the country that is the most represented. We also see that some values don't correspond to countries but to states of america, so we will need to clean the data and group the states into USA. 
+We can see above the number of users per country on the plot above. Suprinsingly, Poland is the country that is the most represented. We also see that some values don't correspond to countries but to states of america, so we will need to clean the data and group thes states into USA.
+
+The AnimeList dataset contains a lot of information about the anime such as the genre, rating and studio. Here is a plot showing the number of animes per genre:
 
 ![Number of animes per genre](assets/animes_per_genre.jpg)
+
+... and one with the number of animes per studio:
+
+![Number of animes per studio](assets/animes_per_studio.jpg)
 
 ### Missing data and recovery
 
