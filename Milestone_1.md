@@ -1,6 +1,6 @@
 # Milestone 1
 
-Visualization about anime informations
+Visualization about anime information
 
 ## Datasets
 
@@ -44,6 +44,7 @@ Each of these files have a `filtered` version where only the rows that have some
 
 We can see above the number of users per country on the plot above. Suprinsingly, Poland is the country that is the most represented. We also see that some values don't correspond to countries but to states of america, so we will need to clean the data and group the states into USA. 
 
+![Number of animes per genre](assets/animes_per_genre.jpg)
 
 ### Missing data and recovery
 
@@ -99,7 +100,7 @@ Since our dataset contains about 14000 anime titles, it seems reasonable to scra
 
 - Why is your approach original?
   
-  First of all, we want to offer an interactive vizualisation, as opposed to what is already done. Then, our vizualisations will show really general and different components, with multiple parameters. This way, we can have a lot of insights about animes, and have a better understanding about what makes them what they are. Finally, we will show these insights with different diagrams and charts, which will help to have more discernement about the data.
+  First of all, we want to offer an interactive vizualisation, as opposed to what is already done. Then, our vizualisations will show general relationships, while having more specific components, with multiple parameters each: for instance, we want to relate the data to real-life people and demographics, geolocalizations and time. This way, we hope to extract more insights about animes, and have a better understanding about what differentiates them. We hope to generalize some trends and similarities, and bring forward the people that contribute to the production of animes, such as voice actors and directors. Finally, we will show these insights with different diagrams and chart styles and build an argument showcasing our findings.
 
 - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
 
