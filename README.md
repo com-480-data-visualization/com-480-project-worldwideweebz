@@ -18,8 +18,7 @@ See [Milestone_1.md](Milestone_1.md)
 
 **10% of the final grade**
 
-
-
+See [Milestone_2.md](Milestone_2.md)
 
 ## Milestone 3 (Thursday 28th May, 5pm)
 
