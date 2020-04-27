@@ -1,7 +1,5 @@
 # Milestone 2
 
-Tuturu
-
 ## Summary
 
 ### Code
@@ -18,21 +16,44 @@ Tuturu
 
 ### Graphs
 
-- Bubble Diagram by genre :
+- **Time diagram**
+    - slider
+    - Showcase of the top 10 animes per year (or per 6 month)
+    - 
+
+- **Bubble Diagram by genre :**
   - Size = sum of popularity of all animes within the genre
   - Highlighting a genre shows ~top 20 most popular anime
   - We can search for an anime (with autocompletion) to show it in its genres
   - We can search for a genre to highlight it
+  - The color of the bubble represents the gender share
 
-- Interactive worldwide heatmap :
+- **Interactive worldwide heatmap :**
   - Shows popularity of specific genre over the world.
+  - Shows popularity of specific anime over the world.
 
-- Sankey Diagram with 3 columns :
-  - Studio [Une dizaine]
-  - Genre [Une dizaine]
-  - Score [round to .5]
+- Sankey Diagram :
+  -  **3 columns :**
+     - **Studio (~ ten most populars)**
+     - **Genre (~ ten most populars)**
+     - **Score (round to .5)**
+   - **Can click on a studio to show his own Sankey proportions**
+   - **Same with genre by studio**
+   - *Can individually select studios and genres that show in the diagram*
   
-- Evolution of anime / genre / characters popularity through time.
-  - Stacked Area Chart?
+- Stacked Area Chart :
+  - Evolution of **genre** / **country** / *studio* / *anime* popularity through time.
+  - The values will be limited to the 10 most representative
+  - _User has the option to switch into showing the popularity of the studio or country instead._
   
-- Some real-life insights such as cast, producers, salaries, voice acting, etc. 
+- **Chord Diagram :**
+  - Links voice actors playing in the same anime
+  - Highlighting one actor shows his/her personal informations
+  - Different colors depending of :
+    - genre
+    - label
+  - Sort by color -> Number of animes they dubbed in
+  - Different ways of showing this number :
+    - Number inside the 'rectangle'
+    - Lines to separate groups of same numbers
+    - Circle arcs to separate groups of same number
