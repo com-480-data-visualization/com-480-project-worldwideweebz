@@ -16,11 +16,11 @@ class Home extends React.Component {
 
         return (
             <div id="Home" style={{ backgroundImage: `url('${randomBackground}')` }}>
-                <div class="Splash">
-                    <div class="Background">
+                <div className="Splash">
+                    <div className="Background">
                         <p>&nbsp;</p>
                     </div>
-                    <div class="Foreground">
+                    <div className="Foreground">
                         <h1>Anime Data Visualization</h1>
                         <p>An interactive data visualization experience by Alexandre CHAU, Pedro TORRES DA CUNHA & Joachim DUNANT for the COM-480 course</p>
                         <button>Let's start!</button>
