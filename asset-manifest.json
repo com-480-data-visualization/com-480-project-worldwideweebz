@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/com-480-project-worldwideweebz/static/css/main.201eb7da.chunk.css",
-    "main.js": "/com-480-project-worldwideweebz/static/js/main.01a44150.chunk.js",
-    "main.js.map": "/com-480-project-worldwideweebz/static/js/main.01a44150.chunk.js.map",
+    "main.css": "/com-480-project-worldwideweebz/static/css/main.7015f023.chunk.css",
+    "main.js": "/com-480-project-worldwideweebz/static/js/main.ce87c10e.chunk.js",
+    "main.js.map": "/com-480-project-worldwideweebz/static/js/main.ce87c10e.chunk.js.map",
     "runtime-main.js": "/com-480-project-worldwideweebz/static/js/runtime-main.fbd7b483.js",
     "runtime-main.js.map": "/com-480-project-worldwideweebz/static/js/runtime-main.fbd7b483.js.map",
-    "static/js/2.e8fd6d29.chunk.js": "/com-480-project-worldwideweebz/static/js/2.e8fd6d29.chunk.js",
-    "static/js/2.e8fd6d29.chunk.js.map": "/com-480-project-worldwideweebz/static/js/2.e8fd6d29.chunk.js.map",
+    "static/js/2.a9054605.chunk.js": "/com-480-project-worldwideweebz/static/js/2.a9054605.chunk.js",
+    "static/js/2.a9054605.chunk.js.map": "/com-480-project-worldwideweebz/static/js/2.a9054605.chunk.js.map",
     "index.html": "/com-480-project-worldwideweebz/index.html",
-    "precache-manifest.dc5abe5b92934ac91ca201e1d137cc46.js": "/com-480-project-worldwideweebz/precache-manifest.dc5abe5b92934ac91ca201e1d137cc46.js",
+    "precache-manifest.2a80621d6d2ac754e5d9ab91ca251ba0.js": "/com-480-project-worldwideweebz/precache-manifest.2a80621d6d2ac754e5d9ab91ca251ba0.js",
     "service-worker.js": "/com-480-project-worldwideweebz/service-worker.js",
-    "static/css/main.201eb7da.chunk.css.map": "/com-480-project-worldwideweebz/static/css/main.201eb7da.chunk.css.map",
-    "static/js/2.e8fd6d29.chunk.js.LICENSE.txt": "/com-480-project-worldwideweebz/static/js/2.e8fd6d29.chunk.js.LICENSE.txt",
+    "static/css/main.7015f023.chunk.css.map": "/com-480-project-worldwideweebz/static/css/main.7015f023.chunk.css.map",
+    "static/js/2.a9054605.chunk.js.LICENSE.txt": "/com-480-project-worldwideweebz/static/js/2.a9054605.chunk.js.LICENSE.txt",
     "static/media/animation-bridge.gif": "/com-480-project-worldwideweebz/static/media/animation-bridge.a0684912.gif",
     "static/media/animation-fish-shop.gif": "/com-480-project-worldwideweebz/static/media/animation-fish-shop.e3786860.gif",
     "static/media/animation-metro-city.gif": "/com-480-project-worldwideweebz/static/media/animation-metro-city.be186575.gif",
@@ -22,8 +22,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.fbd7b483.js",
-    "static/js/2.e8fd6d29.chunk.js",
-    "static/css/main.201eb7da.chunk.css",
-    "static/js/main.01a44150.chunk.js"
+    "static/js/2.a9054605.chunk.js",
+    "static/css/main.7015f023.chunk.css",
+    "static/js/main.ce87c10e.chunk.js"
   ]
 }
