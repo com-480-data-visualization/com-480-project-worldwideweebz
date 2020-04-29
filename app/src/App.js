@@ -5,27 +5,29 @@ import {
   Route
 } from "react-router-dom";
 
-import './style.sass';
+import './App.sass';
 
-import { Home } from './Home'
+import { HomePage } from './pages/HomePage'
+import { ClusterPage } from './pages/ClusterPage'
+import { WithTransition } from './animation/WithTransition'
 
-function App() {
-  return (
-    <div id="App">
-      <Router basename={process.env.PUBLIC_URL}>
-        <Switch>
-          {/* Route definitions: WARNING order matters, first prefix match! */}
-          <Route path="/genres">
-            <p></p>
-          </Route>
-
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
-  );
+/**
+ * App class: entry point of this application
+ * Renders the matched route with the corresponding page
+ */
+class App extends React.Component {
+  render() {
+    return (
+      <div id="App">
+        <Router basename={process.env.PUBLIC_URL}>
+          <Switch>
+            <Route path="/cluster" component={WithTransition(ClusterPage)} />
+            <Route path="/" component={HomePage} />
+          </Switch>
+        </Router>
+      </div>
+    )
+  }
 }
 
 export default App;
