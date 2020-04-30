@@ -1,0 +1,4 @@
+# Ignore voluminous data files
+data/raw/
+# Ignore Jupyter checkpoints
+.ipynb_checkpoints/
