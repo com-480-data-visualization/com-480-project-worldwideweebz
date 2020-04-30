@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import './HomePage.sass'
 
@@ -13,12 +12,14 @@ const backgrounds = files.keys().map(item => files(item))
  * Component of the home page
  */
 class HomePage extends React.Component {
-    render() {
-        // Choose a random background
-        const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)]
+    constructor() {
+        super()
+        this.randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)]
+    }
 
+    render() {
         return (
-            <div id="Home" style={{ backgroundImage: `url('${randomBackground}')` }}>
+            <div id="Home" style={{ backgroundImage: `url('${this.randomBackground}')` }}>
                 <div className="Splash">
                     <div className="Background">
                         <p>&nbsp;</p>
@@ -26,9 +27,7 @@ class HomePage extends React.Component {
                     <div className="Foreground">
                         <h1>Anime Data Visualization</h1>
                         <p>An interactive data visualization experience by Alexandre CHAU, Pedro TORRES DA CUNHA & Joachim DUNANT for the COM-480 course</p>
-                        <Link to="/cluster">
-                            <button>Let's start!</button>
-                        </Link>
+                        <button onClick={() => this.props.linkTo('/cluster')}>Let's start!</button>
                     </div>
                 </div>
             </div>

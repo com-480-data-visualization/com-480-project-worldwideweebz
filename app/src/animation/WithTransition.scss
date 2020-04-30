@@ -1,0 +1,33 @@
+$transition-duration-appear: 500;
+$transition-duration-leave: 300;
+
+:export {
+  transitionDurationAppear: $transition-duration-appear;
+  transitionDurationLeave: $transition-duration-leave;
+}
+
+.FadeInOut-appear {
+  opacity: 0;
+}
+
+.FadeInOut-appear.FadeInOut-appear-active {
+  opacity: 1;
+  transition: opacity $transition-duration-appear + 0ms linear;
+}
+
+.FadeInOut-leave {
+  opacity: 1;
+}
+
+.FadeInOut-leave.FadeInOut-leave-active {
+  opacity: 0;
+  transition: opacity $transition-duration-leave + 0ms linear;
+}
+
+.FadeOut-leave {
+  @extend .FadeInOut-leave;
+}
+
+.FadeOut-leave.FadeOut-leave-active {
+  @extend .FadeInOut-leave.FadeInOut-leave-active;
+}

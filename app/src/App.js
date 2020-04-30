@@ -22,7 +22,7 @@ class App extends React.Component {
         <Router basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route path="/cluster" component={WithTransition(ClusterPage)} />
-            <Route path="/" component={HomePage} />
+            <Route path="/" component={WithTransition(HomePage)} />
           </Switch>
         </Router>
       </div>
