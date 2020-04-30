@@ -1,8 +1,9 @@
 
 import * as d3 from "d3";
-
+    
+/*
 // data
-const bubbleDataset = {
+const bubbleDataset = { 
     "children": [
         {"Name": "Comedy", "Count": 3000, "Image": "https://cdn.myanimelist.net/images/anime/1223/96541.webp"},
         {"Name": "Action", "Count": 2000, "Image": "https://cdn.myanimelist.net/images/anime/10/47347.jpg"},
@@ -25,96 +26,102 @@ const bubbleDataset = {
         {"Name": "Kids", "Count": 385, "Image": "https://cdn.myanimelist.net/images/anime/13/73834.webp"},
         {"Name": "Super Power", "Count": 350, "Image": "https://cdn.myanimelist.net/images/anime/12/76049.jpg"},
     ]
+}*/
+
+const constructBubble = function (data) {
+    const bubbleDataset = {"children": data}
+
+    // root of the visualization
+    var bubbleRoot = document.createElement('div');
+    bubbleRoot.id = "bubble-root";
+
+    // visualization
+
+    const diameter = 800;
+
+    const bubble = d3.pack(bubbleDataset)
+        .size([diameter, diameter])
+        .padding(2);
+
+    const svg = d3.select(bubbleRoot).append("svg")
+        .attr("width", diameter)
+        .attr("height", diameter)
+        .attr("class", "bubble");
+
+
+    var nodes = d3.hierarchy(bubbleDataset)
+        .sum(function(d) { return d.Count; });
+
+    const defs = svg.append("defs");
+
+    defs.selectAll("pattern")
+        .data(bubble(nodes).descendants())
+        .enter().append("pattern")
+        .attr("height","100%")
+        .attr("width","100%")
+        .attr("patternContentUnits", "objectBoundingBox")
+        .attr("id", d => d.data.Name ? d.data.Name.replace(/\s/g, '') : 'undefined')
+        .append("image")
+        .attr("height","1")
+        .attr("width","1")
+        .attr("xmlns:xlink","http://www.w3.org/1999/xlink")
+        .attr("preserveAspectRatio", "none")
+        .attr("xlink:href", function(d){
+            return d.data.Image;
+        });
+
+    var node = svg.selectAll(".node")
+        .data(bubble(nodes).descendants())
+        .enter()
+        .filter(function(d){
+            return  !d.children
+        })
+        .append("g")
+        .attr("class", "node")
+        .attr("transform", function(d) {
+            return "translate(" + d.x + "," + d.y + ")";
+        });
+
+    node.append("title")
+        .text(function(d) {
+            return d.data.Name + ": " + d.data.Count;
+        });
+
+    node.append("circle")
+        .attr("r", function(d) {
+            return d.r;
+        })
+        .style("fill", function(d,i) {
+            return `url(#${d.data.Name.replace(/\s/g, '')})`;
+        });
+
+    node.append("text")
+        .attr("dy", ".2em")
+        .style("text-anchor", "middle")
+        .text(function(d) {
+            return d.data.Name.substring(0, d.r / 3);
+        })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", function(d){
+            return d.r/5;
+        })
+        .attr("fill", "white")
+        .style("font-weight", 700);
+
+    node.append("text")
+        .attr("dy", "1.3em")
+        .style("text-anchor", "middle")
+        .text(function(d) {
+            return d.data.Count;
+        })
+        .attr("font-family",  "Gill Sans", "Gill Sans MT")
+        .attr("font-size", function(d){
+            return d.r/5;
+        })
+        .attr("fill", "white")
+        .style("font-weight", 700);
+    
+    return bubbleRoot;
 }
 
-// root of the visualization
-
-var bubbleRoot = document.createElement('div');
-
-// visualization
-
-const diameter = 600;
-
-const bubble = d3.pack(bubbleDataset)
-    .size([diameter, diameter])
-    .padding(2);
-
-const svg = d3.select(bubbleRoot).append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter)
-    .attr("class", "bubble");
-
-
-var nodes = d3.hierarchy(bubbleDataset)
-    .sum(function(d) { return d.Count; });
-
-const defs = svg.append("defs");
-
-defs.selectAll("pattern")
-    .data(bubble(nodes).descendants())
-    .enter().append("pattern")
-    .attr("height","100%")
-    .attr("width","100%")
-    .attr("patternContentUnits", "objectBoundingBox")
-    .attr("id", d => d.data.Name ? d.data.Name.replace(/\s/g, '') : 'undefined')
-    .append("image")
-    .attr("height","1")
-    .attr("width","1")
-    .attr("xmlns:xlink","http://www.w3.org/1999/xlink")
-    .attr("preserveAspectRatio", "none")
-    .attr("xlink:href", function(d){
-        return d.data.Image;
-    });
-
-var node = svg.selectAll(".node")
-    .data(bubble(nodes).descendants())
-    .enter()
-    .filter(function(d){
-        return  !d.children
-    })
-    .append("g")
-    .attr("class", "node")
-    .attr("transform", function(d) {
-        return "translate(" + d.x + "," + d.y + ")";
-    });
-
-node.append("title")
-    .text(function(d) {
-        return d.data.Name + ": " + d.data.Count;
-    });
-
-node.append("circle")
-    .attr("r", function(d) {
-        return d.r;
-    })
-    .style("fill", function(d,i) {
-        return `url(#${d.data.Name.replace(/\s/g, '')})`;
-    });
-
-node.append("text")
-    .attr("dy", ".2em")
-    .style("text-anchor", "middle")
-    .text(function(d) {
-        return d.data.Name.substring(0, d.r / 3);
-    })
-    .attr("font-family", "sans-serif")
-    .attr("font-size", function(d){
-        return d.r/5;
-    })
-    .attr("fill", "white")
-    .style("font-weight", 700);
-
-node.append("text")
-    .attr("dy", "1.3em")
-    .style("text-anchor", "middle")
-    .text(function(d) {
-        return d.data.Count;
-    })
-    .attr("font-family",  "Gill Sans", "Gill Sans MT")
-    .attr("font-size", function(d){
-        return d.r/5;
-    })
-    .attr("fill", "white")
-    .style("font-weight", 700);
-
-export { bubbleRoot }
+export { constructBubble }
