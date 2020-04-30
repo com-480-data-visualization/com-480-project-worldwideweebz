@@ -19,6 +19,14 @@ class HistoryPage extends React.Component {
         }
     }
 
+    // scrolls a fixed amount of pixeés
+    scroll() {
+        window.scrollBy({
+            top: 400,
+            behavior: "smooth"
+        })
+    }
+
     componentDidMount() {
         // fetch the data from the server
         fetch(`${process.env.PUBLIC_URL}/data/history.json`)
@@ -61,7 +69,7 @@ class HistoryPage extends React.Component {
                                 <div id="HistogramBottom">
                                     <p>&nbsp;</p>
                                 </div>
-                                <div className="ScrollHint">
+                                <div className="ScrollHint" onClick={this.scroll}>
                                     <div>
                                         <img src={scrollHintGif} alt="Scroll down" />
                                         <p>Scroll down</p>

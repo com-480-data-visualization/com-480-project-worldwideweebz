@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
@@ -20,7 +20,7 @@ class App extends React.Component {
   render() {
     return (
       <div id="App">
-        <Router basename={process.env.PUBLIC_URL}>
+        <Router>
           <Switch>
             <Route path="/history" component={WithTransition(HistoryPage)} />
             <Route path="/bubble" component={WithTransition(BubblePage)} />
