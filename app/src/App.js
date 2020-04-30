@@ -7,8 +7,9 @@ import {
 
 import './App.sass';
 
-import { HomePage } from './pages/HomePage'
-import { ClusterPage } from './pages/ClusterPage'
+import { HomePage } from './pages/home/HomePage'
+import { HistoryPage } from './pages/history/HistoryPage'
+import { ClusterPage } from './pages/cluster/ClusterPage'
 import { WithTransition } from './animation/WithTransition'
 
 /**
@@ -21,6 +22,7 @@ class App extends React.Component {
       <div id="App">
         <Router basename={process.env.PUBLIC_URL}>
           <Switch>
+            <Route path="/history" component={WithTransition(HistoryPage)} />
             <Route path="/cluster" component={WithTransition(ClusterPage)} />
             <Route path="/" component={WithTransition(HomePage)} />
           </Switch>
