@@ -9,7 +9,7 @@ import './App.sass';
 
 import { HomePage } from './pages/home/HomePage'
 import { HistoryPage } from './pages/history/HistoryPage'
-import { ClusterPage } from './pages/cluster/ClusterPage'
+import { BubblePage } from './pages/bubble/BubblePage'
 import { WithTransition } from './animation/WithTransition'
 
 /**
@@ -23,7 +23,7 @@ class App extends React.Component {
         <Router basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route path="/history" component={WithTransition(HistoryPage)} />
-            <Route path="/cluster" component={WithTransition(ClusterPage)} />
+            <Route path="/bubble" component={WithTransition(BubblePage)} />
             <Route path="/" component={WithTransition(HomePage)} />
           </Switch>
         </Router>
