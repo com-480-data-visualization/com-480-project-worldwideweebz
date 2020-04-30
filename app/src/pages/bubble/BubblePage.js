@@ -1,6 +1,7 @@
 import React from 'react'
 import rd3 from 'react-d3-library'
-import { bubbleRoot } from './BubbleD3'
+import { constructBubble } from './BubbleD3'
+import './BubblePage.sass'
 
 const RD3Component = rd3.Component;
 
@@ -14,7 +15,12 @@ class BubblePage extends React.Component {
     }
   
     componentDidMount() {
-      this.setState({d3: bubbleRoot})
+      fetch(`${process.env.PUBLIC_URL}/data/genre_data.json`)
+        .then(res => res.json())
+        .then(json => this.setState({
+          d3:constructBubble(json)
+        }))
+      
     }
   
     render() {
