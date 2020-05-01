@@ -1,7 +1,7 @@
 import * as d3 from "d3"
 
 let bubblePositions
-const offset = 150
+const offset = 120
 
 const constructBubble = function (data) {
     const bubbleDataset = {"children": data}
@@ -12,7 +12,7 @@ const constructBubble = function (data) {
 
     // visualization
 
-    const diameter = 800
+    const diameter = 600
 
     const bubble = d3.pack(bubbleDataset)
         .size([diameter, diameter])
