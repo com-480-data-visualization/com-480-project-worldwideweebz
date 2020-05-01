@@ -1,6 +1,5 @@
 import React from 'react'
 import { WOW } from 'wowjs'
-
 import { LoadingScreen } from '../../components/LoadingScreen'
 
 import './HistoryPage.sass'
@@ -17,6 +16,34 @@ class HistoryPage extends React.Component {
         this.state = {
             data: [],
             loading: true,
+            selected: null,
+            image_url: null,
+        }
+
+        this.setSelected = this.setSelected.bind(this)
+    }
+
+    setSelected(anime) {
+        this.setState({
+            selected: anime,
+            image_url: null,
+        })
+
+        if (anime != null) {
+            // fetch image
+            console.log("calling API with " + anime.anime_id)
+            fetch(`https://api.jikan.moe/v3/anime/${anime.anime_id}/pictures`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    if ("pictures" in data && Array.isArray(data.pictures) && data.pictures.length > 0) {
+                        if ("large" in data.pictures[0]) {
+                            this.setState({
+                                image_url: data.pictures[0].large
+                            })
+                        }
+                    }
+                })
         }
     }
 
@@ -75,9 +102,15 @@ class HistoryPage extends React.Component {
                             <span className="year">{year}</span>
                             <div className="dots">
                                 {animes.map(anime => {
-                                    const bgColor = { backgroundColor: colorFunction("#FFA500", anime.episodes) }
+                                    const bgColor = { backgroundColor: colorFunction("#F59B00", anime.episodes) }
                                     return (
-                                        <div className="dot" key={anime.anime_id} style={bgColor}>&nbsp;</div>
+                                        <div onMouseEnter={() => this.setSelected(anime)}
+                                            onMouseLeave={() => this.setSelected(null)}
+                                            className="dot"
+                                            key={anime.anime_id}
+                                            style={bgColor}>
+                                            <p>&nbsp;</p>
+                                        </div>
                                     )
                                 })}
                             </div>
@@ -97,6 +130,40 @@ class HistoryPage extends React.Component {
         )
     }
 
+    renderSidebar() {
+        const anime = this.state.selected
+        return (
+            <div id="Sidebar" className="wow fadeInRight">
+                {anime === null ?
+                    (
+                        <div className="Infos">
+                            <h1>100</h1>
+                            <h2>years of anime</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in nibh sit amet ligula elementum porta. Nulla sed pulvinar arcu. Pellentesque non nisi dui. Nullam efficitur eget nisl sit amet tristique. Etiam vel magna feugiat, bibendum massa in, pellentesque justo. Nulla fermentum erat eget eros ultrices laoreet. Donec vestibulum placerat nulla. In lacinia suscipit neque, vel scelerisque enim ornare nec. Nulla id quam ultrices, ornare dui non, feugiat mi.</p>
+
+                            <p>Hover on each square to learn more about an anime.</p>
+                        </div>
+                    ) :
+                    (
+                        <div className="AnimeDetails">
+                            <h2>{anime.title}</h2>
+                            {(this.state.image_url != null) ? <img src={this.state.image_url} alt={anime.title} /> : null}
+                            <p>Episode count: {anime.episodes}</p>
+                            <p>Aired: {anime.aired_string}</p>
+                            <p>Type: {anime.type}</p>
+                            <p>Source: {anime.source}</p>
+                            <p>Duration: {anime.duration}</p>
+                            <p>Producer: {anime.producer}</p>
+                            <p>Studio: {anime.studio}</p>
+                            <p>Genre: {anime.genre}</p>
+                            <p>MyAnimeList ID: {anime.anime_id}</p>
+                        </div>
+                    )
+                }
+            </div>
+        )
+    }
+
     render() {
         return (
             <div id="History">
@@ -106,7 +173,7 @@ class HistoryPage extends React.Component {
                             {this.renderHistogram()}
                         </div>
                         <div className="Right">
-
+                            {this.renderSidebar()}
                         </div>
                     </div>
                 )}
