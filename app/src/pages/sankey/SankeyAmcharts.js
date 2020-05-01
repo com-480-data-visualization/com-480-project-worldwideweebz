@@ -16,7 +16,9 @@ const constructSankey = function () {
 
 	var data = [];
 
-	//studios.forEach(s => data.push({"from" : s, "disabled": true}));
+	//studios.forEach(s => data.push({"studio" : s, "info": "none so far"}));
+	//genres.forEach(s => data.push({"from" : s, "info": "none so far"}));
+	//notes.forEach(s => data.push({"from" : s, "info": "none so far"}));
 
 	function getRandomInt(max) {
 		return Math.floor(Math.random() * Math.floor(max));
@@ -28,7 +30,7 @@ const constructSankey = function () {
 			if(getRandomInt(5) > 0) {
 				var RandNumber = getRandomInt(15);
 				var currIdG = currId.concat(j.toString());
-				data.push({from: s, to: g, value: RandNumber, id: currIdG.concat("-0"), color:"#111111"});
+				data.push({from: s, to: g, value: RandNumber, id: currIdG.concat("-0")});
 
 				var usedNotes = [];
 				for(var k=0; k<notes.length; k++) {
@@ -44,7 +46,7 @@ const constructSankey = function () {
 							randomV = RandNumber;
 
 						RandNumber -= randomV;
-						data.push({from: g, to: notes[randomNote], value: randomV, id: currIdG.concat("-1"),color:"#EEEEEE"});
+						data.push({from: g, to: notes[randomNote], value: randomV, id: currIdG.concat("-1")});
 					}
 				}
 			} 
@@ -59,12 +61,23 @@ const constructSankey = function () {
 	chart.dataFields.fromName = "from";
 	chart.dataFields.toName = "to";
 	chart.dataFields.value = "value";
+	chart.sortBy = "name";
 	//chart.dataFields.color = "color";
 	chart.paddingRight = 100;
 	chart.paddingBottom = 40;
 	chart.paddingLeft = 10;
 	chart.paddingTop = 10;
-	//chart.nodeAlign = "bottom";
+	
+	var node = chart.nodes.template;
+	node.width = 20;
+	node.fillOpacity = 0.8;
+	node.draggable = false;
+	node.togglable = false;
+	node.clickable = false;
+	node.tooltipText = "{name} informations: {info}";
+	node.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+	node.strokeWidth = 3;
+	node.strokeLinejoin = "round"
 
 	var links = chart.links.template;
 	links.propertyFields.id = "id";
@@ -72,16 +85,12 @@ const constructSankey = function () {
 	links.fillOpacity = 0.2;
 	links.tooltipText = "";
 
-	// make nodes draggable
-	var node = chart.nodes.template;
-	node.width = 20;
-	//node.clickable = false;
-	node.draggable = false;
-	//node.contentValign = "middle";
-	//node.tooltipText = "{from} has done {value} animes";
-
 	let hoverState = links.states.create("hover");
 	hoverState.properties.fillOpacity = 1;
+	
+	let nodeHS = node.states.create("hover");
+	nodeHS.properties.fillOpacity = 1;
+	nodeHS.properties.scale = 1.15;
 
 	// highlight all links with the same id beginning
 	links.events.on("over", function(event){
