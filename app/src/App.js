@@ -26,8 +26,8 @@ class App extends React.Component {
           <Switch>
             <Route path="/history" component={WithTransition(HistoryPage)} />
             <Route path="/bubble" component={WithTransition(BubblePage)} />
-			<Route path="/chord" component={WithTransition(ChordPage)} />
-			<Route path="/sankey" component={WithTransition(SankeyPage)} />
+            <Route path="/chord" component={WithTransition(ChordPage)} />
+            <Route path="/sankey" component={WithTransition(SankeyPage)} />
             <Route path="/" component={WithTransition(HomePage)} />
           </Switch>
         </Router>
