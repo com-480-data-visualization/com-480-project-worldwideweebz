@@ -31,7 +31,7 @@ The **text written in bold** corresponds to concepts that we are planning to imp
   - *Shows image too* <- Need to be optimized
   - **Search bar to find the anime we want in the list**
 
-![history page preview](assets/history_page_preview.png)
+<img src="assets/history_page_preview.png" height="250px">
 
 - <ins>**Time diagram (done with d3):**</ins>  (*might be supressed or merged in some way with the History diagram to avoid redundancy*)
   - **horizontal slider**
@@ -47,7 +47,7 @@ The **text written in bold** corresponds to concepts that we are planning to imp
   - *Give the possibility to choose the time period :*
     - *select between 1 month, 3 months, 6 months, 1 year, 5 years.*
 
-![topAnimes page preview](assets/topAnimes_page_preview.png)
+<img src="assets/topAnimes_page_preview.png" height="250px">
 
 - <ins>**Bubble Diagram by genre (done with d3):**</ins>
   - **Size of the bubble corresponds to :** 
@@ -61,7 +61,7 @@ The **text written in bold** corresponds to concepts that we are planning to imp
   - **A small disk inside the bubble has a color representing the gender share**
   - *Selecting a genre "zooms in" into the genre and shows a bubble diagram of the top animes of the genre*
 
-![bubble page preview](assets/bubble_page_preview.png)
+<img src="assets/bubble_page_preview.png" height="250px">
 
 - <ins>**Sankey Diagram (done with amcharts4):**</ins>
   -  **3 columns :**
@@ -72,7 +72,7 @@ The **text written in bold** corresponds to concepts that we are planning to imp
    - **Same with genre by studio**
    - *Can individually select studios and genres that show in the diagram*
 
-![sankey page preview](assets/sankey_page_preview.png)
+<img src="assets/sankey_page_preview.png" height="250px">
   
 - <ins>**Chord Diagram (done with amcharts4):**</ins>
   - **Links voice actors playing in the same anime**
@@ -86,7 +86,7 @@ The **text written in bold** corresponds to concepts that we are planning to imp
     - *Lines to separate groups of same numbers*
     - *Circle arcs to separate groups of same number*
 
-![chord page preview](assets/chord_page_preview.png)
+<img src="assets/chord_page_preview.png" height="250px">
 
 - <ins>*Interactive worldwide heatmap :*</ins>
   - **Shows popularity of specific genre over the world.**
