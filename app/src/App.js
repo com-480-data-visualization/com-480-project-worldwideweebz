@@ -10,6 +10,8 @@ import './App.sass';
 import { HomePage } from './pages/home/HomePage'
 import { HistoryPage } from './pages/history/HistoryPage'
 import { BubblePage } from './pages/bubble/BubblePage'
+import { ChordPage } from './pages/chord/ChordPage'
+import { SankeyPage } from './pages/sankey/SankeyPage'
 import { WithTransition } from './animation/WithTransition'
 
 /**
@@ -24,6 +26,8 @@ class App extends React.Component {
           <Switch>
             <Route path="/history" component={WithTransition(HistoryPage)} />
             <Route path="/bubble" component={WithTransition(BubblePage)} />
+			<Route path="/chord" component={WithTransition(ChordPage)} />
+			<Route path="/sankey" component={WithTransition(SankeyPage)} />
             <Route path="/" component={WithTransition(HomePage)} />
           </Switch>
         </Router>
