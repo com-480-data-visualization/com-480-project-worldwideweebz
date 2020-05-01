@@ -9,6 +9,7 @@ import './App.sass';
 
 import { HomePage } from './pages/home/HomePage'
 import { HistoryPage } from './pages/history/HistoryPage'
+import { TopAnimesPage } from './pages/topAnimes/TopAnimesPage'
 import { BubblePage } from './pages/bubble/BubblePage'
 import { ChordPage } from './pages/chord/ChordPage'
 import { SankeyPage } from './pages/sankey/SankeyPage'
@@ -25,9 +26,10 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route path="/history" component={WithTransition(HistoryPage)} />
+            <Route path="/topAnimes" component={WithTransition(TopAnimesPage)} />
             <Route path="/bubble" component={WithTransition(BubblePage)} />
-			<Route path="/chord" component={WithTransition(ChordPage)} />
-			<Route path="/sankey" component={WithTransition(SankeyPage)} />
+            <Route path="/chord" component={WithTransition(ChordPage)} />
+            <Route path="/sankey" component={WithTransition(SankeyPage)} />
             <Route path="/" component={WithTransition(HomePage)} />
           </Switch>
         </Router>
