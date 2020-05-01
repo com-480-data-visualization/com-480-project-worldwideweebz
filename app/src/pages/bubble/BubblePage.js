@@ -1,6 +1,6 @@
 import React from 'react'
 import rd3 from 'react-d3-library'
-import { constructBubble } from './BubbleD3'
+import { constructBubble, updateBubble } from './BubbleD3'
 import './BubblePage.sass'
 
 const RD3Component = rd3.Component;
@@ -17,9 +17,11 @@ class BubblePage extends React.Component {
     componentDidMount() {
       fetch(`${process.env.PUBLIC_URL}/data/genre_data.json`)
         .then(res => res.json())
-        .then(json => this.setState({
-          d3:constructBubble(json)
-        }))
+        .then(json => {
+          this.setState({
+            d3: constructBubble(json)
+          })
+        })
       
     }
   
@@ -29,6 +31,10 @@ class BubblePage extends React.Component {
           <RD3Component data={this.state.d3} />
         </div>
       )
+    }
+
+    componentDidUpdate() {
+      updateBubble()
     }
 }
 
