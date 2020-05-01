@@ -17,7 +17,6 @@ class HistoryPage extends React.Component {
             data: [],
             loading: true,
             selected: null,
-            image_url: null,
         }
 
         this.setSelected = this.setSelected.bind(this)
@@ -26,25 +25,7 @@ class HistoryPage extends React.Component {
     setSelected(anime) {
         this.setState({
             selected: anime,
-            image_url: null,
         })
-
-        if (anime != null) {
-            // fetch image
-            console.log("calling API with " + anime.anime_id)
-            fetch(`https://api.jikan.moe/v3/anime/${anime.anime_id}/pictures`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    if ("pictures" in data && Array.isArray(data.pictures) && data.pictures.length > 0) {
-                        if ("large" in data.pictures[0]) {
-                            this.setState({
-                                image_url: data.pictures[0].large
-                            })
-                        }
-                    }
-                })
-        }
     }
 
     // scrolls a fixed amount of pixeés
@@ -147,7 +128,6 @@ class HistoryPage extends React.Component {
                     (
                         <div className="AnimeDetails">
                             <h2>{anime.title}</h2>
-                            {(this.state.image_url != null) ? <img src={this.state.image_url} alt={anime.title} /> : null}
                             <p>Episode count: {anime.episodes}</p>
                             <p>Aired: {anime.aired_string}</p>
                             <p>Type: {anime.type}</p>
