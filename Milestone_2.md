@@ -5,7 +5,7 @@ Link to the website : **https://com-480-data-visualization.github.io/com-480-pro
 ## Code
 
 - React
-> The website is a react application hosted on github pages.
+> The website is a react application hosted on github pages. Some visualizations are hand-crafted using React and native web technologies.
 
 - d3
 > Some visualizations are done with `d3.js`. Its data manipulation might be conflicting with the one of `react`. Therefore we use [react-d3-library](https://react-d3-library.github.io/) to integrate d3 visualizations in react applications.
@@ -15,6 +15,7 @@ Link to the website : **https://com-480-data-visualization.github.io/com-480-pro
 
 ## Website architecture
 
+- Client-side single-page application (SPA)
 - Pages with one graph per page
 - Each page corresponds to one main visualization/mini story with a button to get the the next pages
 - Smooth transitions from one page to another
@@ -24,7 +25,7 @@ Link to the website : **https://com-480-data-visualization.github.io/com-480-pro
 
 The **text written in bold** corresponds to concepts that we are planning to implement for the final product, while *text written in italic* corresponds to concepts that could be nice to have for the final product.
 
-- <ins>**History diagram (vanilla):**</ins>
+- <ins>**History diagram (built with React and native web):**</ins>
   - **Shows every anime/movie in a small square in a row depending on the year it**
   - **Color depending on the number of episodes in the anime**
   - **Hovering a square shows informations of the anime :**
