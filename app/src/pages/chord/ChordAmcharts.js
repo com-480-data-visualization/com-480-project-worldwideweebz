@@ -55,6 +55,7 @@ const constructChord = function () {
 
 	var title = chart.titles.create();
 	title.text = "Chord Diagram of voice actors and actresses";
+	title.marginBottom = 20;
 
 	chart.dataFields.fromName = "from";
 	chart.dataFields.toName = "to";
@@ -64,8 +65,7 @@ const constructChord = function () {
 	chart.sortBy = "name";
 	chart.startAngle = 90;
 	chart.endAngle = 450;
-	chart.paddingTop = 50;
-	chart.paddingTop = 100;
+	chart.height = am4core.percent(80);
 
 	var node = chart.nodes.template;
 	node.fillOpacity = 0.4;
