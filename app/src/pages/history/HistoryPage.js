@@ -5,6 +5,7 @@ import { LoadingScreen } from '../../components/LoadingScreen'
 import './HistoryPage.sass'
 import scrollHintGif from './scroll_down.gif'
 import { ColorUtils } from '../../utils/ColorUtils'
+import { NavigationButtons } from '../../components/NavigationButtons'
 
 /**
  * History graph page component
@@ -140,6 +141,10 @@ class HistoryPage extends React.Component {
                         </div>
                     )
                 }
+
+                <NavigationButtons linkTo={this.props.linkTo}
+                    nextRoute={{ path: "/topAnimes", text: "To top animes" }}
+                    prevRoute={{ path: "/", text: "Back to home" }} />
             </div>
         )
     }
