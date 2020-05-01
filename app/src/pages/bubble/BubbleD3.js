@@ -1,6 +1,7 @@
 import * as d3 from "d3"
 
 let bubblePositions
+const offset = 150
 
 const constructBubble = function (data) {
     const bubbleDataset = {"children": data}
@@ -18,8 +19,8 @@ const constructBubble = function (data) {
         .padding(2)
 
     const svg = d3.select(bubbleRoot).append("svg")
-        .attr("width", diameter)
-        .attr("height", diameter)
+        .attr("width", diameter + 2 * offset)
+        .attr("height", diameter + offset)
         .attr("class", "bubble")
 
 
@@ -55,7 +56,7 @@ const constructBubble = function (data) {
         .append("g")
         .attr("class", "node")
         .attr("transform", function(d) {
-            return "translate(" + diameter / 2 + "," + diameter / 2 + ")"
+            return "translate(" + (diameter / 2 + offset) + "," + diameter / 2 + ")"
         })
 
     node.append("circle")
@@ -103,7 +104,7 @@ const updateBubble = function () {
         .data(bubblePositions.slice(1))
 
     node.transition().duration(2000).ease(d3.easeElasticOut)
-        .attr('transform', d => "translate(" + d.x + "," + d.y + ")")
+        .attr('transform', d => "translate(" + (d.x + offset) + "," + d.y + ")")
         
 }
 
