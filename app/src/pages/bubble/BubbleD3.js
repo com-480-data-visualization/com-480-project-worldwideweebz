@@ -1,5 +1,7 @@
 import * as d3 from "d3"
 
+import { Config } from '../../Config'
+
 let bubblePositions
 const offset = 120
 
@@ -44,7 +46,13 @@ const constructBubble = function (data) {
         .attr("xmlns:xlink","http://www.w3.org/1999/xlink")
         .attr("preserveAspectRatio", "none")
         .attr("xlink:href", function(d){
-            return d.data.Image
+            // if config disables NSFW genres, exclude images
+            if ("Name" in d.data && Config.detectNSFW(d.data.Name)) {
+                return `${process.env.PUBLIC_URL}/img/nsfw.png`
+            }
+            else {
+                return d.data.Image
+            }
         })
 
     const node = svg.selectAll(".node")
