@@ -129,6 +129,7 @@ class HistoryPage extends React.Component {
                     (
                         <div className="AnimeDetails">
                             <h2>{anime.title}</h2>
+                            {(anime.image_url != null) ? <img src={anime.image_url} alt={anime.title} /> : null}
                             <p>Episode count: {anime.episodes}</p>
                             <p>Aired: {anime.aired_string}</p>
                             <p>Type: {anime.type}</p>
