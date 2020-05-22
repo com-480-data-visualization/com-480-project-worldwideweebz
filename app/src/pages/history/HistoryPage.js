@@ -4,6 +4,8 @@ import { LoadingScreen } from '../../components/LoadingScreen'
 
 import './HistoryPage.sass'
 import scrollHintGif from './scroll_down.gif'
+
+import { Config } from '../../Config'
 import { ColorUtils } from '../../utils/ColorUtils'
 import { NavigationButtons } from '../../components/NavigationButtons'
 
@@ -21,20 +23,7 @@ class HistoryPage extends React.Component {
         }
 
         this.setSelected = this.setSelected.bind(this)
-    }
-
-    setSelected(anime) {
-        this.setState({
-            selected: anime,
-        })
-    }
-
-    // scrolls a fixed amount of pixeés
-    scroll() {
-        window.scrollBy({
-            top: 400,
-            behavior: "smooth"
-        })
+        this.onConfigUpdate = this.onConfigUpdate.bind(this)
     }
 
     componentDidMount() {
@@ -57,6 +46,32 @@ class HistoryPage extends React.Component {
             live: true
         })
         this.wow.init()
+
+        Config.addObserver(this)
+    }
+
+    componentWillUnmount() {
+        Config.removeObserver(this)
+    }
+
+    onConfigUpdate(newConfig) {
+        this.setState({
+            config: newConfig
+        })
+    }
+
+    setSelected(anime) {
+        this.setState({
+            selected: anime,
+        })
+    }
+
+    // scrolls a fixed amount of pixeés
+    scroll() {
+        window.scrollBy({
+            top: 400,
+            behavior: "smooth"
+        })
     }
 
     renderHistogram() {
@@ -115,7 +130,7 @@ class HistoryPage extends React.Component {
     renderSidebar() {
         const anime = this.state.selected
         return (
-            <div id="Sidebar" className="wow fadeInRight">
+            <div id="Sidebar" className="animated fadeInRight">
                 {anime === null ?
                     (
                         <div className="Infos">
@@ -129,6 +144,13 @@ class HistoryPage extends React.Component {
                     (
                         <div className="AnimeDetails">
                             <h2>{anime.title}</h2>
+                            { // Image should not be null
+                                (anime.image_url === null) ? null :
+                                    // If settings disable NSFW, check if anime.genre exists and contains sensitive genres
+                                    ("genre" in anime && Config.detectNSFW(anime.genre)) ?
+                                        <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
+                                        <img src={anime.image_url} alt={anime.title} />
+                            }
                             <p>Episode count: {anime.episodes}</p>
                             <p>Aired: {anime.aired_string}</p>
                             <p>Type: {anime.type}</p>

@@ -1,9 +1,11 @@
 import React from 'react'
 import rd3 from 'react-d3-library'
 import { constructBubble, updateBubble } from './BubbleD3'
-import { NavigationButtons } from '../../components/NavigationButtons'
 
 import './BubblePage.sass'
+
+import { NavigationButtons } from '../../components/NavigationButtons'
+import { Config } from '../../Config'
 
 const RD3Component = rd3.Component;
 
@@ -13,7 +15,12 @@ const RD3Component = rd3.Component;
 class BubblePage extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { d3: '' }
+    this.state = {
+      d3: "",
+      data: null,
+    }
+
+    this.onConfigUpdate = this.onConfigUpdate.bind(this)
   }
 
   componentDidMount() {
@@ -21,10 +28,23 @@ class BubblePage extends React.Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
+          data: json,
           d3: constructBubble(json)
         })
       })
+    Config.addObserver(this)
+  }
 
+  componentWillUnmount() {
+    Config.removeObserver(this)
+  }
+
+  onConfigUpdate(newConfig) {
+    if (this.state.data != null) {
+      this.setState({
+        d3: constructBubble(this.state.data)
+      })
+    }
   }
 
   render() {

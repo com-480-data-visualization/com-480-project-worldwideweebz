@@ -1,6 +1,7 @@
 import React from 'react'
 
 import './HomePage.sass'
+import { ConfigPanel } from '../../Config'
 
 /**
  * Import all backgrounds from img / bg
@@ -27,6 +28,7 @@ class HomePage extends React.Component {
                     <div className="Foreground">
                         <h1>Anime Data Visualization</h1>
                         <p>An interactive data visualization experience by Alexandre CHAU, Pedro TORRES DA CUNHA & Joachim DUNANT for the COM-480 course</p>
+                        <ConfigPanel />
                         <button onClick={() => this.props.linkTo('/history')}>Let's start!</button>
                     </div>
                 </div>
