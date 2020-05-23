@@ -22,6 +22,11 @@ class ChordPage extends React.Component {
   render() {
     return (
       <div>
+		<select id="filter">
+			<option>Japanese</option>
+			<option>English</option>
+			<option>French</option>
+		</select>
         <div id="chartdiv" style={{ width: "100%", height: "700px" }}></div>
 
         <NavigationButtons linkTo={this.props.linkTo}
