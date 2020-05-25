@@ -14,12 +14,17 @@ import { BubblePage } from './pages/bubble/BubblePage'
 import { ChordPage } from './pages/chord/ChordPage'
 import { SankeyPage } from './pages/sankey/SankeyPage'
 import { WithTransition } from './animation/WithTransition'
+import { WOWAnimation } from './animation/WOWAnimation'
 
 /**
  * App class: entry point of this application
  * Renders the matched route with the corresponding page
  */
 class App extends React.Component {
+  componentDidMount() {
+    WOWAnimation.init()
+  }
+
   render() {
     return (
       <div id="App">
