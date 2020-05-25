@@ -21,11 +21,16 @@ class Wrapper extends React.Component {
 
 /**
  * GraphView component: occupies 70% of the viewport width
+ * @param position CSS position property set (defaults to {top: 0, left: 0})
  */
 class GraphView extends React.Component {
+    static defaultProps = {
+        position: { top: 0, left: 0 },
+    }
+
     render() {
         return (
-            <div className="GraphView">
+            <div className="GraphView" style={this.props.position}>
                 {this.props.children}
             </div>
         )
