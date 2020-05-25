@@ -23,6 +23,16 @@ class BubblePage extends React.Component {
   }
 }
 
+function createBubblePositions(data, diameter, sizeAttribute, padding=2) {
+  const bubbleDataset = {"children": data}
+  const bubble = d3.pack(bubbleDataset)
+    .size([diameter, diameter])
+    .padding(padding)
+  const nodes = d3.hierarchy(bubbleDataset)
+      .sum(function(d) { return d[sizeAttribute]})
+  return bubble(nodes).descendants().slice(1)
+}
+
 class BubbleChart extends React.Component {
   constructor(props) {
     super(props)
@@ -55,15 +65,7 @@ class BubbleChart extends React.Component {
     fetch(`${process.env.PUBLIC_URL}/data/genre_data.json`)
       .then(res => res.json())
       .then(json => {
-        const bubbleDataset = {"children": json}
-        const bubble = d3.pack(bubbleDataset)
-          .size([this.diameter, this.diameter])
-          .padding(2)
-        const nodes = d3.hierarchy(bubbleDataset)
-            .sum(function(d) { return d.count })
-        const bubblePositions = bubble(nodes).descendants()
-
-        this.bubblePositions = bubblePositions.slice(1).map(x => {return {x: x.x, y: x.y, r: x.r}})
+        this.bubblePositions = createBubblePositions(json, this.diameter, "count").map(x => {return {x: x.x, y: x.y, r: x.r}})
 
         this.setState({
           genres: json.map((x,idx) => {return {
@@ -109,14 +111,7 @@ class BubbleChart extends React.Component {
     }
 
     const genreTopAnimes = this.topAnimesPerGenre[genre.name]
-
-    const bubbleDataset = {"children": genreTopAnimes}
-    const bubble = d3.pack(bubbleDataset)
-      .size([this.diameter, this.diameter])
-      .padding(2)
-    const nodes = d3.hierarchy(bubbleDataset)
-        .sum(function(d) { return d.favorites })
-    const bubblePositions = bubble(nodes).descendants()
+    const bubblePositions = createBubblePositions(genreTopAnimes, this.diameter, "favorites").map(x => {return {x: x.x, y: x.y, r: x.r}})
     console.log(bubblePositions)
 
     const genreScale = this.diameter / (2 * genre.r)
@@ -142,9 +137,9 @@ class BubbleChart extends React.Component {
             count: x.favorites,
             image: x.image_url,
             genre: x.genre,
-            x: bubblePositions[idx + 1].x,
-            y: bubblePositions[idx + 1].y,
-            r: bubblePositions[idx + 1].r,
+            x: bubblePositions[idx].x,
+            y: bubblePositions[idx].y,
+            r: bubblePositions[idx].r,
           }}),
 
           genres: this.state.genres.map(g => {return {
@@ -161,9 +156,26 @@ class BubbleChart extends React.Component {
       }))
   }
 
+  resetGenre() {
+    const data = this.state.genres;
+    for (let idx=0; idx < data.length; ++idx) {
+      data[idx].x = this.bubblePositions[idx].x
+      data[idx].y = this.bubblePositions[idx].y
+      data[idx].r = this.bubblePositions[idx].r
+    }
+    this.setState({
+      subBubble: [],
+      activeGenre: "",
+      genres: data
+    })
+  }
+
   render() {
     return (
       <div id="bubble-root">
+        <div id="bubble-return"
+          style={{display: (this.state.activeGenre == "" ? "none" : "inline-block") }}
+          onClick={() => this.resetGenre()}>Go back to genre</div>
         <svg width="100%" height="100%">
           <defs>
             <pattern id="nsfw" height="100%" width="100%" patternContentUnits="objectBoundingBox">
@@ -192,14 +204,21 @@ class BubbleChart extends React.Component {
             <g className="bubble" key={anime.name} style={{transform: `translate(${anime.x + (this.state.width - this.diameter) / 2}px, ${anime.y + (this.state.height - this.diameter) / 2}px) scale(${anime.r / 100})`}}>
               <circle r="100" style={{fill: `url(#${Config.detectNSFW(anime.genre.toString()) ? "nsfw" : anime.name.replace(/\s/g, '')})`}}></circle>
               <text dy=".2em"
-                fontFamily="sans-serif" fontSize="20" fill="white">{anime.name}</text>
+                fontFamily="sans-serif" fontSize="20" fill="white">{cropText(anime.name, 18)}</text>
               <text dy="1.3em" fontFamily="Gill Sans" fontSize="20" fill="white">{anime.count}</text>
-          </g>
+            </g>
           )}
         </svg>
       </div>
     )
   }
 }
+
+function cropText(text, size) {
+  if (text.length > size) return text.slice(0, size - 3) + "..."
+  else return text
+}
+
+
 
 export { BubblePage }
