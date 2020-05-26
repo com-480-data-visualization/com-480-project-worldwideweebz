@@ -6,6 +6,14 @@ import './BubblePage.sass'
 import { NavigationButtons } from '../../components/NavigationButtons'
 import { Config } from '../../Config'
 import { Wrapper, GraphView, Sidebar } from '../../components/Layout'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+
+const DisplayState = {
+  FETCHING: 1,
+  DISPLAY: 2,
+  FOCUSED: 3
+}
 
 /**
  * Component of the cluster graph page
@@ -20,12 +28,14 @@ class BubblePage extends React.Component {
       height: 0,
       activeGenre: "",
       displayedGenres: [],
+      showingFilter: false
     }
 
     this.diameter = 600
     this.radius = this.diameter / 2
     this.moved = false
     this.count = 0
+    this.displayState = DisplayState.FETCHING
   }
 
   updateDimensions() {
@@ -36,8 +46,8 @@ class BubblePage extends React.Component {
     })
   }
 
-  createGenreBubble(startAt0) {
-    const displayed = this.data.filter(genre =>  this.state.displayedGenres[genre.name])
+  createGenreBubble() {
+    const displayed = this.data.filter(genre => this.state.displayedGenres[genre.name])
 
     this.bubblePositions = createBubblePositions(displayed, this.diameter, "count").map(x => { return { x: x.x, y: x.y, r: x.r } })
 
@@ -53,16 +63,8 @@ class BubblePage extends React.Component {
       }
     })
 
-    if (startAt0) {
-      this.setState({
-        genres: bubbleData.map(genre => Object.assign(Object.assign({}, genre), {x: this.radius, y: this.radius, r: 0}))
-      })
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        this.setState({genres: bubbleData})
-      }))
-    } else {
-      this.setState({genres: bubbleData})
-    }
+    this.setState({ genres: bubbleData })
+
   }
 
   componentDidMount() {
@@ -73,11 +75,13 @@ class BubblePage extends React.Component {
       .then(res => res.json())
       .then(json => {
         this.data = json
-        this.setState({displayedGenres: this.data.reduce((result, item) => {
-          result[item.name] = true
-          return result
-        }, {})})
-        this.createGenreBubble(true)
+        this.setState({
+          displayedGenres: this.data.reduce((result, item) => {
+            result[item.name] = true
+            return result
+          }, {})
+        })
+        this.createGenreBubble()
       })
     Config.addObserver(this)
   }
@@ -109,43 +113,26 @@ class BubblePage extends React.Component {
           count: x.favorites,
           image: x.image_url,
           genre: x.genre,
-          x: genre.x,
-          y: genre.y,
-          r: 0,
+          x: bubblePositions[idx].x,
+          y: bubblePositions[idx].y,
+          r: bubblePositions[idx].r,
         }
-      })
+      }),
+
+      genres: this.state.genres.map(g => {
+        return {
+          name: g.name,
+          count: g.count,
+          image: g.image,
+          x: this.radius + genreScale * (g.x - genre.x),
+          y: this.radius + genreScale * (g.y - genre.y),
+          r: genreScale * g.r,
+        }
+      }),
+
+      activeGenre: genre.name
     })
-
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-
-        this.setState({
-          subBubble: genreTopAnimes.map((x, idx) => {
-            return {
-              name: x.title,
-              count: x.favorites,
-              image: x.image_url,
-              genre: x.genre,
-              x: bubblePositions[idx].x,
-              y: bubblePositions[idx].y,
-              r: bubblePositions[idx].r,
-            }
-          }),
-
-          genres: this.state.genres.map(g => {
-            return {
-              name: g.name,
-              count: g.count,
-              image: g.image,
-              x: this.radius + genreScale * (g.x - genre.x),
-              y: this.radius + genreScale * (g.y - genre.y),
-              r: genreScale * g.r,
-            }
-          }),
-
-          activeGenre: genre.name
-        })
-      }))
+    this.displayState = DisplayState.DISPLAY
   }
 
   resetGenre() {
@@ -162,33 +149,94 @@ class BubblePage extends React.Component {
     })
   }
 
+  genreDisplayToggle(genre) {
+    if (this.state.activeGenre !== "") return
+    const displayedGenres = this.state.displayedGenres
+    displayedGenres[genre] ^= true
+    this.setState({
+      displayedGenres: displayedGenres,
+      activeGenre: ""
+    })
+    this.createGenreBubble()
+    this.displayState = DisplayState.FETCHING
+  }
+
+  setAllGenresDisplayTo(bool) {
+    if (this.state.activeGenre !== "") return
+
+    const displayedGenres = this.state.displayedGenres
+    Object.keys(displayedGenres).forEach(genre => displayedGenres[genre] = bool)
+
+    this.setState({
+      displayedGenres: displayedGenres
+    })
+    this.createGenreBubble()
+    this.displayState = DisplayState.FETCHING
+  }
+
   render() {
+    console.log("RENDER")
+    let bubbleData = this.state.genres
+    let focusedData = this.state.subBubble
+    switch (this.displayState) {
+      case DisplayState.FETCHING:
+        console.log("FETCHING")
+        if (bubbleData.length > 0) {
+          this.displayState = DisplayState.DISPLAY;
+          bubbleData = bubbleData.map(genre => Object.assign(Object.assign({}, genre), { x: this.radius, y: this.radius, r: 0 }))
+          setTimeout(() => this.forceUpdate(), 0)
+        }
+        break
+      case DisplayState.DISPLAY:
+        console.log("DISPLAY")
+        if (this.state.activeGenre !== "") {
+          this.displayState = DisplayState.FOCUSED
+          focusedData = focusedData.map(anime => Object.assign(Object.assign({}, anime), { x: this.radius, y: this.radius, r: 0 }))
+          setTimeout(() => this.forceUpdate(), 0)
+          console.log(focusedData)
+        }
+        break
+
+      case DisplayState.FOCUSED:
+        console.log("FOCUSED")
+        if (this.state.activeGenre === "") {
+          this.displayState = DisplayState.DISPLAY
+        }
+        break
+
+      default:
+    }
+
+    bubbleData = bubbleData.filter(genre => this.state.displayedGenres[genre.name])
+
     return (
       <Wrapper>
-        <Sidebar position={{left: 0}} appearTransitionClass="fadeInRight">
+        <Sidebar position={{ left: 0 }} appearTransitionClass="fadeInLeft">
 
         </Sidebar>
-        <GraphView position={{right: 0}}>
+        <GraphView position={{ right: 0 }}>
           <div id="bubble-root">
-            <div>
-              <ul>
-                {Object.entries(this.state.displayedGenres).map(([genre, checked]) => <li key={"checkbox" + genre}>
-                  <label>{genre}
-                    <input name={"checkbox" + genre} type="checkbox" checked={checked} onChange={(event) => {
-                      const checkedGenres = this.state.displayedGenres
-                      checkedGenres[genre] = event.target.checked
-                      this.setState({
-                        displayedGenres: checkedGenres
-                      })
-                      this.createGenreBubble(false)
-                    }} />
-                  </label>
-                </li>)}
+            <div id="filter-genres" style={this.state.activeGenre !== "" ? { display: "none" } : {}}>
+              <div id="show-filter" onClick={() => this.setState({ showingFilter: !this.state.showingFilter })}>Filter the genres <FontAwesomeIcon icon={faChevronDown} style={{ width: "16px", height: "16px" }} /></div>
+              <ul style={this.state.showingFilter ? { maxHeight: "600px", overflowY: "scroll" } : {}}>
+                <ul className="pin">
+                  <li onClick={() => this.setAllGenresDisplayTo(true)}
+                    className={Object.values(this.state.displayedGenres).reduce((acc, item) => acc &= item, true) ? "disable" : ""}>ALL</li>
+                  <li onClick={() => this.setAllGenresDisplayTo(false)}
+                    className={Object.values(this.state.displayedGenres).reduce((acc, item) => acc |= item, false) ? "" : "disable"}>NONE</li>
+                </ul>
+
+                {Object.entries(this.state.displayedGenres).map(([genre, checked]) =>
+                  <li className={this.state.displayedGenres[genre] ? "selected" : "not-selected"}
+                    key={"checkbox" + genre}
+                    onClick={() => this.genreDisplayToggle(genre)}>
+                    {genre}
+                  </li>)}
               </ul>
             </div>
             <div id="bubble-return"
-              style={{ display: (this.state.activeGenre == "" ? "none" : "inline-block") }}
-              onClick={() => this.resetGenre()}>Go back to genre</div>
+              style={{ display: (this.state.activeGenre === "" ? "none" : "inline-block") }}
+              onClick={() => this.resetGenre()}>Reset chart</div>
             <svg>
               <defs>
                 <pattern id="nsfw" height="100%" width="100%" patternContentUnits="objectBoundingBox">
@@ -205,7 +253,7 @@ class BubblePage extends React.Component {
                   </pattern>
                 )}
               </defs>
-              {this.state.genres.filter(genre => this.state.displayedGenres[genre.name]).map(genre =>
+              {bubbleData.map(genre =>
                 <g className={"bubble" + (genre.name === this.state.activeGenre ? " active-genre" : "")} key={genre.name} style={{ transform: `translate(${genre.x + (this.state.width - this.diameter) / 2}px, ${genre.y + (this.state.height - this.diameter) / 2}px) scale(${genre.r / 100})` }} onClick={() => this.focusGenre(genre)}>
                   <circle r="100" style={{ fill: `url(#${Config.detectNSFW(genre.name) ? "nsfw" : genre.name.replace(/\s/g, '')})` }}></circle>
                   <text dy=".2em"
@@ -213,7 +261,7 @@ class BubblePage extends React.Component {
                   <text dy="1.3em" fontFamily="Gill Sans" fontSize="20" fill="white">{genre.count}</text>
                 </g>
               )}
-              {this.state.subBubble.map(anime =>
+              {focusedData.map(anime =>
                 <g className="bubble" key={anime.name} style={{ transform: `translate(${anime.x + (this.state.width - this.diameter) / 2}px, ${anime.y + (this.state.height - this.diameter) / 2}px) scale(${anime.r / 100})` }}>
                   <circle r="100" style={{ fill: `url(#${Config.detectNSFW(anime.genre.toString()) ? "nsfw" : anime.name.replace(/\s/g, '')})` }}></circle>
                   <text dy=".2em"

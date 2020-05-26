@@ -1,7 +1,12 @@
+$base-color: #d88c00
+  
 #bubble-root
   text-align: center
   width: 100%
   height: 100vh
+  positions: fixed
+  top: 0
+  box-sizing: border-box
 
   svg
     width: 100%
@@ -33,10 +38,56 @@
   box-shadow: 0 0 3px #bbb
   color: #fff
   background: #a26300
-  box-shadow: 0 0 10px black
+  box-shadow: 0 0 2px black
 
-ul
-  list-style-type: none
+*
+  box-sizing: border-box
 
-  li
-    float: left
+#filter-genres
+  background-color: lighten(#f09900, 30%)
+  position: fixed
+  right: 0
+  padding: 5px
+  margin: 10px
+  border-radius: 5px
+  color: white
+  font-weight: 500
+
+  #show-filter
+    cursor: pointer
+
+  ul:not(.pin)
+    transition: max-height .5s
+    overflow-y: hidden
+    max-height: 0px
+
+    li
+      background-color: orange
+      margin: 2px
+      padding: 5px
+      border-radius: 5px
+      cursor: pointer
+      font-size: 16px
+      color: white
+      font-weight: 500
+
+    ul.pin
+      position: sticky
+      top: 0
+      background-color: lighten(#f09900, 30%)
+      padding: 5px 0px
+
+    li.selected
+      background-color: #f09900
+
+    li.selected:hover, ul.pin li:hover
+      background-color: #eeae3f
+
+    li.not-selected
+      background-color: #ebc482
+
+    li.not-selected:hover
+      background-color: #ecb351
+
+    li.disable
+      background-color: #9b9b9b
