@@ -17,7 +17,7 @@ const constructChord = function (json) {
 	
 	var data = json
 	
-	var sortBy = "gender";
+	var sortBy = "popularity";
 	var actualLanguage = "Japanese";
 	var actualTop = "20";
 	var currDx = 0
@@ -136,16 +136,18 @@ const constructChord = function (json) {
 	legend.clickable = false
 	legend.toggable = false
 	legend.parent = chart.chartContainer;
+	legend.dy = 20
 	legend.width = 400;
 	legend.align = "left";
-	legend.data = [{
+	legend.data = [
+	/*{
 		"name": "Male",
 		"fill": colorMale,
 		"fillOpacity": 0.2
 	}, {
 		"name": "Female",
 		"fill": colorFemale
-	}, {
+	},*/ {
 		"name": "Member Favorites below 250",
 		"fill": "green"
 	}, {
@@ -159,7 +161,7 @@ const constructChord = function (json) {
 		"fill": "red"
 	}]
 
-	var buttonGd = chart.chartContainer.createChild(am4core.Button);
+	/*var buttonGd = chart.chartContainer.createChild(am4core.Button);
 	buttonGd.label.text = "Sort by\nGender";
 	buttonGd.contentValign = "top"
 	buttonGd.contentAlign = "center"
@@ -170,7 +172,7 @@ const constructChord = function (json) {
 	buttonGd.events.on("hit", function() {
 		chart.data = sortData(data[actualTop][actualLanguage], "gender")
 		chart.invalidateData()
-	});
+	});*/
 	
 	var buttonPop = chart.chartContainer.createChild(am4core.Button);
 	buttonPop.label.text = "Sort by\nPopularity";
@@ -179,7 +181,7 @@ const constructChord = function (json) {
 	buttonPop.height = 50
 	buttonPop.width = 170;
 	buttonPop.dx = 20
-	buttonPop.dy = 305
+	buttonPop.dy = 250
 	buttonPop.events.on("hit", function() {
 		chart.data = sortData(data[actualTop][actualLanguage], "popularity")
 		chart.invalidateData()
@@ -193,7 +195,7 @@ const constructChord = function (json) {
 	buttonAO.width = 170;
 	buttonAO.hover = true
 	buttonAO.dx = 20
-	buttonAO.dy = 360
+	buttonAO.dy = 305
 	buttonAO.events.on("hit", function() {
 		chart.data = sortData(data[actualTop][actualLanguage], "name")
 		chart.invalidateData()
