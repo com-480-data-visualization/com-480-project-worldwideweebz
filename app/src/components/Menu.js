@@ -18,6 +18,13 @@ const menuRoutes = [
  */
 const WithMenu = (Component) => {
     class _Menu extends React.Component {
+        constructor() {
+            super()
+            this.routeChangeCallbacks = []
+
+            this.linkTo = this.linkTo.bind(this)
+            this.onRouteChange = this.onRouteChange.bind(this)
+        }
 
         // generates the "current" classname if path matches
         current(path) {
@@ -26,7 +33,11 @@ const WithMenu = (Component) => {
 
         // link transition with animation
         linkTo(path) {
-            return () => this.props.linkTo(path)
+            return () => {
+                // trigger callback in children
+                this.routeChangeCallbacks.forEach(cb => cb(path))
+                this.props.linkTo(path)
+            }
         }
 
         // finds the neighbor link path
@@ -42,6 +53,11 @@ const WithMenu = (Component) => {
                 if (idx == 0) return "/"
                 return menuRoutes[idx - 1].path
             }
+        }
+
+        // allows children to register a route change callback
+        onRouteChange(callback) {
+            this.routeChangeCallbacks.push(callback)
         }
 
         render() {
@@ -66,7 +82,7 @@ const WithMenu = (Component) => {
                         </div>
                     </div>
                     <div className="Content">
-                        <Component />
+                        <Component onRouteChange={this.onRouteChange} />
                     </div>
                 </div>
             )
