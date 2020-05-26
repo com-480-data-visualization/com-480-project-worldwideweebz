@@ -35,6 +35,7 @@ class BubblePage extends React.Component {
     this.moved = false
     this.count = 0
     this.displayState = DisplayState.FETCHING
+    this.updateDimensions = this.updateDimensions.bind(this)
   }
 
   updateDimensions() {
@@ -68,7 +69,7 @@ class BubblePage extends React.Component {
 
   componentDidMount() {
     this.updateDimensions()
-    window.addEventListener("resize", this.updateDimensions.bind(this))
+    window.addEventListener("resize", this.updateDimensions)
 
     fetch(`${process.env.PUBLIC_URL}/data/genre_data.json`)
       .then(res => res.json())
@@ -87,6 +88,7 @@ class BubblePage extends React.Component {
 
   componentWillUnmount() {
     Config.removeObserver(this)
+    window.removeEventListener("resize", this.updateDimensions)
   }
 
   onConfigUpdate(newConfig) {
