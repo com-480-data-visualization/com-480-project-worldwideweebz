@@ -1,168 +1,76 @@
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import * as am4core from "@amcharts/amcharts4/core"
+import * as am4charts from "@amcharts/amcharts4/charts"
+import am4themes_animated from "@amcharts/amcharts4/themes/animated"
 
-am4core.useTheme(am4themes_animated);
-
-const constructChord = function () {
+const constructChord = function (json) {
 
 	var chart = am4core.create("chartdiv", am4charts.ChordDiagram);
 	chart.hiddenState.properties.opacity = 0;
 	
 	am4core.useTheme(am4themes_animated);
-	
-	var actors = ["Actor A", "Actor B", "Actor C", "Actor D", "Actor E", "Actor F", "Actor G", "Actor H", "Actor I", "Actor J",
-		"Actress A", "Actress B", "Actress C", "Actress D", "Actress E", "Actress F", "Actress G","Actress H"]
-	const languages = ["Japanese", "English", "French"]
 
 	const colorMale = "#93B5C6"
 	const colorFemale = "#BD4F6C"
 
 	var chart = am4core.create("chartdiv", am4charts.ChordDiagram);
 	chart.hiddenState.properties.opacity = 0;
-
-	var data = [];
-	var dataJp = [];
-	var dataFr = [];
-	var dataEn = [];
 	
-	var isColorByGenre = true;
-	var actualLanguage = "Japanese"
-
-	function randomActor(except) {
-		var actor = actors[Math.floor(Math.random() * (actors.length))];
-		if (actor == except) {
-			return randomActor(except);
-		}
-		else {
-			return actor;
-		}
-	}
-
-	function colorByGenre(name) {
-		var color = ""
-		if (name.includes("Actor")) {
-			color = colorMale;
-		} else if (name.includes("Actress")) {
-			color = colorFemale;
-		} else {
-			color = "#111111";
-		}
-		return color;
-	}
-
-	function colorByPopu() {
-		var popu = Math.floor(Math.random() * 1000)
-		var color = "white"
-		if(popu < 250)
-			color = "green"
-		else if(popu < 500)
-			color = "yellow"
-		else if(popu < 750)
-			color = "orange"
-		else 
-			color = "red"
-		return color
-	}
-
-	function randomLanguage() {
-		return languages[Math.floor(Math.random() * (languages.length))];
-	}
+	var data = json
 	
-	function changeColor() {
-		chart.invalidateData()
-		if(isColorByGenre) {
-			chart.dataFields.color = "colorByPopu";
-		} else {
-			chart.dataFields.color = "colorByGender";
-		}
-
-		isColorByGenre = !isColorByGenre;
-	}
+	var sortBy = "gender";
+	var actualLanguage = "Japanese";
+	var actualTop = "20";
+	var currDx = 0
 
 	function changeLanguage(lang) {
-		switch(lang) {
-			case "Japanese": 
-				chart.data = data
-				break
-			case "English":
-				chart.data = dataJp
-				break;
-			default:
-				chart.data = data
-		}
+		chart.data = sortData(data[actualTop][lang], sortBy)
 		actualLanguage = lang
 		chart.invalidateData();
 	}
+	
+	function changeTop(top) {
+		chart.data = sortData(data[top][actualLanguage], sortBy)
+		actualTop = top
+		switch(parseInt(top)) {
+			case 5:
+				currDx = 0.4
+				break
+			case 10:
+				currDx = 0.3
+				break
+			case 20:
+				currDx = 0
+				break
+			case 30:
+				currDx = -0.4
+				break
+			case 40:
+				currDx = -0.6
+				break
+			default:
+				currDx = 1
+		}
+		chart.invalidateData();
+	}
 
-	function sortData(db) {
-		db.sort(function(x, y) {
-			if ("number" in x && !("number" in y)) {
+	function sortData(d, sortBy) {
+		d.sort(function(x, y) {
+			if (sortBy in x && !(sortBy in y)) {
 			  return -1;
-			} else if ("number" in y && !("number" in x)) {
+			} else if (sortBy in y && !(sortBy in x)) {
 			  return 1;
 			}
-			if (x["number"] < y["number"]) {
+			if (x[sortBy] < y[sortBy]) {
 			  return -1;
 			}
-			if (x["number"] > y["number"]) {
+			if (x[sortBy] > y[sortBy]) {
 			  return 1;
 			}
 			return 0;
 		  })
-		return db
+		return d
 	}
-
-	actors.forEach(function(actor, i) {
-		 data.push({
-		 "from" : actor, 
-		 "colorByGender": colorByGenre(actor), 
-		 "colorByPopu": colorByPopu(), 
-		 "number": 50-i,
-		 "info": actor
-		})})
-
-	actors.forEach(function(actor, i) {
-		var randomSize = Math.floor(Math.random() * (actors.length/2));
-		
-		var usedActors = [];
-		for (var o = 0; o < randomSize; o++) {
-			do{
-				var randomAct = randomActor(actor);
-			} while(usedActors.includes(randomAct));
-			usedActors.push(randomAct);
-
-			data.push({ "from": actor, "to": randomAct, "value": 50-i});
-		}
-	})
-
-	data = sortData(data)
-//---------------------------------------------------
-	actors.forEach(function(actor, i) {
-		dataJp.push({
-			"from" : actor, 
-			"colorByGender": colorByGenre(actor), 
-			"colorByPopu": colorByPopu(), 
-			"number": i,
-			"info": actor
-		})})
-
-	actors.forEach(function(actor, i) {
-		var randomSize = Math.floor(Math.random() * (actors.length/2));
-		
-		var usedActors = [];
-		for (var o = 0; o < randomSize; o++) {
-			do{
-				var randomAct = randomActor(actor);
-			} while(usedActors.includes(randomAct));
-			usedActors.push(randomAct);
-
-			dataJp.push({ "from": actor, "to": randomAct, "value": i});
-		}
-	})
-	dataJp = sortData(dataJp)
-//-----------------------------------------------------
-
+	
 	changeLanguage(actualLanguage)
 
 	var title = chart.titles.create();
@@ -202,7 +110,7 @@ const constructChord = function () {
 	link.strokeWidth = 2
 	link.colorMode = am4core.color("#000");
 	link.defaultState.properties.opacity = 0.05;
-	link.tooltipText = "{from} & {to}";
+	link.tooltipText = "{anime}";
 	
 	var circleBullet = node.createChild(am4charts.CircleBullet);
 	circleBullet.setStateOnChildren = true 
@@ -213,8 +121,7 @@ const constructChord = function () {
 		if (!target.dataItem) {
 		  return fill;
 		}
-		return isColorByGenre? 
-			target.dataItem.dataContext["colorByPopu"] : target.dataItem.dataContext["colorByGender"]
+		return target.dataItem.dataContext["colorByPopu"]
 	});
 	
 	var CBlabel = circleBullet.createChild(am4core.Label);
@@ -223,12 +130,13 @@ const constructChord = function () {
 	CBlabel.verticalCenter = "middle";
 	CBlabel.fill = "black"
 	CBlabel.fillOpacity = 0.9
+	CBlabel.fontSize = 13
 	
 	var legend = new am4charts.Legend();
 	legend.clickable = false
 	legend.toggable = false
 	legend.parent = chart.chartContainer;
-	legend.width = 320;
+	legend.width = 400;
 	legend.align = "left";
 	legend.data = [{
 		"name": "Male",
@@ -238,29 +146,57 @@ const constructChord = function () {
 		"name": "Female",
 		"fill": colorFemale
 	}, {
-		"name": "Poularity below 250",
+		"name": "Member Favorites below 250",
 		"fill": "green"
 	}, {
-		"name": "Popularity between 251 and 500",
+		"name": "Member Favorites between 251 and 1000",
 		"fill": "yellow"
 	}, {
-		"name": "Popularity between 501 and 750",
+		"name": "Member Favorites between 1001 and 2500",
 		"fill": "orange",
 	}, {
-		"name": "Popularity over 750",
+		"name": "Member Favorites over 2500",
 		"fill": "red"
 	}]
 
-	var button = chart.chartContainer.createChild(am4core.Button);
-	button.label.text = "Switch colors";
-	button.label.align = "middle"
-	button.padding(5, 5, 5, 5);
-	button.height = 30
-	button.width = 130;
-	button.align = "left";
-	button.dx = 300
-	button.events.on("hit", function() {
-		changeColor();
+	var buttonGd = chart.chartContainer.createChild(am4core.Button);
+	buttonGd.label.text = "Sort by\nGender";
+	buttonGd.contentValign = "top"
+	buttonGd.contentAlign = "center"
+	buttonGd.height = 50
+	buttonGd.width = 170;
+	buttonGd.dx = 20
+	buttonGd.dy = 250
+	buttonGd.events.on("hit", function() {
+		chart.data = sortData(data[actualTop][actualLanguage], "gender")
+		chart.invalidateData()
+	});
+	
+	var buttonPop = chart.chartContainer.createChild(am4core.Button);
+	buttonPop.label.text = "Sort by\nPopularity";
+	buttonPop.contentValign = "top"
+	buttonPop.contentAlign = "center"
+	buttonPop.height = 50
+	buttonPop.width = 170;
+	buttonPop.dx = 20
+	buttonPop.dy = 305
+	buttonPop.events.on("hit", function() {
+		chart.data = sortData(data[actualTop][actualLanguage], "popularity")
+		chart.invalidateData()
+	});
+	
+	var buttonAO = chart.chartContainer.createChild(am4core.Button);
+	buttonAO.label.text = "     Sort by\nalphabetical order";
+	buttonAO.contentValign = "top"
+	buttonAO.contentAlign = "center"
+	buttonAO.height = 50
+	buttonAO.width = 170;
+	buttonAO.hover = true
+	buttonAO.dx = 20
+	buttonAO.dy = 360
+	buttonAO.events.on("hit", function() {
+		chart.data = sortData(data[actualTop][actualLanguage], "name")
+		chart.invalidateData()
 	});
 
 	let labelHS = nodeLabel.states.create("hover");
@@ -288,7 +224,7 @@ const constructChord = function () {
 			}
 		})
 		node.label.isHover = true; 
-		circleBullet.locationX = 0
+		circleBullet.locationX = currDx
 	})
 
 	node.events.on("out", function (event) {
@@ -312,6 +248,11 @@ const constructChord = function () {
 	document.getElementById('filter').addEventListener('change', function(e) {
 		var lang = e.target.value
 		changeLanguage(lang)
+	})
+	
+	document.getElementById('top').addEventListener('change', function(e) {
+		var top = e.target.value
+		changeTop(top)
 	})
 
     return chart;
