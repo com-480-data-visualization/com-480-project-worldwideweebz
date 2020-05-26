@@ -2,99 +2,67 @@
     width: 100%
     min-height: 100%
     display: flex
-    justify-content: center
-    align-items: center
-    background: #eee
 
-    .GraphView
-        display: flex
+#Histogram
+    padding: 30px
+
+    .row
+        float: left
         width: 100%
+        margin-bottom: 3px
 
-        .Left
-            width: 70%
-
-        .Right
-            width: 30%
-            height: 100vh
-            position: fixed
-            top: 0
-            right: 0
-
-        #Histogram
-            padding: 30px
-
-            .row
-                float: left
-                width: 100%
-                margin-bottom: 5px
-
-                .year
-                    display: table-cell
-                    float: left
-                    display: block
-                    width: 50px
-                    color: #777
-                .dots
-                    display: table-cell
-                .dot
-                    float: left
-                    width: 15px
-                    height: 15px
-                    background: #ccc
-                    margin-bottom: 5px
-                    margin-right: 5px
-                    p
-                        cursor: default
-                .dot:hover
-                    box-shadow: 0 0 2px #000
-
-            .ScrollHint
-                width: 70%
-                position: fixed
-                bottom: 30px
-                text-align: center
-                pointer-events: none
-
-                div
-                    display: inline-block
-                    padding: 0 20px
-                    background: rgba(255, 255, 255, 0.87)
-                    box-shadow: 0 0 3px #bbb
-                    border-radius: 100px
-                    cursor: pointer
-                    pointer-events: auto
-                p
-                    margin-bottom: 0
-                    display: inline
-                img
-                    width: 50px
-                    vertical-align: middle
-
-            #HistogramBottom
-                position: relative
-                float: left
-                background: linear-gradient(to bottom, transparent 0%, #eee 20%)
-                width: 100%
-                height: 100px
-                z-index: 2
-
-        #Sidebar
-            width: 100%
-            height: 100%
-            background: #d88c00
-            padding: 30px
-
-            h1, h2, p
-                font-family: 'Montserrat'
-                color: #fff
-                margin: 0
-            h1
-                font-size: 10vw
-            h2
-                font-size: 3vw
-                margin-bottom: 30px
+        .year
+            display: table-cell
+            float: left
+            display: block
+            width: 50px
+            color: #777
+            font-size: 13px
+        .dots
+            display: table-cell
+        .dot
+            float: left
+            width: 11px
+            height: 11px
+            background: #ccc
+            margin-bottom: 5px
+            margin-right: 5px
+            border-radius: 100%
             p
-                font-size: 18px
-                margin-bottom: 10px
-            img
-                width: 50%
+                cursor: default
+        .dot:hover
+            box-shadow: 0 0 1px #000
+
+    .ScrollHint
+        width: 70%
+        position: fixed
+        bottom: 30px
+        text-align: center
+        pointer-events: none
+
+        div
+            display: inline-block
+            padding: 0 20px
+            background: rgba(255, 255, 255, 0.87)
+            box-shadow: 0 0 3px #bbb
+            border-radius: 100px
+            cursor: pointer
+            pointer-events: auto
+        p
+            margin-bottom: 0
+            display: inline
+        img
+            width: 50px
+            vertical-align: middle
+
+    #HistogramBottom
+        position: relative
+        float: left
+        background: linear-gradient(to bottom, transparent 0%, #eee 20%)
+        width: 100%
+        height: 100px
+        z-index: 2
+
+#HistogramDetails
+    img
+        margin-bottom: 15px

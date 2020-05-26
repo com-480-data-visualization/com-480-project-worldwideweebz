@@ -1,13 +1,13 @@
 import React from 'react'
-import { WOW } from 'wowjs'
-import { LoadingScreen } from '../../components/LoadingScreen'
 
 import './HistoryPage.sass'
 import scrollHintGif from './scroll_down.gif'
 
 import { Config } from '../../Config'
 import { ColorUtils } from '../../utils/ColorUtils'
-import { NavigationButtons } from '../../components/NavigationButtons'
+import { LoadingScreen } from '../../components/LoadingScreen'
+import { WOWAnimation } from '../../animation/WOWAnimation'
+import { Wrapper, GraphView, Sidebar } from '../../components/Layout'
 
 /**
  * History graph page component
@@ -22,6 +22,21 @@ class HistoryPage extends React.Component {
             selected: null,
         }
 
+        /* Compute the color function: should rescale [min, max] # of episodes
+           into [light, dark] shades of given color */
+        const limits = {
+            maxCount: 50,
+            minCount: 0,
+            maxShade: -90,
+            minShade: 60
+        }
+        const ratio = (limits.maxShade - limits.minShade) / (limits.maxCount - limits.minCount)
+        this.shadeColor = (color, episodeCount) => {
+            if (episodeCount > limits.maxCount) episodeCount = limits.maxCount
+            return ColorUtils.shade(color, ratio * episodeCount + limits.minShade)
+        }
+
+        // bind local methods
         this.setSelected = this.setSelected.bind(this)
         this.onConfigUpdate = this.onConfigUpdate.bind(this)
     }
@@ -36,16 +51,9 @@ class HistoryPage extends React.Component {
                     loading: false
                 })
 
-                // inform wow that DOM has changed
-                this.wow.sync()
+                // inform WOW animation that DOM has changed
+                WOWAnimation.sync()
             })
-
-        // initialize wow animations (fade-in on viewport)
-        this.wow = new WOW({
-            mobile: true,
-            live: true
-        })
-        this.wow.init()
 
         Config.addObserver(this)
     }
@@ -66,7 +74,7 @@ class HistoryPage extends React.Component {
         })
     }
 
-    // scrolls a fixed amount of pixeés
+    // scrolls a fixed amount of pixels
     scroll() {
         window.scrollBy({
             top: 400,
@@ -75,31 +83,17 @@ class HistoryPage extends React.Component {
     }
 
     renderHistogram() {
-        /* Compute the color function: should rescale [min, max] # of episodes
-           into [light, dark] shades of given color */
-        const limits = {
-            maxCount: 50,
-            minCount: 0,
-            maxShade: -90,
-            minShade: 60
-        }
-        const ratio = (limits.maxShade - limits.minShade) / (limits.maxCount - limits.minCount)
-        const colorFunction = (color, episodeCount) => {
-            if (episodeCount > limits.maxCount) episodeCount = limits.maxCount
-            return ColorUtils.shade(color, ratio * episodeCount + limits.minShade)
-        }
-
         return (
             <div id="Histogram">
                 {Object.entries(this.state.data).map((yearToAnime, index) => {
                     const [year, animes] = yearToAnime
-                    const animationDelay = `${index * 0.01 % 0.4}s`
+                    const animationDelay = `${index * 0.01 % 0.5}s`
                     return (
                         <div className="row wow fadeInUp" key={year} data-wow-delay={animationDelay}>
                             <span className="year">{year}</span>
                             <div className="dots">
                                 {animes.map(anime => {
-                                    const bgColor = { backgroundColor: colorFunction("#F59B00", anime.episodes) }
+                                    const bgColor = { backgroundColor: this.shadeColor("#F59B00", anime.episodes) }
                                     return (
                                         <div onMouseEnter={() => this.setSelected(anime)}
                                             onMouseLeave={() => this.setSelected(null)}
@@ -130,7 +124,7 @@ class HistoryPage extends React.Component {
     renderSidebar() {
         const anime = this.state.selected
         return (
-            <div id="Sidebar" className="animated fadeInRight">
+            <div id="HistogramDetails">
                 {anime === null ?
                     (
                         <div className="Infos">
@@ -163,10 +157,6 @@ class HistoryPage extends React.Component {
                         </div>
                     )
                 }
-
-                <NavigationButtons linkTo={this.props.linkTo}
-                    nextRoute={{ path: "/topAnimes", text: "To top animes" }}
-                    prevRoute={{ path: "/", text: "Back to home" }} />
             </div>
         )
     }
@@ -175,14 +165,14 @@ class HistoryPage extends React.Component {
         return (
             <div id="History">
                 {this.state.loading ? <LoadingScreen /> : (
-                    <div className="GraphView">
-                        <div className="Left">
+                    <Wrapper>
+                        <GraphView>
                             {this.renderHistogram()}
-                        </div>
-                        <div className="Right">
+                        </GraphView>
+                        <Sidebar>
                             {this.renderSidebar()}
-                        </div>
-                    </div>
+                        </Sidebar>
+                    </Wrapper>
                 )}
             </div>
         )

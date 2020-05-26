@@ -1,6 +1,5 @@
 import React from 'react'
 import { constructSankey } from './SankeyAmcharts'
-import { NavigationButtons } from '../../components/NavigationButtons'
 
 import './SankeyPage.sass'
 
@@ -23,10 +22,6 @@ class SankeyPage extends React.Component {
     return (
       <div>
         <div id="chartdiv" style={{ width: "90%", height: "600px" }}></div>
-
-        <NavigationButtons linkTo={this.props.linkTo}
-          nextRoute={{ path: "/chord", text: "To actors" }}
-          prevRoute={{ path: "/bubble", text: "Back to genres" }} />
       </div>
     );
   }
