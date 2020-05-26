@@ -3,7 +3,6 @@ import * as d3 from "d3"
 
 import './BubblePage.sass'
 
-import { NavigationButtons } from '../../components/NavigationButtons'
 import { Config } from '../../Config'
 import { Wrapper, GraphView, Sidebar } from '../../components/Layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -272,9 +271,6 @@ class BubblePage extends React.Component {
             </svg>
           </div>
         </GraphView>
-        <NavigationButtons linkTo={this.props.linkTo}
-          nextRoute={{ path: "/sankey", text: "To studios" }}
-          prevRoute={{ path: "/topAnimes", text: "Back to top animes" }} />
       </Wrapper>
     )
   }
