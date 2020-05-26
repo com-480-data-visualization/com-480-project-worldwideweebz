@@ -9,7 +9,11 @@ import './SankeyPage.sass'
 class SankeyPage extends React.Component {
 
   componentDidMount() {
-    this.chart = constructSankey();
+	fetch(`${process.env.PUBLIC_URL}/data/sankey_dataset.json`)
+      .then(res => res.json())
+      .then(json => {
+           this.chart = constructSankey(json)
+      })
   }
 
   componentWillUnmount() {
