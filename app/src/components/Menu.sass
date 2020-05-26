@@ -1,0 +1,59 @@
+$menu-height: 60px
+
+.Menu
+    width: 100%
+    height: $menu-height
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    background: #fff
+    box-shadow: 0 0 3px #777
+    z-index: 100
+    padding: 15px
+    text-align: center
+
+    h2
+        position: absolute
+        top: 15px
+        left: 15px
+        cursor: pointer
+        color: #333
+
+    nav
+        display: inline-block
+        font-weight: bold
+        margin-top: 5px
+        color: #555
+        a
+            padding-bottom: 3px
+            cursor: pointer
+            margin: 0 7px
+        a:hover
+            color: #000
+            border-bottom: 3px solid #ccc
+        .current
+            border-bottom: 3px solid orange
+
+    .NavButtons
+        position: absolute
+        top: 13px
+        right: 0
+
+        a
+            display: inline-block
+            padding: 10px
+            margin: 0 5px
+            cursor: pointer
+            border-radius: 100%
+            height: 35px
+            width: 35px
+            background: #ddd
+        a:hover
+            color: #fff
+            background: orange
+
+.Content
+    width: 100%
+    position: absolute
+    top: $menu-height

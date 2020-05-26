@@ -5,7 +5,6 @@ import scrollHintGif from './scroll_down.gif'
 
 import { Config } from '../../Config'
 import { ColorUtils } from '../../utils/ColorUtils'
-import { NavigationButtons } from '../../components/NavigationButtons'
 import { LoadingScreen } from '../../components/LoadingScreen'
 import { WOWAnimation } from '../../animation/WOWAnimation'
 import { Wrapper, GraphView, Sidebar } from '../../components/Layout'
@@ -158,10 +157,6 @@ class HistoryPage extends React.Component {
                         </div>
                     )
                 }
-
-                <NavigationButtons linkTo={this.props.linkTo}
-                    nextRoute={{ path: "/topAnimes", text: "To top animes" }}
-                    prevRoute={{ path: "/", text: "Back to home" }} />
             </div>
         )
     }
