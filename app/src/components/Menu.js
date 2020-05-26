@@ -33,7 +33,8 @@ const WithMenu = (Component) => {
 
         // link transition with animation
         linkTo(path) {
-            return () => {
+            return (this.props.location.pathname === path) ? () => { /* do nothing if path is current */ } :
+            () => {
                 // trigger callback in children
                 this.routeChangeCallbacks.forEach(cb => cb(path))
                 this.props.linkTo(path)
