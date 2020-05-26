@@ -212,7 +212,7 @@ class BubblePage extends React.Component {
 
     return (
       <Wrapper>
-        <Sidebar position={{ left: 0 }} appearTransitionClass="fadeInLeft">
+        <Sidebar position={{ left: 0 }} appearTransitionClass="fadeInRight">
 
         </Sidebar>
         <GraphView position={{ right: 0 }}>

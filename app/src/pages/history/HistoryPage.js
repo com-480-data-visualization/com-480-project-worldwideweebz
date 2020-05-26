@@ -20,6 +20,7 @@ class HistoryPage extends React.Component {
             data: [],
             loading: true,
             selected: null,
+            exit: false,
         }
 
         /* Compute the color function: should rescale [min, max] # of episodes
@@ -54,6 +55,15 @@ class HistoryPage extends React.Component {
                 // inform WOW animation that DOM has changed
                 WOWAnimation.sync()
             })
+
+        // register callback when route changes
+        this.props.onRouteChange(path => {
+            if (path != "/history") {
+                this.setState({
+                    exit: true,
+                })
+            }
+        })
 
         Config.addObserver(this)
     }
@@ -169,7 +179,7 @@ class HistoryPage extends React.Component {
                         <GraphView>
                             {this.renderHistogram()}
                         </GraphView>
-                        <Sidebar>
+                        <Sidebar appearTransitionClass={this.state.exit ? "fadeOutLeft" : "fadeInRight"}>
                             {this.renderSidebar()}
                         </Sidebar>
                     </Wrapper>
