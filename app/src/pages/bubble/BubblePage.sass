@@ -3,7 +3,7 @@ $base-color: #d88c00
 #bubble-root
   text-align: center
   width: 100%
-  height: 100vh
+  height: calc(100vh - 65px)
   positions: fixed
   top: 0
   box-sizing: border-box
@@ -27,8 +27,8 @@ $base-color: #d88c00
     fill-opacity: 0.1
 
 #bubble-return
-  position: fixed
-  top: 30px
+  position: absolute
+  bottom: 30px
   right: 30px
   float: right
   padding: 15px
@@ -39,9 +39,6 @@ $base-color: #d88c00
   color: #fff
   background: #a26300
   box-shadow: 0 0 2px black
-
-*
-  box-sizing: border-box
 
 #filter-genres
   background-color: lighten(#f09900, 30%)
@@ -80,13 +77,13 @@ $base-color: #d88c00
     li.selected
       background-color: #f09900
 
-    li.selected:hover, ul.pin li:hover
+    li.selected:hover, ul.pin li:not(.disable):hover
       background-color: #eeae3f
 
     li.not-selected
       background-color: #ebc482
 
-    li.not-selected:hover
+    li.not-selected:not(.disable):hover
       background-color: #ecb351
 
     li.disable
