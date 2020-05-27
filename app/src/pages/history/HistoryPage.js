@@ -22,6 +22,7 @@ class HistoryPage extends React.Component {
             data: [],
             loading: true,
             selected: null,
+            clicked: null,
             exit: false,
         }
 
@@ -41,6 +42,7 @@ class HistoryPage extends React.Component {
 
         // bind local methods
         this.setSelected = this.setSelected.bind(this)
+        this.setClicked = this.setClicked.bind(this)
         this.onConfigUpdate = this.onConfigUpdate.bind(this)
     }
 
@@ -86,6 +88,12 @@ class HistoryPage extends React.Component {
         })
     }
 
+    setClicked(anime) {
+        this.setState({
+            clicked: anime,
+        })
+    }
+
     // scrolls a fixed amount of pixels
     scroll() {
         window.scrollBy({
@@ -96,7 +104,7 @@ class HistoryPage extends React.Component {
 
     renderHistogram() {
         return (
-            <div id="Histogram">
+            <div id="Histogram" onClick={() => this.setClicked(null)}>
                 {Object.entries(this.state.data).map((yearToAnime, index) => {
                     const [year, animes] = yearToAnime
                     const animationDelay = `${index * 0.01 % 0.5}s`
@@ -107,9 +115,10 @@ class HistoryPage extends React.Component {
                                 {animes.map(anime => {
                                     const bgColor = { backgroundColor: this.shadeColor("#F59B00", anime.episodes) }
                                     return (
-                                        <div onMouseEnter={() => this.setSelected(anime)}
-                                            onMouseLeave={() => this.setSelected(null)}
-                                            className="dot"
+                                        <div className="dot"
+                                            onMouseEnter={this.state.clicked === null ? () => this.setSelected(anime) : () => { }}
+                                            onMouseLeave={this.state.clicked === null ? () => this.setSelected(null) : () => { }}
+                                            onClick={() => this.setClicked(anime)}
                                             key={anime.anime_id}
                                             style={bgColor}>
                                             <p>&nbsp;</p>
@@ -134,7 +143,7 @@ class HistoryPage extends React.Component {
     }
 
     renderSidebar() {
-        const anime = this.state.selected
+        const anime = (this.state.clicked !== null) ? this.state.clicked : this.state.selected
         return (
             <div id="HistogramDetails">
                 {anime === null ?
