@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/com-480-project-worldwideweebz/static/css/main.5fd01d5c.chunk.css",
-    "main.js": "/com-480-project-worldwideweebz/static/js/main.5e04e10e.chunk.js",
-    "main.js.map": "/com-480-project-worldwideweebz/static/js/main.5e04e10e.chunk.js.map",
+    "main.js": "/com-480-project-worldwideweebz/static/js/main.5ec8fcf7.chunk.js",
+    "main.js.map": "/com-480-project-worldwideweebz/static/js/main.5ec8fcf7.chunk.js.map",
     "runtime-main.js": "/com-480-project-worldwideweebz/static/js/runtime-main.99ac2259.js",
     "runtime-main.js.map": "/com-480-project-worldwideweebz/static/js/runtime-main.99ac2259.js.map",
     "xlsx.js": "/com-480-project-worldwideweebz/static/js/xlsx.40870bc8.chunk.js",
     "xlsx.js.map": "/com-480-project-worldwideweebz/static/js/xlsx.40870bc8.chunk.js.map",
     "static/js/3.d92f81a4.chunk.js": "/com-480-project-worldwideweebz/static/js/3.d92f81a4.chunk.js",
     "static/js/3.d92f81a4.chunk.js.map": "/com-480-project-worldwideweebz/static/js/3.d92f81a4.chunk.js.map",
-    "static/js/4.b8974a36.chunk.js": "/com-480-project-worldwideweebz/static/js/4.b8974a36.chunk.js",
-    "static/js/4.b8974a36.chunk.js.map": "/com-480-project-worldwideweebz/static/js/4.b8974a36.chunk.js.map",
+    "static/js/4.48771189.chunk.js": "/com-480-project-worldwideweebz/static/js/4.48771189.chunk.js",
+    "static/js/4.48771189.chunk.js.map": "/com-480-project-worldwideweebz/static/js/4.48771189.chunk.js.map",
     "static/js/5.ce45d231.chunk.js": "/com-480-project-worldwideweebz/static/js/5.ce45d231.chunk.js",
     "static/js/5.ce45d231.chunk.js.map": "/com-480-project-worldwideweebz/static/js/5.ce45d231.chunk.js.map",
     "static/js/6.7f42cbe4.chunk.js": "/com-480-project-worldwideweebz/static/js/6.7f42cbe4.chunk.js",
     "static/js/6.7f42cbe4.chunk.js.map": "/com-480-project-worldwideweebz/static/js/6.7f42cbe4.chunk.js.map",
     "index.html": "/com-480-project-worldwideweebz/index.html",
-    "precache-manifest.4acf217ec3feb61ac8d1616fa92e987a.js": "/com-480-project-worldwideweebz/precache-manifest.4acf217ec3feb61ac8d1616fa92e987a.js",
+    "precache-manifest.e0830226b97f07cee7121b61fa87d435.js": "/com-480-project-worldwideweebz/precache-manifest.e0830226b97f07cee7121b61fa87d435.js",
     "service-worker.js": "/com-480-project-worldwideweebz/service-worker.js",
     "static/css/main.5fd01d5c.chunk.css.map": "/com-480-project-worldwideweebz/static/css/main.5fd01d5c.chunk.css.map",
-    "static/js/4.b8974a36.chunk.js.LICENSE.txt": "/com-480-project-worldwideweebz/static/js/4.b8974a36.chunk.js.LICENSE.txt",
+    "static/js/4.48771189.chunk.js.LICENSE.txt": "/com-480-project-worldwideweebz/static/js/4.48771189.chunk.js.LICENSE.txt",
     "static/js/5.ce45d231.chunk.js.LICENSE.txt": "/com-480-project-worldwideweebz/static/js/5.ce45d231.chunk.js.LICENSE.txt",
     "static/js/6.7f42cbe4.chunk.js.LICENSE.txt": "/com-480-project-worldwideweebz/static/js/6.7f42cbe4.chunk.js.LICENSE.txt",
     "static/media/animation-bridge.gif": "/com-480-project-worldwideweebz/static/media/animation-bridge.a0684912.gif",
@@ -33,8 +33,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.99ac2259.js",
-    "static/js/4.b8974a36.chunk.js",
+    "static/js/4.48771189.chunk.js",
     "static/css/main.5fd01d5c.chunk.css",
-    "static/js/main.5e04e10e.chunk.js"
+    "static/js/main.5ec8fcf7.chunk.js"
   ]
 }
