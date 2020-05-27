@@ -149,7 +149,7 @@ class BubblePage extends React.Component {
   }
 
   onConfigUpdate(newConfig) {
-    
+
   }
 
   focusGenre(focusedGenre) {
@@ -165,18 +165,16 @@ class BubblePage extends React.Component {
     const fr = this.bubblePositions[focusIdx].r
 
     this.setState({
-      subBubble: genreTopAnimes.map((x, idx) => {
-        return {
-          name: x.title,
-          count: x.favorites,
-          image: x.image_url,
-          genre: x.genre,
+      subBubble: genreTopAnimes.map((anime, idx) =>
+        Object.assign(Object.assign({}, anime), {
+          name: anime.title,
+          image: anime.image_url,
           x: bubblePositions[idx].x,
           y: bubblePositions[idx].y,
           r: bubblePositions[idx].r,
           oppacity: 1.0
-        }
-      }),
+        })
+      ),
 
       genres: this.state.genres.map((g, idx) => {
         if (g.name === focusedGenre.name) return {
@@ -268,7 +266,7 @@ class BubblePage extends React.Component {
       case DisplayState.DISPLAY:
         if (this.state.activeGenre !== "") {
           this.displayState = DisplayState.FOCUSED
-          focusedData = focusedData.map(anime => Object.assign(Object.assign({}, anime), {oppacity: 0.0}))
+          focusedData = focusedData.map(anime => Object.assign(Object.assign({}, anime), { oppacity: 0.0 }))
           setTimeout(() => this.forceUpdate(), 0)
         }
         break
@@ -285,7 +283,7 @@ class BubblePage extends React.Component {
     bubbleData = bubbleData.filter(genre => this.state.displayedGenres[genre.name])
     return (
       <Wrapper>
-        <Sidebar position={{ left: 0 }} appearTransitionClass="fadeInRight">
+        <Sidebar position={{ left: 0, top: 0 }} appearTransitionClass="fadeInRight">
           {this.renderSidebarContent()}
         </Sidebar>
         <GraphView position={{ right: 0 }}>
@@ -294,7 +292,7 @@ class BubblePage extends React.Component {
             <div id="bubble-return"
               style={{ display: (this.state.activeGenre ? "inline-block" : "none") }}
               onClick={() => this.resetGenre()}>Reset chart</div>
-            <svg onClick={() =>  this.resetGenre()}>
+            <svg onClick={() => this.resetGenre()}>
               <defs>
                 <pattern id="nsfw" height="100%" width="100%" patternContentUnits="objectBoundingBox">
                   <image height="1" width="1" xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" href={`${process.env.PUBLIC_URL}/img/nsfw.png`}></image>
@@ -323,10 +321,10 @@ class BubblePage extends React.Component {
     return <g
       className={"bubble genre" + (this.state.activeGenre && genre.name === this.state.activeGenre.name ? " active-genre" : "")}
       key={genre.name}
-      style={{transform: `translate(${this.state.scale * genre.x + this.state.offsetX}px, ${this.state.scale * genre.y + this.state.offsetY}px) scale(${this.state.scale * genre.r / 100})` }}
-      onClick={(e) => {this.focusGenre(genre); e.stopPropagation()}}
-      onMouseEnter={() => this.setState({hoveringGenre: genre})}
-      onMouseLeave={() => this.setState({hoveringGenre: null})}
+      style={{ transform: `translate(${this.state.scale * genre.x + this.state.offsetX}px, ${this.state.scale * genre.y + this.state.offsetY}px) scale(${this.state.scale * genre.r / 100})` }}
+      onClick={(e) => { this.focusGenre(genre); e.stopPropagation() }}
+      onMouseEnter={() => this.setState({ hoveringGenre: genre })}
+      onMouseLeave={() => this.setState({ hoveringGenre: null })}
     >
       <circle r="100" style={{ fill: `url(#${Config.detectNSFW(genre.name) ? "nsfw" : genre.name.replace(/\s/g, '')})` }}></circle>
       <text dy=".2em"
@@ -340,13 +338,13 @@ class BubblePage extends React.Component {
       className="bubble anime"
       key={anime.name}
       style={{ transform: `translate(${this.state.scale * anime.x + this.state.offsetX}px, ${this.state.scale * anime.y + this.state.offsetY}px) scale(${this.state.scale * anime.r / 100})`, fillOpacity: anime.oppacity }}
-      onMouseEnter={() => this.setState({hoveringAnime: anime.name})}
-      onMouseLeave={() => this.setState({hoveringAnime: null})}
+      onMouseEnter={() => this.setState({ hoveringAnime: anime })}
+      onMouseLeave={() => this.setState({ hoveringAnime: null })}
     >
       <circle r="100" style={{ fill: `url(#${Config.detectNSFW(anime.genre.toString()) ? "nsfw" : anime.name.replace(/\s/g, '')})` }}></circle>
       <text dy=".2em"
         fontFamily="sans-serif" fontSize="20" fill="white">{cropText(anime.name, 18)}</text>
-      <text dy="1.3em" fontFamily="Gill Sans" fontSize="20" fill="white">{anime.count}</text>
+      <text dy="1.3em" fontFamily="Gill Sans" fontSize="20" fill="white">{anime.favorites}</text>
     </g>
   }
 
@@ -375,11 +373,11 @@ class BubblePage extends React.Component {
 
   renderSidebarContent() {
     if (this.state.hoveringAnime) {
-      return this.renderAnimeDescription()
-    } else if (this.state.activeGenre) {
-      return this.renderGenreDescription(this.state.activeGenre)
+      return this.renderAnimeDescription(this.state.hoveringAnime)
     } else if (this.state.hoveringGenre) {
       return this.renderGenreDescription(this.state.hoveringGenre)
+    } else if (this.state.activeGenre) {
+      return this.renderGenreDescription(this.state.activeGenre)
     } else {
       return this.renderPageDescription()
     }
@@ -391,15 +389,35 @@ class BubblePage extends React.Component {
 
   renderGenreDescription(genre) {
     return (<div>
-        <h2>{genre.name}</h2>
-        <p>{genreDescriptions[genre.name]}</p>
-        <h3>Representative anime</h3>
-        <p>   {genre.representative}</p>
-      </div>)
+      <h2>{genre.name}</h2>
+      <p>{genreDescriptions[genre.name]}</p>
+      <h3>Representative anime</h3>
+      <p>   {genre.representative}</p>
+    </div>)
   }
 
   renderAnimeDescription(anime) {
-    return <span>Anime description</span>
+    return (
+      <div className="AnimeDetails">
+        <h2>{anime.title}</h2>
+        { // Image should not be null
+          (anime.image_url === null) ? null :
+            // If settings disable NSFW, check if anime.genre exists and contains sensitive genres
+            ("genre" in anime && Config.detectNSFW(anime.genre)) ?
+              <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
+              <img src={anime.image_url} alt={anime.title} />
+        }
+        <p>Episode count: {anime.episodes}</p>
+        <p>Aired: {anime.aired_string}</p>
+        <p>Type: {anime.type}</p>
+        <p>Source: {anime.source}</p>
+        <p>Duration: {anime.duration}</p>
+        <p>Producer: {anime.producer}</p>
+        <p>Studio: {anime.studio}</p>
+        <p>Genre: {anime.genre}</p>
+        <p>MyAnimeList ID: {anime.anime_id}</p>
+      </div>
+    )
   }
 }
 
