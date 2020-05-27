@@ -15,13 +15,19 @@ $base-color: #d88c00
   .bubble
     fill-opacity: 1.0
     cursor: pointer
-    transition: transform .8s cubic-bezier(0.65, 0, 0.35, 1), fill-opacity .8s cubic-bezier(0.65, 0, 0.35, 1)
 
     text
       width: 10px
       text-anchor: middle
       font-weight: 700
       text-shadow: 0px 1px 1px black, 0px -1px 1px black, 1px 0px 1px black, -1px 0px 1px black
+
+  .bubble.genre
+    transition: transform .8s cubic-bezier(0.65, 0, 0.35, 1), fill-opacity .8s cubic-bezier(0.65, 0, 0.35, 1)
+
+  .bubble.anime
+    transition: transform .8s cubic-bezier(0.65, 0, 0.35, 1), fill-opacity 1.2s cubic-bezier(1, 0, 0.5, 0.75)
+
 
   .active-genre
     fill-opacity: 0.1
