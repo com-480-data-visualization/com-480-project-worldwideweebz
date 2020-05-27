@@ -44,7 +44,7 @@ class ChordPage extends React.Component {
 					<option>30</option>
 					<option>40</option>
 				</select>
-				<div id="chartdiv" style={{ width: "100%", height: "700px" }}></div>
+				<div id="chartdiv" style={{ width: "100%", height: "95vh" }}></div>
 			</div>
 		);
 	}

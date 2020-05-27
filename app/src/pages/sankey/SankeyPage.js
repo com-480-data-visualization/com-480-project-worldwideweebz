@@ -25,7 +25,7 @@ class SankeyPage extends React.Component {
   render() {
     return (
       <div>
-        <div id="chartdiv" style={{ width: "90%", height: "600px" }}></div>
+        <div id="chartdiv" style={{ width: "90%", height: "95vh" }}></div>
       </div>
     );
   }
