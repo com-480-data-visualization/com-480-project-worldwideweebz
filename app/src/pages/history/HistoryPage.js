@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuoteLeft } from '@fortawesome/free-solid-svg-icons'
+import { faQuoteLeft, faCircle } from '@fortawesome/free-solid-svg-icons'
 
 import './HistoryPage.sass'
 import scrollHintGif from './scroll_down.gif'
@@ -171,7 +171,13 @@ class HistoryPage extends React.Component {
                                         <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
                                         <img src={anime.image_url} alt={anime.title} />
                             }
-                            <p>Episode count: {anime.episodes}</p>
+                            <p>
+                                Episode count: {anime.episodes}
+                                <FontAwesomeIcon icon={faCircle}
+                                    color={this.shadeColor("#F59B00", anime.episodes)}
+                                    style={{ marginLeft: "5px", border: "1px solid #666", borderRadius: "100%" }}
+                                />
+                            </p>
                             <p>Aired: {anime.aired_string}</p>
                             <p>Type: {anime.type}</p>
                             <p>Source: {anime.source}</p>
