@@ -341,7 +341,7 @@ class BubblePage extends React.Component {
       className={"bubble anime"  + (this.state.activeAnime && anime.name === this.state.activeAnime.name ? " active-anime" : "")}
       key={anime.name}
       style={{ transform: `translate(${this.state.scale * anime.x + this.state.offsetX}px, ${this.state.scale * anime.y + this.state.offsetY}px) scale(${this.state.scale * anime.r / 100})`, fillOpacity: anime.oppacity }}
-      onClick={(e) => { this.setState({activeAnime: anime}); e.stopPropagation() }}
+      onClick={(e) => { this.setState({activeAnime: this.state.activeAnime && this.state.activeAnime.title === anime.title ? null : anime}); e.stopPropagation() }}
       onMouseEnter={() => this.setState({ hoveringAnime: anime })}
       onMouseLeave={() => this.setState({ hoveringAnime: null })}
     >
@@ -376,12 +376,12 @@ class BubblePage extends React.Component {
   // Sidebar rendering
 
   renderSidebarContent() {
-    if (this.state.hoveringAnime) {
-      return this.renderAnimeDescription(this.state.hoveringAnime)
-    } else if (this.state.activeAnime) {
+    if (this.state.activeAnime) {
       return this.renderAnimeDescription(this.state.activeAnime)
     } else if (this.state.hoveringGenre) {
       return this.renderGenreDescription(this.state.hoveringGenre)
+    } else if (this.state.hoveringAnime) {
+      return this.renderAnimeDescription(this.state.hoveringAnime)
     } else if (this.state.activeGenre) {
       return this.renderGenreDescription(this.state.activeGenre)
     } else {
@@ -390,17 +390,27 @@ class BubblePage extends React.Component {
   }
 
   renderPageDescription() {
-    return <span>Page description</span>
+    return (
+      [
+        <h2>Number of animes per genre</h2>,
+        <p>In this data visualization, we showcase the distribution of animes across the genres.
+          The size of the bubble is proportional to the number of animes with that genre.
+
+          </p>,
+        <p></p>,
+        <p>Click on a genre to zoom into it. One can then see the 50 animes that represent the most the genre.
+          The displayed number and the size of the bubble represent the number of people that had that anime as favorite</p>,
+        <p>Hover or click on an anime to see more information about the anime</p>,
+      ])
   }
 
   renderGenreDescription(genre) {
     return (
       <div>
         <h2>{genre.name}</h2>
-        <p><span style={{fontWeight: 600}}>Description:</span> {genreDescriptions[genre.name]}</p>
-        <p>Number of animes: {genre.count}</p>
-        <h3>Representative anime</h3>
-        <p>   {genre.representative}</p>
+        <p><span style={{fontWeight: 600}}>Description: </span>{genreDescriptions[genre.name]}</p>
+        <p><span style={{fontWeight: 600}}>Number of animes: </span>{genre.count}</p>
+        <p><span style={{fontWeight: 600}}>Representative anime: </span>{genre.representative}</p>
       </div>
     )
   }
@@ -416,16 +426,16 @@ class BubblePage extends React.Component {
               <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
               <img src={anime.image_url} alt={anime.title} />
         }
-        <p>Favorites: {anime.favorites}</p>
-        <p>Episode count: {anime.episodes}</p>
-        <p>Aired: {anime.aired_string}</p>
-        <p>Type: {anime.type}</p>
-        <p>Source: {anime.source}</p>
-        <p>Duration: {anime.duration}</p>
-        <p>Producer: {anime.producer}</p>
-        <p>Studio: {anime.studio}</p>
-        <p>Genre: {anime.genre}</p>
-        <p>MyAnimeList ID: {anime.anime_id}</p>
+        <p><span style={{fontWeight: 600}}>Favorites: </span>{anime.favorites}</p>
+        <p><span style={{fontWeight: 600}}>Episode count: </span>{anime.episodes}</p>
+        <p><span style={{fontWeight: 600}}>Aired: </span>{anime.aired_string}</p>
+        <p><span style={{fontWeight: 600}}>Type: </span>{anime.type}</p>
+        <p><span style={{fontWeight: 600}}>Source: </span>{anime.source}</p>
+        <p><span style={{fontWeight: 600}}>Duration: </span>{anime.duration}</p>
+        <p><span style={{fontWeight: 600}}>Producer: </span>{anime.producer}</p>
+        <p><span style={{fontWeight: 600}}>Studio: </span>{anime.studio}</p>
+        <p><span style={{fontWeight: 600}}>Genre: </span>{anime.genre}</p>
+        <p><span style={{fontWeight: 600}}>MyAnimeList ID: </span>{anime.anime_id}</p>
       </div>
     )
   }
