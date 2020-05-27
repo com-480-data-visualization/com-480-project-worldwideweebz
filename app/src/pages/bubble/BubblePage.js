@@ -79,7 +79,8 @@ class BubblePage extends React.Component {
       displayedGenres: [],
       showingFilter: false,
       hoveringGenre: null,
-      hoveringAnime: null
+      hoveringAnime: null,
+      exit: false
     }
 
     this.diameter = 600
@@ -125,6 +126,15 @@ class BubblePage extends React.Component {
   componentDidMount() {
     this.updateDimensions()
     window.addEventListener("resize", this.updateDimensions)
+
+    // register callback when route changes
+    this.props.onRouteChange(path => {
+      if (path !== "/bubble") {
+        this.setState({
+          exit: true,
+        })
+      }
+    })
 
     fetch(`${process.env.PUBLIC_URL}/data/genre_data.json`)
       .then(res => res.json())
@@ -287,7 +297,7 @@ class BubblePage extends React.Component {
     bubbleData = bubbleData.filter(genre => this.state.displayedGenres[genre.name])
     return (
       <Wrapper>
-        <Sidebar position={{ left: 0, top: 0 }} appearTransitionClass="fadeInRight">
+        <Sidebar position={{ left: 0, top: 0 }}  appearTransitionClass={this.state.exit ? "fadeOutRight" : "fadeInRight"}>
           <div className="SidebarContent">
             {this.renderSidebarContent()}
           </div>
@@ -402,7 +412,7 @@ class BubblePage extends React.Component {
         </p>
         <p>
           On the right, you can select the genres you want to display.
-          Click on <span style={{fontWeight: 500}}>NONE</span> to remove them all and progressively add the genres you are interested in.
+          Click on <span style={{ fontWeight: 500 }}>NONE</span> to remove them all and progressively add the genres you are interested in.
         </p>
         <p>
           Click on a genre to zoom into it. You can then see the 50 animes that represent the most the genre.
