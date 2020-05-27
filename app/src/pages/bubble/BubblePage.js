@@ -427,6 +427,7 @@ class BubblePage extends React.Component {
       // display close button if anime has been clicked
       this.state.activeAnime ?
         <FontAwesomeIcon icon={faTimesCircle} color="#fff" size="3x"
+          className="close-icon"
           onClick={(event) => this.setState({ activeAnime: null })}
           style={{ float: "right", margin: "0 0 15px 15px", cursor: "pointer" }} />
         : null,
