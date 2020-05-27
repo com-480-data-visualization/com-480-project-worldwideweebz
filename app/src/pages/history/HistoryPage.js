@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuoteLeft } from '@fortawesome/free-solid-svg-icons'
+import { faQuoteLeft, faCircle } from '@fortawesome/free-solid-svg-icons'
 
 import './HistoryPage.sass'
 import scrollHintGif from './scroll_down.gif'
@@ -123,6 +123,13 @@ class HistoryPage extends React.Component {
                 <div id="HistogramBottom">
                     <p>&nbsp;</p>
                 </div>
+                <div class="Scale">
+                    <div class="Gradient">
+                        <p class="ScaleLabel">Episode count scale</p>
+                        <p class="Min">1</p>
+                        <p class="Max">&gt;= 50</p>
+                    </div>
+                </div>
                 <div className="ScrollHint">
                     <div onClick={this.scroll}>
                         <img src={scrollHintGif} alt="Scroll down" />
@@ -152,12 +159,6 @@ class HistoryPage extends React.Component {
                             <p>In this data visualization, we explore the sheer increase in volume of anime production over the years. Each dot is an anime title and its color shade represents its total episode count. We can observe that the number of anime produced per year is steadily growing, and that animes in the 60s tend to have large episode counts over several years, while recent works are generally much shorter, which is explained by an increase of standalone movies, promotional material, OVAs and single-season cours.</p>
 
                             <p>Hover on each dot to learn more about an anime.</p>
-
-                            <div class="Scale">
-                                <p class="ScaleLabel">Episode count scale</p>
-                                <p class="Min">1</p>
-                                <p class="Max">&gt;= 50</p>
-                            </div>
                         </div>
                     ) :
                     (
@@ -170,7 +171,13 @@ class HistoryPage extends React.Component {
                                         <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
                                         <img src={anime.image_url} alt={anime.title} />
                             }
-                            <p>Episode count: {anime.episodes}</p>
+                            <p>
+                                Episode count: {anime.episodes}
+                                <FontAwesomeIcon icon={faCircle}
+                                    color={this.shadeColor("#F59B00", anime.episodes)}
+                                    style={{ marginLeft: "5px", border: "1px solid #666", borderRadius: "100%" }}
+                                />
+                            </p>
                             <p>Aired: {anime.aired_string}</p>
                             <p>Type: {anime.type}</p>
                             <p>Source: {anime.source}</p>
