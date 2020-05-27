@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuoteLeft, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faQuoteLeft, faCircle, faMouse } from '@fortawesome/free-solid-svg-icons'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 
 import './HistoryPage.sass'
@@ -155,7 +155,7 @@ class HistoryPage extends React.Component {
                             <h1>100</h1>
                             <h2>years of anime</h2>
 
-                            <p className="CallToAction">Hover on each dot to learn more about an anime.</p>
+                            <p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> Hover and click on a dot to learn more about an anime.</p>
 
                             <p class="Definition">
                                 <FontAwesomeIcon icon={faQuoteLeft} color="#eee" size="3x" style={{ float: "left", margin: "0 10px 0 0" }} />
