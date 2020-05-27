@@ -155,7 +155,7 @@ class HistoryPage extends React.Component {
                             <h1>100</h1>
                             <h2>years of anime</h2>
 
-                            <p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> Hover and click on a dot to learn more about an anime.</p>
+                            <p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> Hover / click on a dot to learn more about an anime</p>
 
                             <p class="Definition">
                                 <FontAwesomeIcon icon={faQuoteLeft} color="#eee" size="3x" style={{ float: "left", margin: "0 10px 0 0" }} />
