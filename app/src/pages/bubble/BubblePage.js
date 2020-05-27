@@ -69,8 +69,9 @@ class BubblePage extends React.Component {
     this.state = {
       genres: [],
       subBubble: [],
-      width: 0,
-      height: 0,
+      offsetX: 0,
+      offsetY: 0,
+      scale: 0,
       activeGenre: null,
       displayedGenres: [],
       showingFilter: false,
@@ -80,17 +81,19 @@ class BubblePage extends React.Component {
 
     this.diameter = 600
     this.radius = this.diameter / 2
-    this.moved = false
-    this.count = 0
+    this.ratio = 0.8
     this.displayState = DisplayState.FETCHING
     this.updateDimensions = this.updateDimensions.bind(this)
   }
 
   updateDimensions() {
     const bubble_root = document.getElementById("bubble-root")
+    const bubbleRootSize = Math.min(bubble_root.clientWidth, bubble_root.clientHeight)
+    const offset = (1 - this.ratio) * bubbleRootSize / 2
     this.setState({
-      width: bubble_root.clientWidth,
-      height: bubble_root.clientHeight,
+      offsetX: offset + (bubble_root.clientWidth - bubbleRootSize) / 2,
+      offsetY: offset + (bubble_root.clientHeight - bubbleRootSize) / 2,
+      scale: this.ratio * bubbleRootSize / this.diameter,
     })
   }
 
@@ -168,6 +171,7 @@ class BubblePage extends React.Component {
           x: bubblePositions[idx].x,
           y: bubblePositions[idx].y,
           r: bubblePositions[idx].r,
+          oppacity: 1.0
         }
       }),
 
@@ -261,7 +265,7 @@ class BubblePage extends React.Component {
       case DisplayState.DISPLAY:
         if (this.state.activeGenre !== "") {
           this.displayState = DisplayState.FOCUSED
-          focusedData = focusedData.map(anime => Object.assign(Object.assign({}, anime), { x: this.radius, y: this.radius, r: 0 }))
+          focusedData = focusedData.map(anime => Object.assign(Object.assign({}, anime), {oppacity: 0.0}))
           setTimeout(() => this.forceUpdate(), 0)
         }
         break
@@ -287,7 +291,7 @@ class BubblePage extends React.Component {
             <div id="bubble-return"
               style={{ display: (this.state.activeGenre ? "inline-block" : "none") }}
               onClick={() => this.resetGenre()}>Reset chart</div>
-            <svg>
+            <svg onClick={() =>  this.resetGenre()}>
               <defs>
                 <pattern id="nsfw" height="100%" width="100%" patternContentUnits="objectBoundingBox">
                   <image height="1" width="1" xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" href={`${process.env.PUBLIC_URL}/img/nsfw.png`}></image>
@@ -314,10 +318,10 @@ class BubblePage extends React.Component {
 
   renderGenreBubble(genre) {
     return <g
-      className={"bubble" + (this.state.activeGenre && genre.name === this.state.activeGenre.name ? " active-genre" : "")}
+      className={"bubble genre" + (this.state.activeGenre && genre.name === this.state.activeGenre.name ? " active-genre" : "")}
       key={genre.name}
-      style={{transform: `translate(${genre.x + (this.state.width - this.diameter) / 2}px, ${genre.y + (this.state.height - this.diameter) / 2}px) scale(${genre.r / 100})` }}
-      onClick={() => this.focusGenre(genre)}
+      style={{transform: `translate(${this.state.scale * genre.x + this.state.offsetX}px, ${this.state.scale * genre.y + this.state.offsetY}px) scale(${this.state.scale * genre.r / 100})` }}
+      onClick={(e) => {this.focusGenre(genre); e.stopPropagation()}}
       onMouseEnter={() => this.setState({hoveringGenre: genre})}
       onMouseLeave={() => this.setState({hoveringGenre: null})}
     >
@@ -330,9 +334,9 @@ class BubblePage extends React.Component {
 
   renderAnimeBubble(anime) {
     return <g
-      className="bubble"
+      className="bubble anime"
       key={anime.name}
-      style={{ transform: `translate(${anime.x + (this.state.width - this.diameter) / 2}px, ${anime.y + (this.state.height - this.diameter) / 2}px) scale(${anime.r / 100})` }}
+      style={{ transform: `translate(${this.state.scale * anime.x + this.state.offsetX}px, ${this.state.scale * anime.y + this.state.offsetY}px) scale(${this.state.scale * anime.r / 100})`, fillOpacity: anime.oppacity }}
       onMouseEnter={() => this.setState({hoveringAnime: anime.name})}
       onMouseLeave={() => this.setState({hoveringAnime: null})}
     >
