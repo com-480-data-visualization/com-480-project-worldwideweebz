@@ -88,7 +88,8 @@ class HistoryPage extends React.Component {
         })
     }
 
-    setClicked(anime) {
+    setClicked(anime, event) {
+        event.stopPropagation()
         this.setState({
             clicked: anime,
         })
@@ -104,7 +105,7 @@ class HistoryPage extends React.Component {
 
     renderHistogram() {
         return (
-            <div id="Histogram" onClick={() => this.setClicked(null)}>
+            <div id="Histogram" onClick={(event) => this.setClicked(null, event)}>
                 {Object.entries(this.state.data).map((yearToAnime, index) => {
                     const [year, animes] = yearToAnime
                     const animationDelay = `${index * 0.01 % 0.5}s`
@@ -118,7 +119,7 @@ class HistoryPage extends React.Component {
                                         <div className="dot"
                                             onMouseEnter={this.state.clicked === null ? () => this.setSelected(anime) : () => { }}
                                             onMouseLeave={this.state.clicked === null ? () => this.setSelected(null) : () => { }}
-                                            onClick={() => this.setClicked(anime)}
+                                            onClick={(event) => this.setClicked(anime, event)}
                                             key={anime.anime_id}
                                             style={bgColor}>
                                             <p>&nbsp;</p>
