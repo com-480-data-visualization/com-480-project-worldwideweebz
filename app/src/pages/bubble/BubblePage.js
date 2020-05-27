@@ -44,7 +44,7 @@ const genreDescriptions = {
   "Samurai": `Anime whose main character(s) are samurai, the old, but not forgotten, warrior cast of medieval Japan.`,
   "School": `Anime which are mainly set in a school environment.`,
   "Sci-Fi": `Anime where the setting is based on the technology and tools of a scientifically imaginable world. The majority of technologies presented are not available in the present day and therefore the Science is Fiction. This incorporates any possible place (planets, space, underwater, you name it).`,
-  "Seinen": ``,
+  "Seinen": `Seinen is a genre/demographic that is aimed primarily at the male, college-aged/young adult demographic. Seinen anime and manga tend to be a little bit more mature than it’s counterpart, Shounen, which is aimed at younger boys.`,
   "Shoujo": `Anime that are targeted towards the "young girl" market. Usually the story is from the point of view of a girl and deals with romance, drama or magic.`,
   "Shoujo Ai": `Anime whose central theme is about a relationship (or strong affection, not usually sexual) between two girls or women. Shoujo Ai literally means "girl love".`,
   "Shounen": `Anime that are targeted towards the "young boy" market. The usual topics for this involve fighting, friendship and sometimes super powers.`,
@@ -133,10 +133,10 @@ class BubblePage extends React.Component {
           displayedGenres: this.data.reduce((result, item) => {
             result[item.name] = true
             return result
-          }, {})
+          }, {}),
+          showingFilter: true
         })
         this.createGenreBubble()
-        this.state.showingFilter = true
       })
 
     fetch(`${process.env.PUBLIC_URL}/data/genre_top_animes_data.json`)
@@ -394,52 +394,49 @@ class BubblePage extends React.Component {
   renderPageDescription() {
     return (
       [
-        <h2>Number of animes per genre</h2>,
+        <h1>43</h1>,<h2>genres to classify them all</h2>,
         <p>In this data visualization, we showcase the distribution of animes across the genres.
         The size of the bubble is proportional to the number of animes with that genre.
 
           </p>,
         <p></p>,
         <p>Click on a genre to zoom into it. One can then see the 50 animes that represent the most the genre.
-          The displayed number and the size of the bubble represent the number of people that had that anime as favorite</p>,
-        <p>Hover or click on an anime to see more information about the anime</p>,
+          The displayed number and the size of the bubble represent the number of people that had that anime as favorite.</p>,
+        <p>Hover or click on an anime to see more information about the anime.</p>,
       ])
   }
 
   renderGenreDescription(genre) {
-    return (
-      <div>
-        <h2>{genre.name}</h2>
-        <p><span style={{ fontWeight: 600 }}>Description: </span>{genreDescriptions[genre.name]}</p>
-        <p><span style={{ fontWeight: 600 }}>Number of animes: </span>{genre.count}</p>
-        <p><span style={{ fontWeight: 600 }}>Representative anime: </span>{genre.representative}</p>
-      </div>
-    )
+    return [
+      <h2>{genre.name}</h2>,
+      <p><span style={{ fontWeight: 600 }}>Description: </span>{genreDescriptions[genre.name]}</p>,
+      <p><span style={{ fontWeight: 600 }}>Number of animes: </span>{genre.count}</p>,
+      <p><span style={{ fontWeight: 600 }}>Representative anime: </span>{genre.representative}</p>,
+    ]
   }
 
   renderAnimeDescription(anime) {
-    return (
-      <div className="AnimeDetails">
-        <h2>{anime.title}</h2>
-        { // Image should not be null
-          (anime.image_url === null) ? null :
-            // If settings disable NSFW, check if anime.genre exists and contains sensitive genres
-            ("genre" in anime && Config.detectNSFW(anime.genre.toString())) ?
-              <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
-              <img src={anime.image_url} alt={anime.title} />
-        }
-        <p><span style={{ fontWeight: 600 }}>Favorites: </span>{anime.favorites}</p>
-        <p><span style={{ fontWeight: 600 }}>Episode count: </span>{anime.episodes}</p>
-        <p><span style={{ fontWeight: 600 }}>Aired: </span>{anime.aired_string}</p>
-        <p><span style={{ fontWeight: 600 }}>Type: </span>{anime.type}</p>
-        <p><span style={{ fontWeight: 600 }}>Source: </span>{anime.source}</p>
-        <p><span style={{ fontWeight: 600 }}>Duration: </span>{anime.duration}</p>
-        <p><span style={{ fontWeight: 600 }}>Producer: </span>{anime.producer}</p>
-        <p><span style={{ fontWeight: 600 }}>Studio: </span>{anime.studio}</p>
-        <p><span style={{ fontWeight: 600 }}>Genre: </span>{anime.genre}</p>
-        <p><span style={{ fontWeight: 600 }}>MyAnimeList ID: </span>{anime.anime_id}</p>
-      </div>
-    )
+    return [
+        <h2>{anime.title}</h2>,
+         // Image should not be null
+        (anime.image_url === null) ? null :
+          // If settings disable NSFW, check if anime.genre exists and contains sensitive genres
+          ("genre" in anime && Config.detectNSFW(anime.genre.toString())) ?
+            <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
+            <img src={anime.image_url} alt={anime.title} />
+        ,
+        <p><span style={{ fontWeight: 600 }}>Favorites: </span>{anime.favorites}</p>,
+        <p><span style={{ fontWeight: 600 }}>Score: </span>{anime.score}</p>,
+        <p><span style={{ fontWeight: 600 }}>Episode count: </span>{anime.episodes}</p>,
+        <p><span style={{ fontWeight: 600 }}>Aired: </span>{anime.aired_string}</p>,
+        <p><span style={{ fontWeight: 600 }}>Type: </span>{anime.type}</p>,
+        <p><span style={{ fontWeight: 600 }}>Source: </span>{anime.source}</p>,
+        <p><span style={{ fontWeight: 600 }}>Duration: </span>{anime.duration}</p>,
+        <p><span style={{ fontWeight: 600 }}>Producer: </span>{anime.producer}</p>,
+        <p><span style={{ fontWeight: 600 }}>Studio: </span>{anime.studio}</p>,
+        <p><span style={{ fontWeight: 600 }}>Genre: </span>{anime.genre}</p>,
+        <p><span style={{ fontWeight: 600 }}>MyAnimeList ID: </span>{anime.anime_id}</p>,
+    ]
   }
 }
 
