@@ -34,24 +34,24 @@ const WithMenu = (Component) => {
         // link transition with animation
         linkTo(path) {
             return (this.props.location.pathname === path) ? () => { /* do nothing if path is current */ } :
-            () => {
-                // trigger callback in children
-                this.routeChangeCallbacks.forEach(cb => cb(path))
-                this.props.linkTo(path)
-            }
+                () => {
+                    // trigger callback in children
+                    this.routeChangeCallbacks.forEach(cb => cb(path))
+                    this.props.linkTo(path)
+                }
         }
 
         // finds the neighbor link path
         // @param next boolean: finds next if true, otherwise finds prev
         findNeighbor(next) {
-            const idx = menuRoutes.findIndex(e => e.path == this.props.location.pathname)
+            const idx = menuRoutes.findIndex(e => e.path === this.props.location.pathname)
             if (idx < 0 || idx >= menuRoutes.length) { return "/" }
             else if (next) {
-                if (idx == menuRoutes.length - 1) return "/"
+                if (idx === menuRoutes.length - 1) return "/"
                 return menuRoutes[idx + 1].path
             }
             else {
-                if (idx == 0) return "/"
+                if (idx === 0) return "/"
                 return menuRoutes[idx - 1].path
             }
         }
@@ -61,6 +61,7 @@ const WithMenu = (Component) => {
             this.routeChangeCallbacks.push(callback)
         }
 
+        /* eslint-disable jsx-a11y/anchor-is-valid */
         render() {
             const navContent = menuRoutes.map(e =>
                 <a onClick={this.linkTo(e.path)} className={this.current(e.path)}>{e.text}</a>)
