@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/com-480-project-worldwideweebz/static/css/main.3d2fcbaa.chunk.css",
-    "main.js": "/com-480-project-worldwideweebz/static/js/main.69a65c80.chunk.js",
-    "main.js.map": "/com-480-project-worldwideweebz/static/js/main.69a65c80.chunk.js.map",
+    "main.css": "/com-480-project-worldwideweebz/static/css/main.531cd13e.chunk.css",
+    "main.js": "/com-480-project-worldwideweebz/static/js/main.5894ada2.chunk.js",
+    "main.js.map": "/com-480-project-worldwideweebz/static/js/main.5894ada2.chunk.js.map",
     "runtime-main.js": "/com-480-project-worldwideweebz/static/js/runtime-main.ee77af2e.js",
     "runtime-main.js.map": "/com-480-project-worldwideweebz/static/js/runtime-main.ee77af2e.js.map",
     "xlsx.js": "/com-480-project-worldwideweebz/static/js/xlsx.37a07fef.chunk.js",
@@ -16,9 +16,9 @@
     "static/js/6.8742f38f.chunk.js": "/com-480-project-worldwideweebz/static/js/6.8742f38f.chunk.js",
     "static/js/6.8742f38f.chunk.js.map": "/com-480-project-worldwideweebz/static/js/6.8742f38f.chunk.js.map",
     "index.html": "/com-480-project-worldwideweebz/index.html",
-    "precache-manifest.9d506ec9edcd0a7872c4fddf3f5a9a38.js": "/com-480-project-worldwideweebz/precache-manifest.9d506ec9edcd0a7872c4fddf3f5a9a38.js",
+    "precache-manifest.b8a58debcd1c637ab9b1470884e1833f.js": "/com-480-project-worldwideweebz/precache-manifest.b8a58debcd1c637ab9b1470884e1833f.js",
     "service-worker.js": "/com-480-project-worldwideweebz/service-worker.js",
-    "static/css/main.3d2fcbaa.chunk.css.map": "/com-480-project-worldwideweebz/static/css/main.3d2fcbaa.chunk.css.map",
+    "static/css/main.531cd13e.chunk.css.map": "/com-480-project-worldwideweebz/static/css/main.531cd13e.chunk.css.map",
     "static/js/4.5a1b8672.chunk.js.LICENSE.txt": "/com-480-project-worldwideweebz/static/js/4.5a1b8672.chunk.js.LICENSE.txt",
     "static/js/5.b72e7d63.chunk.js.LICENSE.txt": "/com-480-project-worldwideweebz/static/js/5.b72e7d63.chunk.js.LICENSE.txt",
     "static/js/6.8742f38f.chunk.js.LICENSE.txt": "/com-480-project-worldwideweebz/static/js/6.8742f38f.chunk.js.LICENSE.txt",
@@ -34,7 +34,7 @@
   "entrypoints": [
     "static/js/runtime-main.ee77af2e.js",
     "static/js/4.5a1b8672.chunk.js",
-    "static/css/main.3d2fcbaa.chunk.css",
-    "static/js/main.69a65c80.chunk.js"
+    "static/css/main.531cd13e.chunk.css",
+    "static/js/main.5894ada2.chunk.js"
   ]
 }
