@@ -1,5 +1,4 @@
 import React from 'react'
-import { Scrollbars } from 'react-custom-scrollbars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuoteLeft, faCircle } from '@fortawesome/free-solid-svg-icons'
 
@@ -138,53 +137,51 @@ class HistoryPage extends React.Component {
         const anime = this.state.selected
         return (
             <div id="HistogramDetails">
-                <Scrollbars style={{ height: "calc(100% - 80px)" }}>
-                    {anime === null ?
-                        (
-                            <div className="Infos">
-                                <h1>100</h1>
-                                <h2>years of anime</h2>
+                {anime === null ?
+                    (
+                        <div className="Infos">
+                            <h1>100</h1>
+                            <h2>years of anime</h2>
 
-                                <p class="Definition">
-                                    <FontAwesomeIcon icon={faQuoteLeft} color="#eee" size="3x" style={{ float: "left", margin: "0 10px 0 0" }} />
+                            <p class="Definition">
+                                <FontAwesomeIcon icon={faQuoteLeft} color="#eee" size="3x" style={{ float: "left", margin: "0 10px 0 0" }} />
                                 Anime (Japanese: アニメ) is hand-drawn and computer animation originating from Japan often characterized by colorful graphics, vibrant characters and fantastical themes. The earliest commercial Japanese animation dates to 1917, and Japanese anime production has since continued to increase steadily. The characteristic anime art style emerged in the 1960s with the works of Osamu Tezuka and spread internationally in the late 20th century. Japanese anime accounted for 60% of the world's animated television shows as of 2016.
                                 <br /><span style={{ float: "right" }}>"Anime" on wikipedia.org</span>
-                                </p>
+                            </p>
 
-                                <p>In this data visualization, we explore the sheer increase in volume of anime production over the years. Each dot is an anime title and its color shade represents its total episode count. We can observe that the number of anime produced per year is steadily growing, and that animes in the 60s tend to have large episode counts over several years, while recent works are generally much shorter, which is explained by an increase of standalone movies, promotional material, OVAs and single-season cours.</p>
+                            <p>In this data visualization, we explore the sheer increase in volume of anime production over the years. Each dot is an anime title and its color shade represents its total episode count. We can observe that the number of anime produced per year is steadily growing, and that animes in the 60s tend to have large episode counts over several years, while recent works are generally much shorter, which is explained by an increase of standalone movies, promotional material, OVAs and single-season cours.</p>
 
-                                <p>Hover on each dot to learn more about an anime.</p>
-                            </div>
-                        ) :
-                        (
-                            <div className="AnimeDetails">
-                                <h2>{anime.title}</h2>
-                                { // Image should not be null
-                                    (anime.image_url === null) ? null :
-                                        // If settings disable NSFW, check if anime.genre exists and contains sensitive genres
-                                        ("genre" in anime && Config.detectNSFW(anime.genre)) ?
-                                            <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
-                                            <img src={anime.image_url} alt={anime.title} />
-                                }
-                                <p>
-                                    Episode count: {anime.episodes}
-                                    <FontAwesomeIcon icon={faCircle}
-                                        color={this.shadeColor("#F59B00", anime.episodes)}
-                                        style={{ marginLeft: "5px", border: "1px solid #666", borderRadius: "100%" }}
-                                    />
-                                </p>
-                                <p>Aired: {anime.aired_string}</p>
-                                <p>Type: {anime.type}</p>
-                                <p>Source: {anime.source}</p>
-                                <p>Duration: {anime.duration}</p>
-                                <p>Producer: {anime.producer}</p>
-                                <p>Studio: {anime.studio}</p>
-                                <p>Genre: {anime.genre}</p>
-                                <p>MyAnimeList ID: {anime.anime_id}</p>
-                            </div>
-                        )
-                    }
-                </Scrollbars>
+                            <p>Hover on each dot to learn more about an anime.</p>
+                        </div>
+                    ) :
+                    (
+                        <div className="AnimeDetails">
+                            <h2>{anime.title}</h2>
+                            { // Image should not be null
+                                (anime.image_url === null) ? null :
+                                    // If settings disable NSFW, check if anime.genre exists and contains sensitive genres
+                                    ("genre" in anime && Config.detectNSFW(anime.genre)) ?
+                                        <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
+                                        <img src={anime.image_url} alt={anime.title} />
+                            }
+                            <p>
+                                Episode count: {anime.episodes}
+                                <FontAwesomeIcon icon={faCircle}
+                                    color={this.shadeColor("#F59B00", anime.episodes)}
+                                    style={{ marginLeft: "5px", border: "1px solid #666", borderRadius: "100%" }}
+                                />
+                            </p>
+                            <p>Aired: {anime.aired_string}</p>
+                            <p>Type: {anime.type}</p>
+                            <p>Source: {anime.source}</p>
+                            <p>Duration: {anime.duration}</p>
+                            <p>Producer: {anime.producer}</p>
+                            <p>Studio: {anime.studio}</p>
+                            <p>Genre: {anime.genre}</p>
+                            <p>MyAnimeList ID: {anime.anime_id}</p>
+                        </div>
+                    )
+                }
                 <div class="Scale">
                     <div class="Gradient">
                         <p class="ScaleLabel">Episode count scale</p>
