@@ -1,6 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuoteLeft, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 
 import './HistoryPage.sass'
 import scrollHintGif from './scroll_down.gif'
@@ -88,9 +89,11 @@ class HistoryPage extends React.Component {
         })
     }
 
-    setClicked(anime) {
+    setClicked(anime, event) {
+        if (event !== undefined) { event.stopPropagation() }
         this.setState({
             clicked: anime,
+            selected: null, // must be set otherwise stuck until set again
         })
     }
 
@@ -104,7 +107,7 @@ class HistoryPage extends React.Component {
 
     renderHistogram() {
         return (
-            <div id="Histogram" onClick={() => this.setClicked(null)}>
+            <div id="Histogram" onClick={(event) => this.setClicked(null, event)}>
                 {Object.entries(this.state.data).map((yearToAnime, index) => {
                     const [year, animes] = yearToAnime
                     const animationDelay = `${index * 0.01 % 0.5}s`
@@ -118,7 +121,7 @@ class HistoryPage extends React.Component {
                                         <div className="dot"
                                             onMouseEnter={this.state.clicked === null ? () => this.setSelected(anime) : () => { }}
                                             onMouseLeave={this.state.clicked === null ? () => this.setSelected(null) : () => { }}
-                                            onClick={() => this.setClicked(anime)}
+                                            onClick={(event) => this.setClicked(anime, event)}
                                             key={anime.anime_id}
                                             style={bgColor}>
                                             <p>&nbsp;</p>
@@ -165,6 +168,13 @@ class HistoryPage extends React.Component {
                     ) :
                     (
                         <div className="AnimeDetails">
+                            { // display close button if anime has been clicked
+                                this.state.clicked === null ? null :
+                                    <FontAwesomeIcon icon={faTimesCircle} color="#fff" size="3x"
+                                        onClick={(event) => this.setClicked(null, event)}
+                                        style={{ float: "right", margin: "0 0 15px 15px", cursor: "pointer" }} />
+                            }
+
                             <h2>{anime.title}</h2>
                             { // Image should not be null
                                 (anime.image_url === null) ? null :
