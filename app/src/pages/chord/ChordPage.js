@@ -43,10 +43,10 @@ class ChordPage extends React.Component {
 	render() {
 		return (
 			<Wrapper>
-				<GraphView>
+				<GraphView position={{ right: 0 }}>
 					<div id="Chord">
-						<div id="chartdiv" style={{ top: 60, width: "100%", height: "95vh" }}></div>
-						<table id="chart-options" style={{ position: "fixed", top: 60, left: 0 }}>
+						<div id="chartdiv"></div>
+						<table id="chart-options">
 							<tr>
 								<td><label for="filter">Voice actors language: </label></td>
 								<td><select id="filter">
@@ -76,7 +76,7 @@ class ChordPage extends React.Component {
 						</table>
 					</div>
 				</GraphView>
-				<Sidebar appearTransitionClass="fadeInLeft" position={{ top: 0, left: 0 }}>
+				<Sidebar position={{ top: 0, left: 0 }}>
 					<div className="SidebarContent">
 						{ // Show close button if any details info is shown
 							this.state.actor === null ? null :
