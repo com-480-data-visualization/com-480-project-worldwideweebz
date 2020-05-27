@@ -92,6 +92,7 @@ class HistoryPage extends React.Component {
         event.stopPropagation()
         this.setState({
             clicked: anime,
+            selected: null, // must be set otherwise stuck until set again
         })
     }
 
