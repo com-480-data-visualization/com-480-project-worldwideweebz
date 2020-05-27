@@ -74,6 +74,7 @@ class BubblePage extends React.Component {
       offsetY: 0,
       scale: 0,
       activeGenre: null,
+      activeAnime: null,
       displayedGenres: [],
       showingFilter: false,
       hoveringGenre: null,
@@ -206,7 +207,8 @@ class BubblePage extends React.Component {
         }
       }),
 
-      activeGenre: focusedGenre
+      activeGenre: focusedGenre,
+      activeAnime: null
     })
     this.displayState = DisplayState.DISPLAY
   }
@@ -221,7 +223,8 @@ class BubblePage extends React.Component {
     this.setState({
       subBubble: [],
       activeGenre: null,
-      genres: data
+      genres: data,
+      activeAnime: null,
     })
   }
 
@@ -335,13 +338,14 @@ class BubblePage extends React.Component {
 
   renderAnimeBubble(anime) {
     return <g
-      className="bubble anime"
+      className={"bubble anime"  + (this.state.activeAnime && anime.name === this.state.activeAnime.name ? " active-anime" : "")}
       key={anime.name}
       style={{ transform: `translate(${this.state.scale * anime.x + this.state.offsetX}px, ${this.state.scale * anime.y + this.state.offsetY}px) scale(${this.state.scale * anime.r / 100})`, fillOpacity: anime.oppacity }}
+      onClick={(e) => { this.setState({activeAnime: anime}); e.stopPropagation() }}
       onMouseEnter={() => this.setState({ hoveringAnime: anime })}
       onMouseLeave={() => this.setState({ hoveringAnime: null })}
     >
-      <circle r="100" style={{ fill: `url(#${Config.detectNSFW(anime.genre.toString()) ? "nsfw" : anime.name.replace(/\s/g, '')})` }}></circle>
+      <circle r="100" style={{ fill: `url(#${Config.detectNSFW(anime.genre.toString()) ? "nsfw" : anime.title.replace(/\s/g, '')})` }}></circle>
       <text dy=".2em"
         fontFamily="sans-serif" fontSize="20" fill="white">{cropText(anime.name, 18)}</text>
       <text dy="1.3em" fontFamily="Gill Sans" fontSize="20" fill="white">{anime.favorites}</text>
@@ -350,7 +354,7 @@ class BubblePage extends React.Component {
 
   renderGenreFiltering() {
     return <div id="filter-genres" style={this.state.activeGenre ? { display: "none" } : {}}>
-      <div id="show-filter" onClick={() => this.setState({ showingFilter: !this.state.showingFilter })}>Filter the genres <FontAwesomeIcon icon={faChevronDown} style={{ width: "16px", height: "16px" }} /></div>
+      <div id="show-filter" onClick={() => this.setState({ showingFilter: !this.state.showingFilter })}>Filter the genres <FontAwesomeIcon icon={this.state.showingFilter ? faChevronUp : faChevronDown} style={{ width: "16px", height: "16px" }} /></div>
       <ul style={this.state.showingFilter ? { maxHeight: `${this.state.height - 40}px`, overflowY: "scroll" } : {}}>
         <ul className="pin">
           <li onClick={() => this.setAllGenresDisplayTo(true)}
@@ -374,6 +378,8 @@ class BubblePage extends React.Component {
   renderSidebarContent() {
     if (this.state.hoveringAnime) {
       return this.renderAnimeDescription(this.state.hoveringAnime)
+    } else if (this.state.activeAnime) {
+      return this.renderAnimeDescription(this.state.activeAnime)
     } else if (this.state.hoveringGenre) {
       return this.renderGenreDescription(this.state.hoveringGenre)
     } else if (this.state.activeGenre) {
@@ -388,12 +394,15 @@ class BubblePage extends React.Component {
   }
 
   renderGenreDescription(genre) {
-    return (<div>
-      <h2>{genre.name}</h2>
-      <p>{genreDescriptions[genre.name]}</p>
-      <h3>Representative anime</h3>
-      <p>   {genre.representative}</p>
-    </div>)
+    return (
+      <div>
+        <h2>{genre.name}</h2>
+        <p><span style={{fontWeight: 600}}>Description:</span> {genreDescriptions[genre.name]}</p>
+        <p>Number of animes: {genre.count}</p>
+        <h3>Representative anime</h3>
+        <p>   {genre.representative}</p>
+      </div>
+    )
   }
 
   renderAnimeDescription(anime) {
@@ -403,10 +412,11 @@ class BubblePage extends React.Component {
         { // Image should not be null
           (anime.image_url === null) ? null :
             // If settings disable NSFW, check if anime.genre exists and contains sensitive genres
-            ("genre" in anime && Config.detectNSFW(anime.genre)) ?
+            ("genre" in anime && Config.detectNSFW(anime.genre.toString())) ?
               <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
               <img src={anime.image_url} alt={anime.title} />
         }
+        <p>Favorites: {anime.favorites}</p>
         <p>Episode count: {anime.episodes}</p>
         <p>Aired: {anime.aired_string}</p>
         <p>Type: {anime.type}</p>
