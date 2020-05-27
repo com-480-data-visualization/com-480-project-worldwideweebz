@@ -155,6 +155,8 @@ class HistoryPage extends React.Component {
                             <h1>100</h1>
                             <h2>years of anime</h2>
 
+                            <p className="CallToAction">Hover on each dot to learn more about an anime.</p>
+
                             <p class="Definition">
                                 <FontAwesomeIcon icon={faQuoteLeft} color="#eee" size="3x" style={{ float: "left", margin: "0 10px 0 0" }} />
                                 Anime (Japanese: アニメ) is hand-drawn and computer animation originating from Japan often characterized by colorful graphics, vibrant characters and fantastical themes. The earliest commercial Japanese animation dates to 1917, and Japanese anime production has since continued to increase steadily. The characteristic anime art style emerged in the 1960s with the works of Osamu Tezuka and spread internationally in the late 20th century. Japanese anime accounted for 60% of the world's animated television shows as of 2016.
@@ -162,8 +164,6 @@ class HistoryPage extends React.Component {
                             </p>
 
                             <p>In this data visualization, we explore the sheer increase in volume of anime production over the years. Each dot is an anime title and its color shade represents its total episode count. We can observe that the number of anime produced per year is steadily growing, and that animes in the 60s tend to have large episode counts over several years, while recent works are generally much shorter, which is explained by an increase of standalone movies, promotional material, OVAs and single-season cours.</p>
-
-                            <p>Hover on each dot to learn more about an anime.</p>
                         </div>
                     ) :
                     (
