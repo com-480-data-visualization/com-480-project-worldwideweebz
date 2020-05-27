@@ -38,14 +38,14 @@ class SankeyPage extends React.Component {
         this.chart = constructSankey(json, this.setDisplay)
       })
 
-      // register callback when route changes
-      this.props.onRouteChange(path => {
-          if (path !== "/sankey") {
-              this.setState({
-                  exit: true,
-              })
-          }
-      })
+    // register callback when route changes
+    this.props.onRouteChange(path => {
+      if (path !== "/sankey") {
+        this.setState({
+          exit: true,
+        })
+      }
+    })
   }
 
   componentWillUnmount() {

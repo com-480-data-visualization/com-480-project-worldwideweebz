@@ -2,15 +2,12 @@ import * as am4core from "@amcharts/amcharts4/core"
 import * as am4charts from "@amcharts/amcharts4/charts"
 import am4themes_animated from "@amcharts/amcharts4/themes/animated"
 
-const constructChord = function (json) {
+const constructChord = function (json, setActor) {
 
 	var chart = am4core.create("chartdiv", am4charts.ChordDiagram)
 	chart.hiddenState.properties.opacity = 0
 
 	am4core.useTheme(am4themes_animated)
-
-	const colorMale = "#93B5C6"
-	const colorFemale = "#BD4F6C"
 
 	var data = json
 
@@ -81,8 +78,8 @@ const constructChord = function (json) {
 	chart.nonRibbon = true
 	chart.startAngle = 270
 	chart.endAngle = 630
-	chart.dy=-100
-	chart.contentValign= "middle"
+	chart.dy = -100
+	chart.contentValign = "middle"
 	chart.height = am4core.percent(60)
 
 	var node = chart.nodes.template
@@ -137,43 +134,23 @@ const constructChord = function (json) {
 	legend.toggable = false
 	legend.events.off("hit")
 	legend.parent = chart.chartContainer
-	legend.dy = 50
+	legend.dy = 350
+	legend.dx = -30
 	legend.width = 400
 	legend.align = "left"
-	legend.data = [
-	/*{
-		"name": "Male",
-		"fill": colorMale,
-		"fillOpacity": 0.2
+	legend.data = [{
+		"name": "Favorites below 250",
+		"fill": "green"
 	}, {
-		"name": "Female",
-		"fill": colorFemale
-	},*/ {
-			"name": "Member Favorites below 250",
-			"fill": "green"
-		}, {
-			"name": "Member Favorites between 251 and 1000",
-			"fill": "yellow"
-		}, {
-			"name": "Member Favorites between 1001 and 2500",
-			"fill": "orange",
-		}, {
-			"name": "Member Favorites over 2500",
-			"fill": "red"
-		}]
-
-	/*var buttonGd = chart.chartContainer.createChild(am4core.Button)
-	buttonGd.label.text = "Sort by\nGender"
-	buttonGd.contentValign = "top"
-	buttonGd.contentAlign = "center"
-	buttonGd.height = 50
-	buttonGd.width = 170
-	buttonGd.dx = 20
-	buttonGd.dy = 250
-	buttonGd.events.on("hit", function() {
-		chart.data = sortData(data[actualTop][actualLanguage], "gender")
-		chart.invalidateData()
-	})*/
+		"name": "Favorites between 251 and 1000",
+		"fill": "yellow"
+	}, {
+		"name": "Favorites between 1001 and 2500",
+		"fill": "orange",
+	}, {
+		"name": "Favorites over 2500",
+		"fill": "red"
+	}]
 
 	var buttonPop = chart.chartContainer.createChild(am4core.Button)
 	buttonPop.label.text = "Sort by\nPopularity"
@@ -182,21 +159,21 @@ const constructChord = function (json) {
 	buttonPop.height = 50
 	buttonPop.width = 170
 	buttonPop.dx = 20
-	buttonPop.dy = 250
+	buttonPop.dy = 50
 	buttonPop.events.on("hit", function () {
 		chart.data = sortData(data[actualTop][actualLanguage], "popularity")
 		chart.invalidateData()
 	})
 
 	var buttonAO = chart.chartContainer.createChild(am4core.Button)
-	buttonAO.label.text = "     Sort by\nalphabetical order"
+	buttonAO.label.text = "Sort by\nalphabetical order"
 	buttonAO.contentValign = "top"
 	buttonAO.contentAlign = "center"
 	buttonAO.height = 50
 	buttonAO.width = 170
 	buttonAO.hover = true
 	buttonAO.dx = 20
-	buttonAO.dy = 305
+	buttonAO.dy = 105
 	buttonAO.events.on("hit", function () {
 		chart.data = sortData(data[actualTop][actualLanguage], "name")
 		chart.invalidateData()
