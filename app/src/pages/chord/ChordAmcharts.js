@@ -72,7 +72,7 @@ const constructChord = function (json) {
 
 	var title = chart.titles.create()
 	title.text = ""
-	title.marginBottom = 20
+	title.marginBottom = 0
 
 	chart.dataFields.fromName = "from"
 	chart.dataFields.toName = "to"
@@ -81,7 +81,9 @@ const constructChord = function (json) {
 	chart.nonRibbon = true
 	chart.startAngle = 270
 	chart.endAngle = 630
-	chart.height = am4core.percent(80)
+	chart.dy=-100
+	chart.contentValign= "middle"
+	chart.height = am4core.percent(60)
 
 	var node = chart.nodes.template
 	node.fillOpacity = 0.4
@@ -135,7 +137,7 @@ const constructChord = function (json) {
 	legend.toggable = false
 	legend.events.off("hit")
 	legend.parent = chart.chartContainer
-	legend.dy = 20
+	legend.dy = 50
 	legend.width = 400
 	legend.align = "left"
 	legend.data = [
