@@ -16,7 +16,6 @@ const constructSankey = function (json) {
 	chart.dataFields.fromName = "from";
 	chart.dataFields.toName = "to";
 	chart.dataFields.value = "value";
-	chart.sortBy = "name";
 	chart.propertyFields.id = "studio";
 	chart.paddingRight = 100;
 	chart.paddingBottom = 40;
@@ -29,14 +28,16 @@ const constructSankey = function (json) {
 	node.togglable = false;
 	node.clickable = false;
 	node.draggable = false;
-	node.tooltipText = "{from} informations: {info}";
+	node.tooltipText = "{info}";
 	node.cursorOverStyle = am4core.MouseCursorStyle.pointer;
 	node.strokeWidth = 3;
 	node.strokeLinejoin = "round"
 
 	var links = chart.links.template;
 	links.propertyFields.id = "id";
+	links.propertyFields.name = "value"
 	links.colorMode = "gradient";
+	links.tooltipText = ""
 	links.fillOpacity = 0.2;
 	links.controlPointDistance = 0.2
 
@@ -49,17 +50,25 @@ const constructSankey = function (json) {
 
 	// highlight all links with the same id beginning
 	links.events.on("over", function (event) {
-		let link = event.target;
-		let id = link.id.split("-")[0];
+		let currLink = event.target;
+		
+		chart.closeAllPopups();
+		chart.openPopup("This link contains <strong>" + currLink.name + "</strong> animes")
+		
+		let id = "";
+		if(currLink.id !== "none") {
+			id = currLink.id.split("-")[0];
 
-		chart.links.each(function (link) {
-			if (link.id.indexOf(id) !== -1) {
-				link.isHover = true;
-			}
-		})
+			chart.links.each(function (link) {
+				if (link.id.indexOf(id) !== -1) {
+					link.isHover = true;
+				}
+			})
+		}
 	})
 
 	links.events.on("out", function (event) {
+		chart.closeAllPopups()
 		chart.links.each(function (link) {
 			link.isHover = false;
 			link.disabled = false;
