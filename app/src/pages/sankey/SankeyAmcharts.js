@@ -3,15 +3,15 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const constructSankey = function (json) {
-    var chart = am4core.create("chartdiv", am4charts.SankeyDiagram);
-	chart.hiddenState.properties.opacity = 0; 
+	var chart = am4core.create("chartdiv", am4charts.SankeyDiagram);
+	chart.hiddenState.properties.opacity = 0;
 	am4core.useTheme(am4themes_animated);
 
 	var data = json
 	chart.data = data;
 
 	var title = chart.titles.create();
-		title.text = "";
+	title.text = "";
 
 	chart.dataFields.fromName = "from";
 	chart.dataFields.toName = "to";
@@ -48,25 +48,25 @@ const constructSankey = function (json) {
 	nodeHS.properties.scale = 1.15;
 
 	// highlight all links with the same id beginning
-	links.events.on("over", function(event){
+	links.events.on("over", function (event) {
 		let link = event.target;
 		let id = link.id.split("-")[0];
-	
-		chart.links.each(function(link){
-			if(link.id.indexOf(id) !== -1){
+
+		chart.links.each(function (link) {
+			if (link.id.indexOf(id) !== -1) {
 				link.isHover = true;
-			} 
+			}
 		})
 	})
-	
-	links.events.on("out", function(event){  
-		chart.links.each(function(link){
+
+	links.events.on("out", function (event) {
+		chart.links.each(function (link) {
 			link.isHover = false;
 			link.disabled = false;
 		})
 	})
 
-    return chart;
+	return chart;
 }
 
 export { constructSankey }
