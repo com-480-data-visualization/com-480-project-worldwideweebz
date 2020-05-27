@@ -123,6 +123,13 @@ class HistoryPage extends React.Component {
                 <div id="HistogramBottom">
                     <p>&nbsp;</p>
                 </div>
+                <div class="Scale">
+                    <div class="Gradient">
+                        <p class="ScaleLabel">Episode count scale</p>
+                        <p class="Min">1</p>
+                        <p class="Max">&gt;= 50</p>
+                    </div>
+                </div>
                 <div className="ScrollHint">
                     <div onClick={this.scroll}>
                         <img src={scrollHintGif} alt="Scroll down" />
@@ -152,12 +159,6 @@ class HistoryPage extends React.Component {
                             <p>In this data visualization, we explore the sheer increase in volume of anime production over the years. Each dot is an anime title and its color shade represents its total episode count. We can observe that the number of anime produced per year is steadily growing, and that animes in the 60s tend to have large episode counts over several years, while recent works are generally much shorter, which is explained by an increase of standalone movies, promotional material, OVAs and single-season cours.</p>
 
                             <p>Hover on each dot to learn more about an anime.</p>
-
-                            <div class="Scale">
-                                <p class="ScaleLabel">Episode count scale</p>
-                                <p class="Min">1</p>
-                                <p class="Max">&gt;= 50</p>
-                            </div>
                         </div>
                     ) :
                     (
