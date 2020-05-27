@@ -74,6 +74,7 @@ class BubblePage extends React.Component {
       offsetY: 0,
       scale: 0,
       activeGenre: null,
+      activeAnime: null,
       displayedGenres: [],
       showingFilter: false,
       hoveringGenre: null,
@@ -149,7 +150,7 @@ class BubblePage extends React.Component {
   }
 
   onConfigUpdate(newConfig) {
-    
+
   }
 
   focusGenre(focusedGenre) {
@@ -165,18 +166,16 @@ class BubblePage extends React.Component {
     const fr = this.bubblePositions[focusIdx].r
 
     this.setState({
-      subBubble: genreTopAnimes.map((x, idx) => {
-        return {
-          name: x.title,
-          count: x.favorites,
-          image: x.image_url,
-          genre: x.genre,
+      subBubble: genreTopAnimes.map((anime, idx) =>
+        Object.assign(Object.assign({}, anime), {
+          name: anime.title,
+          image: anime.image_url,
           x: bubblePositions[idx].x,
           y: bubblePositions[idx].y,
           r: bubblePositions[idx].r,
           oppacity: 1.0
-        }
-      }),
+        })
+      ),
 
       genres: this.state.genres.map((g, idx) => {
         if (g.name === focusedGenre.name) return {
@@ -208,7 +207,8 @@ class BubblePage extends React.Component {
         }
       }),
 
-      activeGenre: focusedGenre
+      activeGenre: focusedGenre,
+      activeAnime: null
     })
     this.displayState = DisplayState.DISPLAY
   }
@@ -223,7 +223,8 @@ class BubblePage extends React.Component {
     this.setState({
       subBubble: [],
       activeGenre: null,
-      genres: data
+      genres: data,
+      activeAnime: null,
     })
   }
 
@@ -268,7 +269,7 @@ class BubblePage extends React.Component {
       case DisplayState.DISPLAY:
         if (this.state.activeGenre !== "") {
           this.displayState = DisplayState.FOCUSED
-          focusedData = focusedData.map(anime => Object.assign(Object.assign({}, anime), {oppacity: 0.0}))
+          focusedData = focusedData.map(anime => Object.assign(Object.assign({}, anime), { oppacity: 0.0 }))
           setTimeout(() => this.forceUpdate(), 0)
         }
         break
@@ -285,8 +286,10 @@ class BubblePage extends React.Component {
     bubbleData = bubbleData.filter(genre => this.state.displayedGenres[genre.name])
     return (
       <Wrapper>
-        <Sidebar position={{ left: 0 }} appearTransitionClass="fadeInRight">
-          {this.renderSidebarContent()}
+        <Sidebar position={{ left: 0, top: 0 }} appearTransitionClass="fadeInRight">
+          <div className="SidebarContent">
+            {this.renderSidebarContent()}
+          </div>
         </Sidebar>
         <GraphView position={{ right: 0 }}>
           <div id="bubble-root">
@@ -294,7 +297,7 @@ class BubblePage extends React.Component {
             <div id="bubble-return"
               style={{ display: (this.state.activeGenre ? "inline-block" : "none") }}
               onClick={() => this.resetGenre()}>Reset chart</div>
-            <svg onClick={() =>  this.resetGenre()}>
+            <svg onClick={() => this.resetGenre()}>
               <defs>
                 <pattern id="nsfw" height="100%" width="100%" patternContentUnits="objectBoundingBox">
                   <image height="1" width="1" xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" href={`${process.env.PUBLIC_URL}/img/nsfw.png`}></image>
@@ -323,10 +326,10 @@ class BubblePage extends React.Component {
     return <g
       className={"bubble genre" + (this.state.activeGenre && genre.name === this.state.activeGenre.name ? " active-genre" : "")}
       key={genre.name}
-      style={{transform: `translate(${this.state.scale * genre.x + this.state.offsetX}px, ${this.state.scale * genre.y + this.state.offsetY}px) scale(${this.state.scale * genre.r / 100})` }}
-      onClick={(e) => {this.focusGenre(genre); e.stopPropagation()}}
-      onMouseEnter={() => this.setState({hoveringGenre: genre})}
-      onMouseLeave={() => this.setState({hoveringGenre: null})}
+      style={{ transform: `translate(${this.state.scale * genre.x + this.state.offsetX}px, ${this.state.scale * genre.y + this.state.offsetY}px) scale(${this.state.scale * genre.r / 100})` }}
+      onClick={(e) => { this.focusGenre(genre); e.stopPropagation() }}
+      onMouseEnter={() => this.setState({ hoveringGenre: genre })}
+      onMouseLeave={() => this.setState({ hoveringGenre: null })}
     >
       <circle r="100" style={{ fill: `url(#${Config.detectNSFW(genre.name) ? "nsfw" : genre.name.replace(/\s/g, '')})` }}></circle>
       <text dy=".2em"
@@ -337,22 +340,23 @@ class BubblePage extends React.Component {
 
   renderAnimeBubble(anime) {
     return <g
-      className="bubble anime"
+      className={"bubble anime" + (this.state.activeAnime && anime.name === this.state.activeAnime.name ? " active-anime" : "")}
       key={anime.name}
       style={{ transform: `translate(${this.state.scale * anime.x + this.state.offsetX}px, ${this.state.scale * anime.y + this.state.offsetY}px) scale(${this.state.scale * anime.r / 100})`, fillOpacity: anime.oppacity }}
-      onMouseEnter={() => this.setState({hoveringAnime: anime.name})}
-      onMouseLeave={() => this.setState({hoveringAnime: null})}
+      onClick={(e) => { this.setState({ activeAnime: this.state.activeAnime && this.state.activeAnime.title === anime.title ? null : anime }); e.stopPropagation() }}
+      onMouseEnter={() => this.setState({ hoveringAnime: anime })}
+      onMouseLeave={() => this.setState({ hoveringAnime: null })}
     >
-      <circle r="100" style={{ fill: `url(#${Config.detectNSFW(anime.genre.toString()) ? "nsfw" : anime.name.replace(/\s/g, '')})` }}></circle>
+      <circle r="100" style={{ fill: `url(#${Config.detectNSFW(anime.genre.toString()) ? "nsfw" : anime.title.replace(/\s/g, '')})` }}></circle>
       <text dy=".2em"
         fontFamily="sans-serif" fontSize="20" fill="white">{cropText(anime.name, 18)}</text>
-      <text dy="1.3em" fontFamily="Gill Sans" fontSize="20" fill="white">{anime.count}</text>
+      <text dy="1.3em" fontFamily="Gill Sans" fontSize="20" fill="white">{anime.favorites}</text>
     </g>
   }
 
   renderGenreFiltering() {
     return <div id="filter-genres" style={this.state.activeGenre ? { display: "none" } : {}}>
-      <div id="show-filter" onClick={() => this.setState({ showingFilter: !this.state.showingFilter })}>Filter the genres <FontAwesomeIcon icon={faChevronDown} style={{ width: "16px", height: "16px" }} /></div>
+      <div id="show-filter" onClick={() => this.setState({ showingFilter: !this.state.showingFilter })}>Filter the genres <FontAwesomeIcon icon={this.state.showingFilter ? faChevronUp : faChevronDown} style={{ width: "16px", height: "16px" }} /></div>
       <ul style={this.state.showingFilter ? { maxHeight: `${this.state.height - 40}px`, overflowY: "scroll" } : {}}>
         <ul className="pin">
           <li onClick={() => this.setAllGenresDisplayTo(true)}
@@ -374,32 +378,68 @@ class BubblePage extends React.Component {
   // Sidebar rendering
 
   renderSidebarContent() {
-    if (this.state.hoveringAnime) {
-      return this.renderAnimeDescription()
-    } else if (this.state.activeGenre) {
-      return this.renderGenreDescription(this.state.activeGenre)
+    if (this.state.activeAnime) {
+      return this.renderAnimeDescription(this.state.activeAnime)
     } else if (this.state.hoveringGenre) {
       return this.renderGenreDescription(this.state.hoveringGenre)
+    } else if (this.state.hoveringAnime) {
+      return this.renderAnimeDescription(this.state.hoveringAnime)
+    } else if (this.state.activeGenre) {
+      return this.renderGenreDescription(this.state.activeGenre)
     } else {
       return this.renderPageDescription()
     }
   }
 
   renderPageDescription() {
-    return <span>Page description</span>
+    return (
+      [
+        <h2>Number of animes per genre</h2>,
+        <p>In this data visualization, we showcase the distribution of animes across the genres.
+        The size of the bubble is proportional to the number of animes with that genre.
+
+          </p>,
+        <p></p>,
+        <p>Click on a genre to zoom into it. One can then see the 50 animes that represent the most the genre.
+          The displayed number and the size of the bubble represent the number of people that had that anime as favorite</p>,
+        <p>Hover or click on an anime to see more information about the anime</p>,
+      ])
   }
 
   renderGenreDescription(genre) {
-    return (<div>
+    return (
+      <div>
         <h2>{genre.name}</h2>
-        <p>{genreDescriptions[genre.name]}</p>
-        <h3>Representative anime</h3>
-        <p>   {genre.representative}</p>
-      </div>)
+        <p><span style={{ fontWeight: 600 }}>Description: </span>{genreDescriptions[genre.name]}</p>
+        <p><span style={{ fontWeight: 600 }}>Number of animes: </span>{genre.count}</p>
+        <p><span style={{ fontWeight: 600 }}>Representative anime: </span>{genre.representative}</p>
+      </div>
+    )
   }
 
   renderAnimeDescription(anime) {
-    return <span>Anime description</span>
+    return (
+      <div className="AnimeDetails">
+        <h2>{anime.title}</h2>
+        { // Image should not be null
+          (anime.image_url === null) ? null :
+            // If settings disable NSFW, check if anime.genre exists and contains sensitive genres
+            ("genre" in anime && Config.detectNSFW(anime.genre.toString())) ?
+              <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
+              <img src={anime.image_url} alt={anime.title} />
+        }
+        <p><span style={{ fontWeight: 600 }}>Favorites: </span>{anime.favorites}</p>
+        <p><span style={{ fontWeight: 600 }}>Episode count: </span>{anime.episodes}</p>
+        <p><span style={{ fontWeight: 600 }}>Aired: </span>{anime.aired_string}</p>
+        <p><span style={{ fontWeight: 600 }}>Type: </span>{anime.type}</p>
+        <p><span style={{ fontWeight: 600 }}>Source: </span>{anime.source}</p>
+        <p><span style={{ fontWeight: 600 }}>Duration: </span>{anime.duration}</p>
+        <p><span style={{ fontWeight: 600 }}>Producer: </span>{anime.producer}</p>
+        <p><span style={{ fontWeight: 600 }}>Studio: </span>{anime.studio}</p>
+        <p><span style={{ fontWeight: 600 }}>Genre: </span>{anime.genre}</p>
+        <p><span style={{ fontWeight: 600 }}>MyAnimeList ID: </span>{anime.anime_id}</p>
+      </div>
+    )
   }
 }
 

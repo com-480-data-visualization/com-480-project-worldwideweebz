@@ -6,25 +6,7 @@
     .Infos
         .Definition
             padding: 5px
-        .Scale
-            margin-top: 30px
-            height: 10px
-            width: 100%
-            border: 1px solid #fff
-            background: rgb(255,212,57)
-            background: linear-gradient(90deg, rgba(255,212,57,1) 0%, rgba(155,65,0,1) 100%)
-            position: relative
-            p
-                display: block
-                position: absolute
-                top: -27px
-            .ScaleLabel
-                width: 100%
-                text-align: center
-            .Min
-                left: 0px
-            .Max
-                right: 0px
+            font-style: italic
         p
             display: inline-block
 
@@ -88,6 +70,37 @@
         height: 100px
         z-index: 2
 
-#HistogramDetails
+.AnimeDetails
     img
         margin-bottom: 15px
+
+#HistogramDetails
+    height: 100%
+
+    .AnimeDetails, .Infos
+        padding: 30px
+        height: calc(100% - 80px)
+        overflow: auto
+
+    .Scale
+        position: fixed
+        bottom: 20px
+        left: 30px
+        width: calc(100% - 60px)
+        .Gradient
+            width: 100%
+            height: 10px
+            background: rgb(255,212,57)
+            background: linear-gradient(90deg, rgba(255,212,57,1) 0%, rgba(155,65,0,1) 100%)
+            border: 1px solid #eee
+        p
+            display: block
+            position: absolute
+            top: -27px
+        .ScaleLabel
+            width: 100%
+            text-align: center
+        .Min
+            left: 0px
+        .Max
+            right: 0px

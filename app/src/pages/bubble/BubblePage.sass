@@ -1,5 +1,5 @@
 $base-color: #d88c00
-  
+
 #bubble-root
   text-align: center
   width: 100%
@@ -27,6 +27,11 @@ $base-color: #d88c00
 
   .bubble.anime
     transition: transform .8s cubic-bezier(0.65, 0, 0.35, 1), fill-opacity 1.2s cubic-bezier(1, -.32, 0.8, 1)
+
+  .active-anime
+    text
+      transform: scale(1.2)
+      transition: transform .2s
 
 
   .active-genre
@@ -95,6 +100,3 @@ $base-color: #d88c00
     li.disable
       background-color: #9b9b9b
       cursor: default
-
-h3
-  color: white
