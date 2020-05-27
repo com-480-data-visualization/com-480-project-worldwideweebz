@@ -1,8 +1,12 @@
 import React from 'react'
-import { constructSankey } from './SankeyAmcharts'
-import { Wrapper, GraphView, Sidebar } from '../../components/Layout'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMouse } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 
 import './SankeyPage.sass'
+import { Wrapper, GraphView, Sidebar } from '../../components/Layout'
+
+import { constructSankey } from './SankeyAmcharts'
 
 /**
  * Component of the cluster graph page
@@ -43,11 +47,50 @@ class SankeyPage extends React.Component {
   renderSidebar() {
     switch (this.state.type) {
       case null:
-        return <h2>Rounded notes per genre per studio</h2>
+        return (
+          <div className="StudiosExplanation">
+            <h1>> 430</h1>
+            <h2>anime studios</h2>
+            <p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> Hover on a studio or genre to learn more about it</p>
+            <p>Here, we show the number of animes that a studio has per genre and their average score. We take the top 10 studios, depending on the number of anime or movies that they aired, and the top 5 most represented genres.</p>
+            <p>You can put your mouse on a link to show its size and highlight the full track from studio to score going through the specific genre.</p>
+            <p>Furthermore, going on a studio or genre will show information on it. Clicking a node will minimize it</p>
+          </div>
+        )
+
       case "studio":
+        const studio = this.state.display
+        return (
+          <div className="StudioDetails">
+            <h2>{studio.name}</h2>
+            <img src={studio.image} alt={studio.name} />
+            <p>{studio.description}</p>
+            <p><b>Location: </b> {studio.hq}</p>
+            <p><b>Founded: </b> {studio.date}</p>
+            <p><b>Top 3 animes of the studio:</b></p>
+            <table>
+              {studio.top.map(anime =>
+                <tr>
+                  <td className="ImageCell">
+                    <img src={anime.image} alt={anime.name} />
+                  </td>
+                  <td>
+                    <p>{anime.title}</p>
+                    <p>{anime.aired}</p>
+                    <p>View count: {anime.views}</p>
+                  </td>
+                </tr>
+              )}
+            </table>
+          </div>
+        )
+
+      case "genre":
+        const genre = this.state.display
         return (
           <div>
-            <h2>{this.state.display.name}</h2>
+            <h2>{genre.name}</h2>
+            <p>{genre.description}</p>
           </div>
         )
     }
@@ -62,9 +105,13 @@ class SankeyPage extends React.Component {
           </GraphView>
           <Sidebar>
             <div className="SidebarContent">
-              { // discriminate object to display on sidebar
-
+              { // Show close button if any details info is shown
+                this.state.type === null ? null :
+                  <FontAwesomeIcon icon={faTimesCircle} color="#fff" size="3x"
+                    onClick={() => this.setDisplay(null, null)}
+                    style={{ float: "right", margin: "0 0 15px 15px", cursor: "pointer" }} />
               }
+              {this.renderSidebar()}
             </div>
           </Sidebar>
         </Wrapper>

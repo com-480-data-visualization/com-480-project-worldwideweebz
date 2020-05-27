@@ -1,7 +1,9 @@
 import * as am4core from "@amcharts/amcharts4/core"
 import * as am4charts from "@amcharts/amcharts4/charts"
 import am4themes_animated from "@amcharts/amcharts4/themes/animated"
+
 import studioDetails from './StudioDetails.json'
+import genreDescriptions from '../../components/GenreDescriptions.json'
 
 const constructSankey = function (json, setDisplay) {
 	var chart = am4core.create("chartdiv", am4charts.SankeyDiagram)
@@ -30,6 +32,7 @@ const constructSankey = function (json, setDisplay) {
 	node.clickable = false
 	node.draggable = false
 	node.propertyFields.type = "type"
+	node.propertyFields.nameOfNode = "from"
 	node.tooltipText = "{info}"
 	node.cursorOverStyle = am4core.MouseCursorStyle.pointer
 	node.strokeWidth = 3
@@ -53,20 +56,22 @@ const constructSankey = function (json, setDisplay) {
 	node.events.on("over", function (event) {
 		let currNode = event.target
 
-		if(currNode.type === "studio") {
-			setDisplay(studioDetails[currNode.fromName], "studio")
+		if (currNode.type === "studio") {
+			setDisplay(studioDetails[currNode.nameOfNode], "studio")
+		} else if (currNode.type === "genre") {
+			setDisplay({ name: currNode.nameOfNode, description: genreDescriptions[currNode.nameOfNode] }, "genre")
 		}
 	})
 
 	// highlight all links with the same id beginning
 	links.events.on("over", function (event) {
 		let currLink = event.target
-		
+
 		chart.closeAllPopups()
 		chart.openPopup("This link contains <strong>" + currLink.name + "</strong> animes")
-		
+
 		let id = ""
-		if(currLink.id !== "none") {
+		if (currLink.id !== "none") {
 			id = currLink.id.split("-")[0]
 
 			chart.links.each(function (link) {
