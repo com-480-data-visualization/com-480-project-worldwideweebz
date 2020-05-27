@@ -38,7 +38,7 @@ const constructSankey = function (json) {
 	links.propertyFields.id = "id";
 	links.colorMode = "gradient";
 	links.fillOpacity = 0.2;
-	links.tooltipText = "";
+	links.controlPointDistance = 0.2
 
 	let hoverState = links.states.create("hover");
 	hoverState.properties.fillOpacity = 1;

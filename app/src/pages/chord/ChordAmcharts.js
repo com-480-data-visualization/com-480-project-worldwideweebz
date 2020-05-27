@@ -91,6 +91,7 @@ const constructChord = function (json) {
 	node.showSystemTooltip = true;
 	node.tooltipText = "";
 	node.clickable = false;
+	node.events.off("hit")
 	node.draggable = false;
 	node.cursorOverStyle = am4core.MouseCursorStyle.default
 
@@ -135,6 +136,7 @@ const constructChord = function (json) {
 	var legend = new am4charts.Legend();
 	legend.clickable = false
 	legend.toggable = false
+	legend.events.off("hit")
 	legend.parent = chart.chartContainer;
 	legend.dy = 20
 	legend.width = 400;
