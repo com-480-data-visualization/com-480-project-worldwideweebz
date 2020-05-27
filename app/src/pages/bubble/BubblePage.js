@@ -287,7 +287,9 @@ class BubblePage extends React.Component {
     return (
       <Wrapper>
         <Sidebar position={{ left: 0, top: 0 }} appearTransitionClass="fadeInRight">
-          {this.renderSidebarContent()}
+          <div className="SidebarContent">
+            {this.renderSidebarContent()}
+          </div>
         </Sidebar>
         <GraphView position={{ right: 0 }}>
           <div id="bubble-root">
@@ -338,10 +340,10 @@ class BubblePage extends React.Component {
 
   renderAnimeBubble(anime) {
     return <g
-      className={"bubble anime"  + (this.state.activeAnime && anime.name === this.state.activeAnime.name ? " active-anime" : "")}
+      className={"bubble anime" + (this.state.activeAnime && anime.name === this.state.activeAnime.name ? " active-anime" : "")}
       key={anime.name}
       style={{ transform: `translate(${this.state.scale * anime.x + this.state.offsetX}px, ${this.state.scale * anime.y + this.state.offsetY}px) scale(${this.state.scale * anime.r / 100})`, fillOpacity: anime.oppacity }}
-      onClick={(e) => { this.setState({activeAnime: this.state.activeAnime && this.state.activeAnime.title === anime.title ? null : anime}); e.stopPropagation() }}
+      onClick={(e) => { this.setState({ activeAnime: this.state.activeAnime && this.state.activeAnime.title === anime.title ? null : anime }); e.stopPropagation() }}
       onMouseEnter={() => this.setState({ hoveringAnime: anime })}
       onMouseLeave={() => this.setState({ hoveringAnime: null })}
     >
@@ -394,7 +396,7 @@ class BubblePage extends React.Component {
       [
         <h2>Number of animes per genre</h2>,
         <p>In this data visualization, we showcase the distribution of animes across the genres.
-          The size of the bubble is proportional to the number of animes with that genre.
+        The size of the bubble is proportional to the number of animes with that genre.
 
           </p>,
         <p></p>,
@@ -408,9 +410,9 @@ class BubblePage extends React.Component {
     return (
       <div>
         <h2>{genre.name}</h2>
-        <p><span style={{fontWeight: 600}}>Description: </span>{genreDescriptions[genre.name]}</p>
-        <p><span style={{fontWeight: 600}}>Number of animes: </span>{genre.count}</p>
-        <p><span style={{fontWeight: 600}}>Representative anime: </span>{genre.representative}</p>
+        <p><span style={{ fontWeight: 600 }}>Description: </span>{genreDescriptions[genre.name]}</p>
+        <p><span style={{ fontWeight: 600 }}>Number of animes: </span>{genre.count}</p>
+        <p><span style={{ fontWeight: 600 }}>Representative anime: </span>{genre.representative}</p>
       </div>
     )
   }
@@ -426,16 +428,16 @@ class BubblePage extends React.Component {
               <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
               <img src={anime.image_url} alt={anime.title} />
         }
-        <p><span style={{fontWeight: 600}}>Favorites: </span>{anime.favorites}</p>
-        <p><span style={{fontWeight: 600}}>Episode count: </span>{anime.episodes}</p>
-        <p><span style={{fontWeight: 600}}>Aired: </span>{anime.aired_string}</p>
-        <p><span style={{fontWeight: 600}}>Type: </span>{anime.type}</p>
-        <p><span style={{fontWeight: 600}}>Source: </span>{anime.source}</p>
-        <p><span style={{fontWeight: 600}}>Duration: </span>{anime.duration}</p>
-        <p><span style={{fontWeight: 600}}>Producer: </span>{anime.producer}</p>
-        <p><span style={{fontWeight: 600}}>Studio: </span>{anime.studio}</p>
-        <p><span style={{fontWeight: 600}}>Genre: </span>{anime.genre}</p>
-        <p><span style={{fontWeight: 600}}>MyAnimeList ID: </span>{anime.anime_id}</p>
+        <p><span style={{ fontWeight: 600 }}>Favorites: </span>{anime.favorites}</p>
+        <p><span style={{ fontWeight: 600 }}>Episode count: </span>{anime.episodes}</p>
+        <p><span style={{ fontWeight: 600 }}>Aired: </span>{anime.aired_string}</p>
+        <p><span style={{ fontWeight: 600 }}>Type: </span>{anime.type}</p>
+        <p><span style={{ fontWeight: 600 }}>Source: </span>{anime.source}</p>
+        <p><span style={{ fontWeight: 600 }}>Duration: </span>{anime.duration}</p>
+        <p><span style={{ fontWeight: 600 }}>Producer: </span>{anime.producer}</p>
+        <p><span style={{ fontWeight: 600 }}>Studio: </span>{anime.studio}</p>
+        <p><span style={{ fontWeight: 600 }}>Genre: </span>{anime.genre}</p>
+        <p><span style={{ fontWeight: 600 }}>MyAnimeList ID: </span>{anime.anime_id}</p>
       </div>
     )
   }
