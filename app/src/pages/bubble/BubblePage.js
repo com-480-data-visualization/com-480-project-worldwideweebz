@@ -69,6 +69,7 @@ class BubblePage extends React.Component {
     this.state = {
       genres: [],
       subBubble: [],
+      height: 0,
       offsetX: 0,
       offsetY: 0,
       scale: 0,
@@ -94,6 +95,7 @@ class BubblePage extends React.Component {
       offsetX: offset + (bubble_root.clientWidth - bubbleRootSize) / 2,
       offsetY: offset + (bubble_root.clientHeight - bubbleRootSize) / 2,
       scale: this.ratio * bubbleRootSize / this.diameter,
+      height: bubble_root.clientHeight,
     })
   }
 
@@ -133,6 +135,7 @@ class BubblePage extends React.Component {
           }, {})
         })
         this.createGenreBubble()
+        this.state.showingFilter = true
       })
 
     fetch(`${process.env.PUBLIC_URL}/data/genre_top_animes_data.json`)
@@ -350,7 +353,7 @@ class BubblePage extends React.Component {
   renderGenreFiltering() {
     return <div id="filter-genres" style={this.state.activeGenre ? { display: "none" } : {}}>
       <div id="show-filter" onClick={() => this.setState({ showingFilter: !this.state.showingFilter })}>Filter the genres <FontAwesomeIcon icon={faChevronDown} style={{ width: "16px", height: "16px" }} /></div>
-      <ul style={this.state.showingFilter ? { maxHeight: "600px", overflowY: "scroll" } : {}}>
+      <ul style={this.state.showingFilter ? { maxHeight: `${this.state.height - 40}px`, overflowY: "scroll" } : {}}>
         <ul className="pin">
           <li onClick={() => this.setAllGenresDisplayTo(true)}
             className={Object.values(this.state.displayedGenres).reduce((acc, item) => acc &= item, true) ? "disable" : ""}>ALL</li>
