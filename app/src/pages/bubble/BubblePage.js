@@ -6,7 +6,7 @@ import './BubblePage.sass'
 import { Config } from '../../Config'
 import { Wrapper, GraphView, Sidebar } from '../../components/Layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp, faMouse } from '@fortawesome/free-solid-svg-icons'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 
 import genreDescriptions from '../../components/GenreDescriptions.json'
@@ -366,15 +366,16 @@ class BubblePage extends React.Component {
           In this data visualization, we showcase the distribution of animes across the genres.
           The size of the bubble is proportional to the number of animes with that genre.
         </p>
+        <p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> On the right, you can select the genres you want to display.
+        </p>
         <p>
-          On the right, you can select the genres you want to display.
           Click on <span style={{ fontWeight: 500 }}>NONE</span> to remove them all and progressively add the genres you are interested in.
         </p>
-        <p>
-          Click on a genre to zoom into it. You can then see the 50 animes that represent the most the genre.
+        <p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> Click on a genre to zoom into it.</p>
+        <p>You can then see the 50 animes that represent the most the genre.
           The displayed number and the size of the bubble represent the number of people that had that anime as favorite.
         </p>
-        <p>Hover or click on an anime to see more information about the anime.</p>
+        <p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> Hover / click on an anime to see more information about the anime</p>
       </div>
     )
   }
@@ -414,7 +415,7 @@ class BubblePage extends React.Component {
       <p><span style={{ fontWeight: 600 }}>Duration: </span>{anime.duration}</p>,
       <p><span style={{ fontWeight: 600 }}>Producer: </span>{anime.producer}</p>,
       <p><span style={{ fontWeight: 600 }}>Studio: </span>{anime.studio}</p>,
-      <p><span style={{ fontWeight: 600 }}>Genre: </span>{anime.genre}</p>,
+      <p><span style={{ fontWeight: 600 }}>Genre: </span>{anime.genre.join(",")}</p>,
       <p><span style={{ fontWeight: 600 }}>MyAnimeList ID: </span>{anime.anime_id}</p>,
     ]
   }
