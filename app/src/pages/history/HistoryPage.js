@@ -58,7 +58,7 @@ class HistoryPage extends React.Component {
 
         // register callback when route changes
         this.props.onRouteChange(path => {
-            if (path != "/history") {
+            if (path !== "/history") {
                 this.setState({
                     exit: true,
                 })

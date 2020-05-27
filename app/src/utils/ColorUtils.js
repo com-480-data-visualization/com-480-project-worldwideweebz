@@ -9,7 +9,7 @@
 function shade(col, amt) {
     var usePound = false;
 
-    if (col[0] == "#") {
+    if (col[0] === "#") {
         col = col.slice(1);
         usePound = true;
     }

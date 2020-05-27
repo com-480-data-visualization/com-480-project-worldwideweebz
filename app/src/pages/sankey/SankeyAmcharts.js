@@ -53,7 +53,7 @@ const constructSankey = function (json) {
 		let id = link.id.split("-")[0];
 	
 		chart.links.each(function(link){
-			if(link.id.indexOf(id) != -1){
+			if(link.id.indexOf(id) !== -1){
 				link.isHover = true;
 			} 
 		})
