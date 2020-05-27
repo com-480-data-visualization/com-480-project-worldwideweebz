@@ -17,6 +17,7 @@ class SankeyPage extends React.Component {
     this.state = {
       type: null,
       display: null,
+      exit: false,
     }
 
     this.setDisplay = this.setDisplay.bind(this)
@@ -36,6 +37,15 @@ class SankeyPage extends React.Component {
       .then(json => {
         this.chart = constructSankey(json, this.setDisplay)
       })
+
+    // register callback when route changes
+    this.props.onRouteChange(path => {
+      if (path !== "/sankey") {
+        this.setState({
+          exit: true,
+        })
+      }
+    })
   }
 
   componentWillUnmount() {
@@ -103,7 +113,7 @@ class SankeyPage extends React.Component {
           <GraphView>
             <div id="chartdiv"></div>
           </GraphView>
-          <Sidebar>
+          <Sidebar appearTransitionClass={this.state.exit ? "fadeOutLeft" : "fadeInLeft"}>
             <div className="SidebarContent">
               { // Show close button if any details info is shown
                 this.state.type === null ? null :
