@@ -134,6 +134,45 @@ The main issue of the visualizations is that most of them are not adapted to dis
 
 Furthermore we used only one dataset based on a website that is more popular in some countries than other, giving biased information depending on the general anime culture of each region. For example this dataset has Poland and Brazil being on the top number of users while France is on the bottom, even though the latter is one of the top countries worldwide watching anime. We could have used more datasets coming from other platforms: [Crunchyroll](https://www.crunchyroll.com/), [ADN](https://animedigitalnetwork.fr/) or [AniList](https://anilist.co/). However, using their datasets would have been more challenging and taken more time to scrupulously gather and merge informations.
 
+Each of the visualizations could be further improved by adding specific features:
 
+- Histogram:
+    - Add an anime search bar so that the user can easily find the animes he is interested in.
+    - Add a year range selector to only show the range of years you are interested in.
+    - Show the top anime per year or range of years.
+
+- Bubble:
+    - Add an anime search bar to only display the genres of the chose anime.
+
+- Sankey:
+    - Add a list of studios and genres to choose from, to have them appear on the diagram.
+
+- Chord:
+  - Adding a threshold about the number of anime played in by two seyuus to create a link between them.
+
+Otherwise, we could show other diagrams to get more informations about  (by a worldmap, ...) or evolution of the popularity of animes through time, or for example the evolution of genres, studios, and so on.
+
+# Peer assessement
+
+Each member worked mainly on its main visualization(s) and the necessary data processing. We all contributed in the general visualization ideas and decisions that lead to the final website result.
+
+Alexandre Chau:
+    - Website setup, its general structure and style
+    - Histogram (data processing and visualization)
+    - Helped integrate elements in the React ecosystem 
+    - Website design
+
+Joachim Dunant:
+    - Chord diagram (data processing and visualization)
+    - Sankey diagram (data processing and visualization)
+    - Website design
+
+Pedro Torres Da Cunha:
+    - Bubble chart (data processing and visualization)
+    - Website design
 
 # Conclusion
+
+In this project we worked on different visualizations about anime and their specifity, to show how interesting and complex they can be, who are their main actors, their popularity across different metrics and to get a general view of all of them. Going for a page template across the website give us the possibility to show more detailled information about each diagram, while having a general narration between them. We preferred this approach than a single page, to avoid the confusion of scrolling and to have tabs to go from one diagram to the other in an instant.
+
+Hopefully, you could learn from our visualizations and could experiment with them in a fun and engaging way
