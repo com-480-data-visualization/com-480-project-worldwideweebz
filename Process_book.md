@@ -156,7 +156,7 @@ Sankey visualization: main                           | Sankey visualization: hov
 
 Finally, the last diagram is about the voice actors, their popularity and links to other actresses or actors. This was done by using a chord diagram, so that we could easily have a node per actor and a link if they played in the same anime or movie at least once.
 
-Again, we used `amcharts` library with the documation of the chord diagram [here](https://www.amcharts.com/docs/v4/chart-types/chord-diagram/). 
+Again, we used `amcharts` library with the documentation of the chord diagram [here](https://www.amcharts.com/docs/v4/chart-types/chord-diagram/). 
 
 We sorted the voice actors depending on the language they dub with a button to be able to go from one language to another, and chose the top ones after the number of `member favorites` they have. We also created a dropdown list to change the number represented, by using a dictonary on the dataset.
 
@@ -207,13 +207,13 @@ Alexandre Chau:
 
 Joachim Dunant:
 
-- Chord diagram (data processing and visualization)
-- Sankey diagram (data processing and visualization)
+- Chord diagram (data processing, visualization and animations)
+- Sankey diagram (data processing, visualization and animations)
 - Website design
 
 Pedro Torres Da Cunha:
 
-- Bubble chart (data processing and visualization)
+- Bubble chart (data processing, visualization and animations)
 - Website design
 
 # Conclusion
