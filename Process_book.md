@@ -33,7 +33,7 @@ header-includes:
 
 # Introduction
 
-Animes are a way to entertain each and everyone, by showing different stories in beautiful or dreadful universes. With them, one can escape in a different World for a period of time, learn about life by the morality shown in them, or even get to see diverse cultures. They have grown exponentially in popularity over the years, to the point that today almost everyone has seen at least one in their lifespan.
+Animes have become a major source of entertainment with a rise in popularity in the Western audience, often narrating stories in beautiful or dreadful universes. With them, one can escape in a different World for a period of time, learn about life by the morality shown in them, or even get to see diverse cultures. They have grown exponentially in popularity over the years, to the point that today almost everyone has seen at least one in their lifespan.
 
 Thinking about their current popularity, being able to see different visualizations about them becomes more and more meaningful and learning what makes them and the people behind the scenes popular gives a lot of information about something we love. From every anime depending on their airing date to the most popular voice actresses and actors per language, by the top animes per genre and the number of animes per studio with insightful informations about everything shown on these diagrams, this website gives almost all the information you need about anime. Furthermore, having many interactions on each visualization gives a ludic experience so that everyone can make the best use of their time to learn about animes.
 
@@ -101,6 +101,9 @@ One tricky part in the implementation was to make sure that the scrollable zones
 
 A feature that we did not have time to include was the ability to select year ranges on the left, which would showcase the top X animes for that time period.
 
+![Histogram visualization](assets/final_history_page.png)
+![Histogram visualization pokemon](assets/final_history_page_pokemon.png)
+
 ## Bubble chart: 43 genres to classify them all
 
 The goal was to show the distribution of the genres across the animes. Given the non-negligeable number of genres, we thought a bubble chart would be perfect as it quickly shows the most represented genres and how they compare to each other.
@@ -123,6 +126,9 @@ Bubble chart: version 1                             | Bubble chart: version 2 (f
 
 Finally, depending on what the user is focusing on, information about the chart/genre/anime is displayed on the side.
 
+![Bubble visualization](assets/final_bubble_page.png)
+
+
 ## Sankey diagram: 711 studios captivating the world
 
 For this diagram, the aim was to show informations about the most consequential anime studios. We thought about doing a Sankey diagram to show a nice link between the number of animes produced by the studio per genre, and then sorted per score's mean (rounded to the closest integer). This provides an insightful visualization showing directly the influence of the top studios over anime's world.
@@ -135,6 +141,9 @@ We had then to choose the number of studios and genres to show up in the diagram
 
 Like the other diagrams, we put information on the sidebar depending on what is hovered, and decided to show pertinant information for each studio and a short description for each genre.
 
+![Sankey visualization](assets/final_sankey_page.png)
+![Sankey visualization](assets/final_sankey_page_toei.png)
+
 ## Chord diagram: 11292 voices giving life to characters
 
 Finally, the last diagram is about the voice actors, their popularity and links to other actresses or actors. This was done by using a chord diagram, so that we could easily have a node per actor and a link if they played in the same anime or movie at least once.
@@ -146,6 +155,10 @@ We sorted the voice actors depending on the language they dub with a button to b
 The issue with this diagram was on the script to fetch and sort the data, to take into account all possibilities of dropdowMenus. We had to fetch every anime information to find the actors per language and character, to be able to retrieve then information per actor, before sorting them, taking the different top ones per language, checking who played in the same anime than another one and putting informations on a JSON file for each node and link each pair. Another file was made for the sidebar which stores the informations for each voice actor, after finding the top 3 characters they dubbed (depending on the popularity of the anime the character was in). 
 
 Then, we thought about showing more information directly on the diagram, to have a more general view of it all. A circleBullet to show the popularity and number of anime/movies dubbed by each, as well as the possibility ot highlight every actress or actor linked to the one hovered. With all of that, someone looking at the diagram can directly see insightful information in a single glance. Finally, we added buttons to change how the diagram is sorted or which top and language we want to show, which was done by getting the right data from its dictionary (for example `top 10 -> "English" -> data`) and sorting it in a different way, as `amcharts` will create nodes depending on their appearance on the dataset.
+
+![Sankey visualization](assets/final_chord_page.png)
+
+![Sankey visualization](assets/final_chord_page_dany.png)
 
 # Future work and limitations
 
@@ -176,22 +189,26 @@ Otherwise, we could show other diagrams to get more informations about  (by a wo
 Each member worked mainly on its main visualization(s) and the necessary data processing. We all contributed in the general visualization ideas and decisions that lead to the final website result.
 
 Alexandre Chau:
-    - Website setup, its general structure and style
-    - Histogram (data processing and visualization)
-    - Helped integrate elements in the React ecosystem 
-    - Website design
+
+- Web app setup, global structure, layout and styles
+- Reusable components (home page, menu, sidebar, config), routing, animations
+- Histogram (data processing and visualization)
+- Helped integrate elements in the React ecosystem 
+- Website design
 
 Joachim Dunant:
-    - Chord diagram (data processing and visualization)
-    - Sankey diagram (data processing and visualization)
-    - Website design
+
+- Chord diagram (data processing and visualization)
+- Sankey diagram (data processing and visualization)
+- Website design
 
 Pedro Torres Da Cunha:
-    - Bubble chart (data processing and visualization)
-    - Website design
+
+- Bubble chart (data processing and visualization)
+- Website design
 
 # Conclusion
 
 In this project we worked on different visualizations about anime and their specifity, to show how interesting and complex they can be, who are their main actors, their popularity across different metrics and to get a general view of all of them. Going for a page template across the website give us the possibility to show more detailled information about each diagram, while having a general narration between them. We preferred this approach than a single page, to avoid the confusion of scrolling and to have tabs to go from one diagram to the other in an instant.
 
-Hopefully, you could learn from our visualizations and could experiment with them in a fun and engaging way
+Hopefully you 
