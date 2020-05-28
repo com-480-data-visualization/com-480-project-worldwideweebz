@@ -30,13 +30,14 @@ class HomePage extends React.Component {
                     </div>
                     <div className="Foreground">
                         <h1>Anime Data Visualization</h1>
-                        <p>An interactive data visualization experience based on the MyAnimeList dataset by Alexandre CHAU, Pedro TORRES DA CUNHA &amp; Joachim DUNANT for the COM-480 course</p>
+                        <p>An interactive data visualization experience based on the <a href="https://myanimelist.net/" target="_blank">MyAnimeList</a> dataset by Alexandre CHAU, Pedro TORRES DA CUNHA &amp; Joachim DUNANT for the COM-480 course</p>
 
                         <p>
                             For the best experience:
                             <br /><FontAwesomeIcon icon={faFirefoxBrowser} /> Use Mozilla Firefox for perfomance
                             <br /><FontAwesomeIcon icon={faArchive} /> Clear your browser cache (Ctrl + F5)
                             <br /><FontAwesomeIcon icon={faDesktop} /> Use a 1920x1080 maximized window
+                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or even better fullscreen (F11)
                             <br /><FontAwesomeIcon icon={faRedoAlt} /> Refresh this page for more backgrounds :)
                         </p>
                         <ConfigPanel />

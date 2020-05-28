@@ -60,6 +60,9 @@ We also wanted to give the ability to filter the genres that are displayed. We d
 Another feature we wanted to include is the display of the most popular animes for each genre on demand. In order to turn the visualization very interactive, we decided to do it by zooming into the selected genre, making it cover most of the screen and creating another bubble chart inside it consisting of the most popular animes. The user could then jump from one genre bubble to another by clicking on neighbouring genres. If there are animes that appear on both genre, then they would also smoothly travel from the first genre to the second.  
 A first implementation of it was just to focus on the selected genre and scale every genre bubble proportionally to it. However, this would cause performance issues when selecting the small genres as it would scale the most represented animes to enormous sizes. The issue was almost unnoticable on firefox but google-chrome had a hard time dealing with it.
 
+Bubble chart: version 1                            | Bubble chart: version 2
+:-------------------------------------------------:|:------------------------------------:
+![](assets/bubble_zoom_version1.png){width=500px}  |![](assets/bubble_zoom_version2.png)
 
 
 
@@ -67,6 +70,8 @@ A first implementation of it was just to focus on the selected genre and scale e
 - 
 
 ## Sankey diagram: over 430 anime studios
+
+For this diagram, the aim was to show informations about the most consequential anime studios. We thought about doing a diagram
 
 ## Chord diagram: 11292 voices giving life to characters
 

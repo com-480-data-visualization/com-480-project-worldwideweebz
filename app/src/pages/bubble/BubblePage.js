@@ -30,6 +30,7 @@ class BubblePage extends React.Component {
       offsetX: 0,
       offsetY: 0,
       scale: 0,
+      filter_width: 0,
       activeGenre: null,
       activeAnime: null,
       displayedGenres: [],
@@ -48,10 +49,14 @@ class BubblePage extends React.Component {
 
   updateDimensions() {
     const bubble_root = document.getElementById("bubble-root")
-    const bubbleRootSize = Math.min(bubble_root.clientWidth, bubble_root.clientHeight)
+    const filter_genres = document.getElementById("filter-genres")
+    const filter_style = filter_genres.currentStyle || window.getComputedStyle(filter_genres)
+    const filter_offset = (this.state.showingFilter && (!this.state.activeGenre)) ? (filter_genres.clientWidth + parseFloat(filter_style.marginRight)) : 0
+    const clientWidth = bubble_root.clientWidth - filter_offset
+    const bubbleRootSize = Math.min(clientWidth, bubble_root.clientHeight)
     const offset = (1 - this.ratio) * bubbleRootSize / 2
     this.setState({
-      offsetX: offset + (bubble_root.clientWidth - bubbleRootSize) / 2,
+      offsetX: offset + (clientWidth - bubbleRootSize) / 2,
       offsetY: offset + (bubble_root.clientHeight - bubbleRootSize) / 2,
       scale: this.ratio * bubbleRootSize / this.diameter,
       height: bubble_root.clientHeight,
@@ -80,7 +85,6 @@ class BubblePage extends React.Component {
   }
 
   componentDidMount() {
-    this.updateDimensions()
     window.addEventListener("resize", this.updateDimensions)
 
     // register callback when route changes
@@ -104,6 +108,7 @@ class BubblePage extends React.Component {
           showingFilter: true
         })
         this.createGenreBubble()
+        this.updateDimensions()
       })
 
     fetch(`${process.env.PUBLIC_URL}/data/genre_top_animes_data.json`)
@@ -178,6 +183,7 @@ class BubblePage extends React.Component {
       activeAnime: null
     })
     this.displayState = DisplayState.DISPLAY
+    setTimeout(this.updateDimensions, 0)
   }
 
   resetGenre() {
@@ -193,6 +199,7 @@ class BubblePage extends React.Component {
       genres: data,
       activeAnime: null,
     })
+    setTimeout(this.updateDimensions, 0)
   }
 
   genreDisplayToggle(genre) {
@@ -323,7 +330,7 @@ class BubblePage extends React.Component {
 
   renderGenreFiltering() {
     return <div id="filter-genres" style={this.state.activeGenre ? { display: "none" } : {}}>
-      <div id="show-filter" onClick={() => this.setState({ showingFilter: !this.state.showingFilter })}>Filter the genres <FontAwesomeIcon icon={this.state.showingFilter ? faChevronUp : faChevronDown} style={{ width: "16px", height: "16px" }} /></div>
+      <div id="show-filter" onClick={() => {this.setState({ showingFilter: !this.state.showingFilter }); setTimeout(this.updateDimensions, 0)}}>Filter the genres <FontAwesomeIcon icon={this.state.showingFilter ? faChevronUp : faChevronDown} style={{ width: "16px", height: "16px" }} /></div>
       <ul style={this.state.showingFilter ? { maxHeight: `${this.state.height - 40}px`, overflowY: "scroll" } : {}}>
         <ul className="pin">
           <li onClick={() => this.setAllGenresDisplayTo(true)}
