@@ -26,3 +26,7 @@ See [Milestone_2.md](Milestone_2.md)
 
 **80% of the final grade**
 
+- Visualization website: [https://com-480-data-visualization.github.io/com-480-project-worldwideweebz/](https://com-480-data-visualization.github.io/com-480-project-worldwideweebz/)
+- Process book: see [Process_book.pdf](Process_book.pdf)
+- Data processing: see folder [data](data)
+- Setup README: see folder [app](app)
