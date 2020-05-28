@@ -1,3 +1,7 @@
+@import "bulma/sass/utilities/_all.sass"
+@import "bulma/sass/form/_all.sass"
+@import "bulma/sass/elements/button.sass"
+
 #Chord
 	width: 100%
 
@@ -10,37 +14,26 @@
 		top: 20px
 		left: 20px
 
-		td
-			padding: 5px
-			font-size: 16px
-			font-weight: 600
-
-		#filter
-			width: 140px
-			height: 45px
-			text-align: center
-			font-size: 16px
-			font-weight: 600
-
-		.filterOpt
-			text-align: center
-			font-size: 16px
-			font-weight: 600
-
-		#top
-			width: 140px
-			height: 45px
-			text-align: center
-			font-size: 16px
-			font-weight: 600
-
-		.topOpt
-			text-align: center
-			font-size: 16px
-			font-weight: 600
-
-		input, label
-			display: block
+	#Scale
+		position: absolute
+		bottom: 40px
+		right: 30px
+		width: 400px
+		height: 10px
+		border: 1px solid #ccc
+		background: rgb(0,128,0)
+		background: linear-gradient(90deg, rgba(0,128,0,0.5) 0%, rgba(255,255,0,0.5) 33%, rgba(255,165,0,0.5) 66%, rgba(255,0,0,0.5) 100%)
+		p
+			position: absolute
+			top: 10px
+		.Legend
+			top: -28px
+		.First
+			left: 80px
+		.Second
+			left: 190px
+		.Third
+			left: 300px
 
 .ActorDetails
 	table

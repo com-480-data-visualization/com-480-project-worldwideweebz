@@ -131,56 +131,6 @@ const constructChord = function (json, setActor) {
 	CBlabel.fillOpacity = 0.9
 	CBlabel.fontSize = 13
 
-	var legend = new am4charts.Legend()
-	legend.clickable = false
-	legend.toggable = false
-	legend.events.off("hit")
-	legend.parent = chart.chartContainer
-	legend.dy = 300
-	legend.dx = -30
-	legend.width = 400
-	legend.align = "left"
-	legend.data = [{
-		"name": "Favorites below 250",
-		"fill": "green"
-	}, {
-		"name": "Favorites between 251 and 1000",
-		"fill": "yellow"
-	}, {
-		"name": "Favorites between 1001 and 2500",
-		"fill": "orange",
-	}, {
-		"name": "Favorites over 2500",
-		"fill": "red"
-	}]
-
-	var buttonPop = chart.chartContainer.createChild(am4core.Button)
-	buttonPop.label.text = "Sort by\nPopularity"
-	buttonPop.contentValign = "top"
-	buttonPop.contentAlign = "left"
-	buttonPop.height = 50
-	buttonPop.width = 170
-	buttonPop.dx = 20
-	buttonPop.dy = 50
-	buttonPop.events.on("hit", function () {
-		chart.data = sortData(data[actualTop][actualLanguage], "popularity")
-		chart.invalidateData()
-	})
-
-	var buttonAO = chart.chartContainer.createChild(am4core.Button)
-	buttonAO.label.text = "Sort by\nalphabetical order"
-	buttonAO.contentValign = "top"
-	buttonAO.contentAlign = "left"
-	buttonAO.height = 50
-	buttonAO.width = 170
-	buttonAO.hover = true
-	buttonAO.dx = 20
-	buttonAO.dy = 105
-	buttonAO.events.on("hit", function () {
-		chart.data = sortData(data[actualTop][actualLanguage], "name")
-		chart.invalidateData()
-	})
-
 	let labelHS = nodeLabel.states.create("hover")
 	labelHS.properties.fillOpacity = 1
 
@@ -241,6 +191,16 @@ const constructChord = function (json, setActor) {
 	document.getElementById('top').addEventListener('change', function (e) {
 		var top = e.target.value
 		changeTop(top)
+	})
+
+	document.getElementById("SortByPopularity").addEventListener('click', function (e) {
+		chart.data = sortData(data[actualTop][actualLanguage], "popularity")
+		chart.invalidateData()
+	})
+
+	document.getElementById("SortByName").addEventListener('click', function (e) {
+		chart.data = sortData(data[actualTop][actualLanguage], "name")
+		chart.invalidateData()
 	})
 
 	return chart
