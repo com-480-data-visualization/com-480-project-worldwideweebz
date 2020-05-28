@@ -117,6 +117,7 @@ class SankeyPage extends React.Component {
               { // Show close button if any details info is shown
                 this.state.type === null ? null :
                   <FontAwesomeIcon icon={faTimesCircle} color="#fff" size="3x"
+					 	        className="close-icon"
                     onClick={() => this.setDisplay(null, null)}
                     style={{ float: "right", margin: "0 0 15px 15px", cursor: "pointer" }} />
               }

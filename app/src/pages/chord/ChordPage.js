@@ -47,7 +47,7 @@ class ChordPage extends React.Component {
 				<div>
 					<h1>11292</h1>
 					<h2>voice actors giving life to characters</h2>
-					<p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> Hover on an actor to learn more about her or him</p>
+					<p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff"/> Hover on an actor to learn more about her or him</p>
 					<p>This diagram shows information on the top voice actors of each language, depending on their popularity (the number of times a user added the voice actor in their favorites).</p>
 					<p>Each voice actor is shown on a node, with the links reaching others showing that they played in the same anime or movie at least once.</p>
 					<p>The circle with the color represents its popularity and the number inside it the number of anime or movies the actor played in.</p>
@@ -58,6 +58,7 @@ class ChordPage extends React.Component {
 			return (
 				<div className="ActorDetails">
 					<FontAwesomeIcon icon={faTimesCircle} color="#fff" size="3x"
+					 	className="close-icon"
 						onClick={() => this.setActor(null)}
 						style={{ float: "right", margin: "0 0 15px 15px", cursor: "pointer" }} />
 					<h2>{actor.name}</h2>

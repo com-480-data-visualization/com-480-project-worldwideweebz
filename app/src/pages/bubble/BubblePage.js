@@ -331,7 +331,7 @@ class BubblePage extends React.Component {
 
   renderGenreFiltering() {
     return <div id="filter-genres" style={this.state.activeGenre ? { display: "none" } : {}}>
-      <div id="show-filter" onClick={() => {this.setState({ showingFilter: !this.state.showingFilter }); setTimeout(this.updateDimensions, 0)}}>Filter the genres <FontAwesomeIcon icon={this.state.showingFilter ? faChevronUp : faChevronDown} style={{ width: "16px", height: "16px" }} /></div>
+      <div id="show-filter" onClick={() => { this.setState({ showingFilter: !this.state.showingFilter }); setTimeout(this.updateDimensions, 0) }}>Filter the genres <FontAwesomeIcon icon={this.state.showingFilter ? faChevronUp : faChevronDown} style={{ width: "16px", height: "16px" }} /></div>
       <ul style={this.state.showingFilter ? { maxHeight: `${this.state.height - 40}px`, overflowY: "scroll" } : {}}>
         <ul className="pin">
           <li onClick={() => this.setAllGenresDisplayTo(true)}
@@ -369,7 +369,9 @@ class BubblePage extends React.Component {
   renderPageDescription() {
     return (
       <div>
-        <h1>43</h1>, <h2>genres to classify them all</h2>
+        <h1>43</h1>
+        <h2>genres to classify them all</h2>
+        <p style={{fontWeight: 550}}>Let's have a look at how many animes there are for each genre and which animes are the most popular for each of them</p>
         <p>
           In this data visualization, we showcase the distribution of animes across the genres.
           The size of the bubble is proportional to the number of animes with that genre.
@@ -381,7 +383,7 @@ class BubblePage extends React.Component {
         </p>
         <p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> Click on a genre to zoom into it.</p>
         <p>You can then see the 50 animes that represent the most the genre.
-          The displayed number and the size of the bubble represent the number of people that had that anime as favorite.
+        The displayed number and the size of the bubble represent the number of people that had that anime as favorite.
         </p>
         <p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> Hover / click on an anime to see more information about the anime</p>
       </div>
@@ -389,43 +391,44 @@ class BubblePage extends React.Component {
   }
 
   renderGenreDescription(genre) {
-    return [
-      <h2>{genre.name}</h2>,
-      <p><span style={{ fontWeight: 600 }}>Description: </span>{genreDescriptions[genre.name]}</p>,
-      <p><span style={{ fontWeight: 600 }}>Number of animes: </span>{genre.count}</p>,
-      <p><span style={{ fontWeight: 600 }}>Representative anime: </span>{genre.representative}</p>,
-    ]
+    return (
+      <div>
+        <h2>{genre.name}</h2>,
+        <p><span style={{ fontWeight: 600 }}>Description: </span>{genreDescriptions[genre.name]}</p>
+        <p><span style={{ fontWeight: 600 }}>Number of animes: </span>{genre.count}</p>
+        <p><span style={{ fontWeight: 600 }}>Representative anime: </span>{genre.representative}</p>
+      </div>
+    )
   }
 
   renderAnimeDescription(anime) {
-    return [
-      // display close button if anime has been clicked
-      this.state.activeAnime ?
-        <FontAwesomeIcon icon={faTimesCircle} color="#fff" size="3x"
-          className="close-icon"
-          onClick={(event) => this.setState({ activeAnime: null })}
-          style={{ float: "right", margin: "0 0 15px 15px", cursor: "pointer" }} />
-        : null,
-      <h2>{anime.title}</h2>,
-      // Image should not be null
-      (anime.image_url === null) ? null :
-        // If settings disable NSFW, check if anime.genre exists and contains sensitive genres
-        ("genre" in anime && Config.detectNSFW(anime.genre.toString())) ?
-          <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
-          <img src={anime.image_url} alt={anime.title} />
-      ,
-      <p><span style={{ fontWeight: 600 }}>Favorites: </span>{anime.favorites}</p>,
-      <p><span style={{ fontWeight: 600 }}>Score: </span>{anime.score}</p>,
-      <p><span style={{ fontWeight: 600 }}>Episode count: </span>{anime.episodes}</p>,
-      <p><span style={{ fontWeight: 600 }}>Aired: </span>{anime.aired_string}</p>,
-      <p><span style={{ fontWeight: 600 }}>Type: </span>{anime.type}</p>,
-      <p><span style={{ fontWeight: 600 }}>Source: </span>{anime.source}</p>,
-      <p><span style={{ fontWeight: 600 }}>Duration: </span>{anime.duration}</p>,
-      <p><span style={{ fontWeight: 600 }}>Producer: </span>{anime.producer}</p>,
-      <p><span style={{ fontWeight: 600 }}>Studio: </span>{anime.studio}</p>,
-      <p><span style={{ fontWeight: 600 }}>Genre: </span>{anime.genre.join(",")}</p>,
-      <p><span style={{ fontWeight: 600 }}>MyAnimeList ID: </span>{anime.anime_id}</p>,
-    ]
+    return (
+      <div>
+        {this.state.activeAnime ?
+          <FontAwesomeIcon icon={faTimesCircle} color="#fff" size="3x"
+            className="close-icon"
+            onClick={(event) => this.setState({ activeAnime: null })}
+            style={{ float: "right", margin: "0 0 15px 15px", cursor: "pointer" }} />
+          : null}
+        <h2>{anime.title}</h2>
+        {(anime.image_url === null) ? null :
+          ("genre" in anime && Config.detectNSFW(anime.genre.toString())) ?
+            <img src={`${process.env.PUBLIC_URL}/img/nsfw.png`} alt="NSFW" /> :
+            <img src={anime.image_url} alt={anime.title} />
+        }
+        <p><span style={{ fontWeight: 600 }}>Favorites: </span>{anime.favorites}</p>
+        <p><span style={{ fontWeight: 600 }}>Score: </span>{anime.score}</p>
+        <p><span style={{ fontWeight: 600 }}>Episode count: </span>{anime.episodes}</p>
+        <p><span style={{ fontWeight: 600 }}>Aired: </span>{anime.aired_string}</p>
+        <p><span style={{ fontWeight: 600 }}>Type: </span>{anime.type}</p>
+        <p><span style={{ fontWeight: 600 }}>Source: </span>{anime.source}</p>
+        <p><span style={{ fontWeight: 600 }}>Duration: </span>{anime.duration}</p>
+        <p><span style={{ fontWeight: 600 }}>Producer: </span>{anime.producer}</p>
+        <p><span style={{ fontWeight: 600 }}>Studio: </span>{anime.studio}</p>
+        <p><span style={{ fontWeight: 600 }}>Genre: </span>{anime.genre.join(",")}</p>
+        <p><span style={{ fontWeight: 600 }}>MyAnimeList ID: </span>{anime.anime_id}</p>
+      </div>
+    )
   }
 }
 
