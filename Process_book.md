@@ -33,9 +33,9 @@ header-includes:
 
 # Introduction
 
-Animes are a way to entertain each and everyone, by showing different stories in beautiful or dreadful universes. With them, one can escape in a different World for a period of time, learn about life by the morality shown in them, or even get to see diverse cultures. They have grown exponentially in popularity over the years, to the point that today almost everyone has seen at least in their lifespan.
+Animes are a way to entertain each and everyone, by showing different stories in beautiful or dreadful universes. With them, one can escape in a different World for a period of time, learn about life by the morality shown in them, or even get to see diverse cultures. They have grown exponentially in popularity over the years, to the point that today almost everyone has seen at least one in their lifespan.
 
-Thinking about how popular it is nowadays, being able to see different visualizations about them is more important now than ever. From every anime depending on their airing date to the most popular voice actresses and actors per language, going by the top animes per genre and the number of animes per studio with insightful informations about everything show on these diagrams, this website gives any wanted information about animes.
+Thinking about their current popularity, being able to see different visualizations about them becomes more and more meaningful and learning what makes them and the people behind the scenes popular gives a lot of information about something we love. From every anime depending on their airing date to the most popular voice actresses and actors per language, by the top animes per genre and the number of animes per studio with insightful informations about everything shown on these diagrams, this website gives almost all the information you need about anime. Furthermore, having many interactions on each visualization gives a ludic experience so that everyone can make the best use of their time to learn about animes.
 
 # Problem statement
 
@@ -85,7 +85,7 @@ The difference between both implementations is shown below.
 
 Bubble chart: version 1                             | Bubble chart: version 2 (final)
 :--------------------------------------------------:|:------------------------------------:
-![](assets/bubble_zoom_version1.png){height=180px}  |![](assets/bubble_zoom_version2.png){height=180px}
+![Bubble version 1](assets/bubble_zoom_version1.png){height=180px}  |![Bubble version 2](assets/bubble_zoom_version2.png){height=180px}
 
 Finally, depending on what the user is focusing on, information about the chart/genre/anime is displayed on the side.
 
@@ -115,6 +115,10 @@ Then, we thought about showing more information directly on the diagram, to have
 
 # Future work and limitations
 
-The main issue of the visualizations is that most of them are not adapted to display correctly on mobile. We could work on it and display a modified version of the website to avoid conflicts in the display of the charts.
+The main issue of the visualizations is that most of them are not adapted to display correctly on mobile. We could work on it and show a modified version of the website when using a phone to avoid conflicts in the display of the charts.
+
+Furthermore we used only one dataset based on a website that is more popular in some countries than other, giving biased information depending on the general anime culture of each region. For example this dataset has Poland and Brazil being on the top number of users while France is on the bottom, even though the latter is one of the top countries worldwide watching anime. We could have used more datasets coming from other platforms: [Crunchyroll](https://www.crunchyroll.com/), [ADN](https://animedigitalnetwork.fr/) or [AniList](https://anilist.co/). However, using their datasets would have been more challenging and taken more time to scrupulously gather and merge informations.
+
+
 
 # Conclusion
