@@ -86,6 +86,7 @@ class BubblePage extends React.Component {
 
   componentDidMount() {
     window.addEventListener("resize", this.updateDimensions)
+    this.updateDimensions()
 
     // register callback when route changes
     this.props.onRouteChange(path => {
