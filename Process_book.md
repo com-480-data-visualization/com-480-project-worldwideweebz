@@ -99,8 +99,9 @@ One tricky part in the implementation was to make sure that the scrollable zones
 
 A feature that we did not have time to include was the ability to select year ranges on the left, which would showcase the top X animes for that time period.
 
-![Histogram visualization](assets/final_history_page.png)
-![Histogram visualization pokemon](assets/final_history_page_pokemon.png)
+Histogram visualization: main                            | Histogram visualization: click on anime
+:--------------------------------------------------:|:------------------------------------:
+![Histogram visualization](assets/final_history_page.png){#id .class width=300px}  |![Histogram visualization pokemon](assets/final_history_page_pokemon.png){#id .class width=300px}
 
 ## Bubble chart: 43 genres to classify them all
 
@@ -118,7 +119,7 @@ A first implementation of it was just to focus on the selected genre and scale e
 To address the issue, instead of scaling up the other bubbles, we just push/offset them by the size of the bubble chart so that they lie close to the boundary and remain at the original size.  
 The difference between both implementations is shown below.
 
-Bubble chart: version 1                             | Bubble chart: version 2 (final)
+Bubble chart zoom: version 1                             | Bubble chart zoom: version 2 (final)
 :--------------------------------------------------:|:------------------------------------:
 ![Bubble version 1](assets/bubble_zoom_version1.png){height=180px}  |![Bubble version 2](assets/bubble_zoom_version2.png){height=180px}
 
@@ -139,8 +140,9 @@ We had then to choose the number of studios and genres to show up in the diagram
 
 Like the other diagrams, we put information on the sidebar depending on what is hovered, and decided to show pertinant information for each studio and a short description for each genre.
 
-![Sankey visualization](assets/final_sankey_page.png)
-![Sankey visualization](assets/final_sankey_page_toei.png)
+Sankey visualization: main                           | Sankey visualization: hover on studio
+:--------------------------------------------------:|:------------------------------------:
+![Sankey visualization](assets/final_sankey_page.png){#id .class width=300px}  |![Sankey visualization: toei](assets/final_sankey_page_toei.png){#id .class width=300px}
 
 ## Chord diagram: 11292 voices giving life to characters
 
@@ -154,9 +156,10 @@ The issue with this diagram was on the script to fetch and sort the data, to tak
 
 Then, we thought about showing more information directly on the diagram, to have a more general view of it all. A circleBullet to show the popularity and number of anime/movies dubbed by each, as well as the possibility ot highlight every actress or actor linked to the one hovered. With all of that, someone looking at the diagram can directly see insightful information in a single glance. Finally, we added buttons to change how the diagram is sorted or which top and language we want to show, which was done by getting the right data from its dictionary (for example `top 10 -> "English" -> data`) and sorting it in a different way, as `amcharts` will create nodes depending on their appearance on the dataset.
 
-![Sankey visualization](assets/final_chord_page.png)
+Chord visualization: main                           | Chord visualization: hover on voice actor
+:--------------------------------------------------:|:------------------------------------:
+![Chord visualization](assets/final_chord_page.png){#id .class width=300px}  |![Chord visualization](assets/final_chord_page_dany.png){#id .class width=300px}
 
-![Sankey visualization](assets/final_chord_page_dany.png)
 
 # Future work and limitations
 
