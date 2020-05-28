@@ -1,6 +1,7 @@
 import * as am4core from "@amcharts/amcharts4/core"
 import * as am4charts from "@amcharts/amcharts4/charts"
 import am4themes_animated from "@amcharts/amcharts4/themes/animated"
+import actorDetails from './vA_infos.json'
 
 const constructChord = function (json, setActor) {
 
@@ -83,6 +84,7 @@ const constructChord = function (json, setActor) {
 	chart.height = am4core.percent(60)
 
 	var node = chart.nodes.template
+	node.propertyFields.id = "id"
 	node.fillOpacity = 0.4
 	node.showSystemTooltip = true
 	node.tooltipText = ""
@@ -134,7 +136,7 @@ const constructChord = function (json, setActor) {
 	legend.toggable = false
 	legend.events.off("hit")
 	legend.parent = chart.chartContainer
-	legend.dy = 350
+	legend.dy = 300
 	legend.dx = -30
 	legend.width = 400
 	legend.align = "left"
@@ -191,6 +193,11 @@ const constructChord = function (json, setActor) {
 
 	node.events.on("over", function (event) {
 		var node = event.target
+
+		if (node.id !== 0) {
+			setActor(actorDetails[node.id])
+		}
+
 		node.outgoingDataItems.each(function (dataItem) {
 			if (dataItem.toNode) {
 				dataItem.link.isHover = true

@@ -59,8 +59,8 @@ class SankeyPage extends React.Component {
       case null:
         return (
           <div className="StudiosExplanation">
-            <h1>> 430</h1>
-            <h2>anime studios</h2>
+            <h1>711</h1>
+            <h2>Studios producing animes</h2>
             <p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff" /> Hover on a studio or genre to learn more about it</p>
             <p>Here, we show the number of animes that a studio has per genre and their average score. We take the top 10 studios, depending on the number of anime or movies that they aired, and the top 5 most represented genres.</p>
             <p>You can put your mouse on a link to show its size and highlight the full track from studio to score going through the specific genre.</p>
