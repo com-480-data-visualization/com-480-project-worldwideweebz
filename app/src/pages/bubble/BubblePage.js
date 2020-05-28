@@ -371,7 +371,7 @@ class BubblePage extends React.Component {
       <div>
         <h1>43</h1>
         <h2>genres to classify them all</h2>
-        <p style={{fontStyle: "italic"}}>How do we generalize traits across all animes?</p>
+        <p style={{fontStyle: "italic"}}>How do we generalize traits across thousands of anime?</p>
         <p>
           In this data visualization, we showcase the distribution of animes across the genres.
           The size of the bubble is proportional to the number of animes with that genre.
