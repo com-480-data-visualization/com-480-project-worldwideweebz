@@ -121,11 +121,11 @@ The difference between both implementations is shown below.
 
 Bubble chart zoom: version 1                             | Bubble chart zoom: version 2 (final)
 :--------------------------------------------------:|:------------------------------------:
-![Bubble version 1](assets/bubble_zoom_version1.png){height=180px}  |![Bubble version 2](assets/bubble_zoom_version2.png){height=180px}
+![Bubble version 1](assets/bubble_zoom_version1.png){#id .class width=300px}  |![Bubble version 2](assets/bubble_zoom_version2.png){#id .class width=300px}
 
 Finally, depending on what the user is focusing on, information about the chart/genre/anime is displayed on the side.
 
-![Bubble visualization](assets/final_bubble_page.png)
+![Bubble visualization](assets/final_bubble_page.png){#id .class width=300px}
 
 
 ## Sankey diagram: 711 studios captivating the world
@@ -212,4 +212,4 @@ Pedro Torres Da Cunha:
 
 In this project we worked on different visualizations about anime and their specifity, to show how interesting and complex they can be, who are their main actors, their popularity across different metrics and to get a general view of all of them. Going for a page template across the website give us the possibility to show more detailled information about each diagram, while having a general narration between them. We preferred this approach than a single page, to avoid the confusion of scrolling and to have tabs to go from one diagram to the other in an instant.
 
-Hopefully you 
+Hopefully you could explore and experiment with the different visualizations to have an overall fun and engaging experience that could inspire or even tempt you to know more about this industry and anime in a general way.
