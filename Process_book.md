@@ -101,8 +101,9 @@ One tricky part in the implementation was to make sure that the scrollable zones
 
 A feature that we did not have time to include was the ability to select year ranges on the left, which would showcase the top X animes for that time period.
 
-![Histogram visualization](assets/final_history_page.png)
-![Histogram visualization pokemon](assets/final_history_page_pokemon.png)
+![Histogram visualization](assets/final_history_page.png){#id .class width=400px}
+
+![Histogram visualization pokemon](assets/final_history_page_pokemon.png){#id .class width=400px}
 
 ## Bubble chart: 43 genres to classify them all
 
@@ -122,11 +123,11 @@ The difference between both implementations is shown below.
 
 Bubble chart: version 1                             | Bubble chart: version 2 (final)
 :--------------------------------------------------:|:------------------------------------:
-![Bubble version 1](assets/bubble_zoom_version1.png){height=180px}  |![Bubble version 2](assets/bubble_zoom_version2.png){height=180px}
+![Bubble version 1](assets/bubble_zoom_version1.png){#id .class width=300px}  |![Bubble version 2](assets/bubble_zoom_version2.png){#id .class width=300px}
 
 Finally, depending on what the user is focusing on, information about the chart/genre/anime is displayed on the side.
 
-![Bubble visualization](assets/final_bubble_page.png)
+![Bubble visualization](assets/final_bubble_page.png){#id .class width=400px}
 
 
 ## Sankey diagram: 711 studios captivating the world
@@ -141,8 +142,9 @@ We had then to choose the number of studios and genres to show up in the diagram
 
 Like the other diagrams, we put information on the sidebar depending on what is hovered, and decided to show pertinant information for each studio and a short description for each genre.
 
-![Sankey visualization](assets/final_sankey_page.png)
-![Sankey visualization](assets/final_sankey_page_toei.png)
+![Sankey visualization](assets/final_sankey_page.png){#id .class width=400px}
+
+![Sankey visualization](assets/final_sankey_page_toei.png){#id .class width=400px}
 
 ## Chord diagram: 11292 voices giving life to characters
 
@@ -156,9 +158,9 @@ The issue with this diagram was on the script to fetch and sort the data, to tak
 
 Then, we thought about showing more information directly on the diagram, to have a more general view of it all. A circleBullet to show the popularity and number of anime/movies dubbed by each, as well as the possibility ot highlight every actress or actor linked to the one hovered. With all of that, someone looking at the diagram can directly see insightful information in a single glance. Finally, we added buttons to change how the diagram is sorted or which top and language we want to show, which was done by getting the right data from its dictionary (for example `top 10 -> "English" -> data`) and sorting it in a different way, as `amcharts` will create nodes depending on their appearance on the dataset.
 
-![Sankey visualization](assets/final_chord_page.png)
+![Chord visualization](assets/final_chord_page.png){width=400px}
 
-![Sankey visualization](assets/final_chord_page_dany.png)
+![Chord visualization](assets/final_chord_page_dany.png){width=400px}
 
 # Future work and limitations
 
@@ -211,4 +213,4 @@ Pedro Torres Da Cunha:
 
 In this project we worked on different visualizations about anime and their specifity, to show how interesting and complex they can be, who are their main actors, their popularity across different metrics and to get a general view of all of them. Going for a page template across the website give us the possibility to show more detailled information about each diagram, while having a general narration between them. We preferred this approach than a single page, to avoid the confusion of scrolling and to have tabs to go from one diagram to the other in an instant.
 
-Hopefully you 
+Hopefully you could explore and experiment with the different visualizations to have an overall fun and engaging experience that could inspire or even tempt you to know more about this industry and anime in a general way.
