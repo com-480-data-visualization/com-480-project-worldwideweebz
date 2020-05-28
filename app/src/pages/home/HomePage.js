@@ -37,6 +37,7 @@ class HomePage extends React.Component {
                             <br /><FontAwesomeIcon icon={faFirefoxBrowser} /> Use Mozilla Firefox for perfomance
                             <br /><FontAwesomeIcon icon={faArchive} /> Clear your browser cache (Ctrl + F5)
                             <br /><FontAwesomeIcon icon={faDesktop} /> Use a 1920x1080 maximized window
+                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or even better fullscreen (F11)
                             <br /><FontAwesomeIcon icon={faRedoAlt} /> Refresh this page for more backgrounds :)
                         </p>
                         <ConfigPanel />
