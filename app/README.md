@@ -25,7 +25,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The scripts are defined in `package.json`. In the current project directory, you can run (select the appropriate command depending on whether you installed Yarn):
 
-## `yarn install` / `npm install`
+### `yarn install` / `npm install`
 
 MUST be ran first at least once or when dependencies specified in `package.json` are updated. This step is required to fetch and setup the library dependencies.
 
