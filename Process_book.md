@@ -39,15 +39,15 @@ In this context, we attempt to bring insightful visualizations about these works
 
 # Problem statement
 
-The main concern is to give insights and the ability to learn more about different aspects of the world of anime.  
+With our data visualization, we aim at answering the following questions:
 
-How has anime evolved from its earliest years in 1917 until now? Did the number of produced animes increase through time? Is the average number of episodes now bigger or smaller?
+- How has anime evolved from its earliest years in 1917 until now? Did the number of produced animes increase through time? Is the average number of episodes per anime title now greater or smaller?
 
-How are the genres distributed across the animes? What is the genre that is the most represented and what are the most popular genre per anime?
+- How do we categorize anime? How are anime titles distributed accross genres? What are the most popular and most represented genres?
 
-What are the most popular studios? Which genres are the most prevalent for each of them and what are the ratings of their productions?
+- What are the most popular studios? Which genres are the most prevalent for each of them and what are the MyAnimeList ratings of their productions?
 
-What are the most popular voice actors for each language? Who has already worked together for an anime? What does the network of anime dubbing look like?
+- What are the most popular voice actors, for each language? Who has already worked together for an anime? How does the "seiyuu" social connections network look like?
 
 # Dataset
 
