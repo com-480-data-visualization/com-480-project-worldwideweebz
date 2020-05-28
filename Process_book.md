@@ -51,11 +51,9 @@ With our data visualization, we aim at answering the following questions:
 
 # Dataset
 
-The dataset used to answer those question is the [MyAnimeList Dataset](https://www.kaggle.com/azathoth42/myanimelist).
+The dataset used to answer those questions is the [MyAnimeList Dataset](https://www.kaggle.com/azathoth42/myanimelist). It contains data about all animes up to 2018 from [MyAnimeList](https://myanimelist.net/), one of the biggest social platforms to discover, rate and review animes and mangas. Precise and clean information about each anime can be extracted such as genres, studio, popularity, view count and more.
 
-It contains data about animes from [MyAnimeList](https://myanimelist.net/) which is one of the biggest platforms to see and rate animes or movies. Precise and clean information about each anime can be gathered including the genres, studio, popularity and more.
-
-The voice actors are unfortunately not included in this dataset. However, we can gather them through [Jikan API](https://jikan.moe/), an unofficial MyAnimeList API from which almost everything from the site can be scrapped. 
+The voice actors are unfortunately not included in this dataset, although they are mentioned on the MAL website. However, we scrap them using the [Jikan API](https://jikan.moe/), an unofficial MyAnimeList API, to complete our data set.
 
 # Project structure
 
