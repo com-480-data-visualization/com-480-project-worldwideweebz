@@ -89,7 +89,7 @@ The composable nature of React components allows us to naturally separate our im
 
 ## Histogram
 
-### 100 years of anime
+**100 years of anime**
 
 With this visualization, we want to showcase the huge amount of existing anime and the increase in volume of anime production over the years. For this visualization, we were inspired by the [Github contributions calendar](https://help.github.com/en/github/setting-up-and-managing-your-github-profile/viewing-contributions-on-your-profile#contributions-calendar) but scaled out to hold the thousands of anime titles in the dataset.
 
@@ -107,7 +107,7 @@ Histogram visualization: main                            | Histogram visualizati
 
 ## Bubble chart
 
-### 43 genres to classify them all
+**43 genres to classify them all**
 
 The goal was to show the distribution of the genres across the animes. Given the non-negligeable number of genres, we thought a bubble chart would be perfect as it quickly shows the most represented genres and how they compare to each other.
 
@@ -134,7 +134,7 @@ Finally, depending on what the user is focusing on, information about the chart/
 
 ## Sankey diagram
 
-### 711 studios captivating the world
+**711 studios captivating the world**
 
 For this diagram, the aim was to show informations about the most consequential anime studios. We thought about doing a Sankey diagram to show a nice link between the number of animes produced by the studio per genre, and then sorted per score's mean (rounded to the closest integer). This provides an insightful visualization showing directly the influence of the top studios over anime's world.
 
@@ -152,7 +152,7 @@ Sankey visualization: main                           | Sankey visualization: hov
 
 ## Chord diagram
 
-### 11292 voices giving life to characters
+**11292 voices giving life to characters**
 
 Finally, the last diagram is about the voice actors, their popularity and links to other actresses or actors. This was done by using a chord diagram, so that we could easily have a node per actor and a link if they played in the same anime or movie at least once.
 
