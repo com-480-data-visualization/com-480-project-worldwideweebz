@@ -33,9 +33,9 @@ header-includes:
 
 # Introduction
 
-Animes have become a major source of entertainment with a rise in popularity in the Western audience, often narrating stories in beautiful or dreadful universes. With them, one can escape in a different World for a period of time, learn about life by the morality shown in them, or even get to see diverse cultures. They have grown exponentially in popularity over the years, to the point that today almost everyone has seen at least one in their lifespan.
+Animes have become a major source of digital entertainment, often narrating stories in beautiful or dreadful universes. Like with all works of fiction, one can escape to another world, empathize with characters, discover foreign culture and appreciate the art. They have grown exponentially in popularity over the years, in particular in Western audiences. The result is a rich byproduct of human creativity, globalization and commercialism.
 
-Thinking about their current popularity, being able to see different visualizations about them becomes more and more meaningful and learning what makes them and the people behind the scenes popular gives a lot of information about something we love. From every anime depending on their airing date to the most popular voice actresses and actors per language, by the top animes per genre and the number of animes per studio with insightful informations about everything shown on these diagrams, this website gives almost all the information you need about anime. Furthermore, having many interactions on each visualization gives a ludic experience so that everyone can make the best use of their time to learn about animes.
+In this context, we attempt to bring insightful visualizations about these works of art we love, but also the people behind their creation. We want to showcase what makes them so unique, and bring forward the artists and companies that produce them. We showcase all animes registered on MyAnimeList until 2018, the top animes per genre, and detailed information about the studios and the "seiyuus" (the voice actors of this industry). Furthermore, we focus on an interactive, elegant and playful user experience so that our visualizations are not only informative, but also aesthetically pleasing.
 
 # Problem statement
 
@@ -101,9 +101,8 @@ One tricky part in the implementation was to make sure that the scrollable zones
 
 A feature that we did not have time to include was the ability to select year ranges on the left, which would showcase the top X animes for that time period.
 
-![Histogram visualization](assets/final_history_page.png){#id .class width=400px}
-
-![Histogram visualization pokemon](assets/final_history_page_pokemon.png){#id .class width=400px}
+![Histogram visualization](assets/final_history_page.png)
+![Histogram visualization pokemon](assets/final_history_page_pokemon.png)
 
 ## Bubble chart: 43 genres to classify them all
 
@@ -123,11 +122,11 @@ The difference between both implementations is shown below.
 
 Bubble chart: version 1                             | Bubble chart: version 2 (final)
 :--------------------------------------------------:|:------------------------------------:
-![Bubble version 1](assets/bubble_zoom_version1.png){#id .class width=300px}  |![Bubble version 2](assets/bubble_zoom_version2.png){#id .class width=300px}
+![Bubble version 1](assets/bubble_zoom_version1.png){height=180px}  |![Bubble version 2](assets/bubble_zoom_version2.png){height=180px}
 
 Finally, depending on what the user is focusing on, information about the chart/genre/anime is displayed on the side.
 
-![Bubble visualization](assets/final_bubble_page.png){#id .class width=400px}
+![Bubble visualization](assets/final_bubble_page.png)
 
 
 ## Sankey diagram: 711 studios captivating the world
@@ -142,9 +141,8 @@ We had then to choose the number of studios and genres to show up in the diagram
 
 Like the other diagrams, we put information on the sidebar depending on what is hovered, and decided to show pertinant information for each studio and a short description for each genre.
 
-![Sankey visualization](assets/final_sankey_page.png){#id .class width=400px}
-
-![Sankey visualization](assets/final_sankey_page_toei.png){#id .class width=400px}
+![Sankey visualization](assets/final_sankey_page.png)
+![Sankey visualization](assets/final_sankey_page_toei.png)
 
 ## Chord diagram: 11292 voices giving life to characters
 
@@ -158,9 +156,9 @@ The issue with this diagram was on the script to fetch and sort the data, to tak
 
 Then, we thought about showing more information directly on the diagram, to have a more general view of it all. A circleBullet to show the popularity and number of anime/movies dubbed by each, as well as the possibility ot highlight every actress or actor linked to the one hovered. With all of that, someone looking at the diagram can directly see insightful information in a single glance. Finally, we added buttons to change how the diagram is sorted or which top and language we want to show, which was done by getting the right data from its dictionary (for example `top 10 -> "English" -> data`) and sorting it in a different way, as `amcharts` will create nodes depending on their appearance on the dataset.
 
-![Chord visualization](assets/final_chord_page.png){width=400px}
+![Sankey visualization](assets/final_chord_page.png)
 
-![Chord visualization](assets/final_chord_page_dany.png){width=400px}
+![Sankey visualization](assets/final_chord_page_dany.png)
 
 # Future work and limitations
 
@@ -213,4 +211,4 @@ Pedro Torres Da Cunha:
 
 In this project we worked on different visualizations about anime and their specifity, to show how interesting and complex they can be, who are their main actors, their popularity across different metrics and to get a general view of all of them. Going for a page template across the website give us the possibility to show more detailled information about each diagram, while having a general narration between them. We preferred this approach than a single page, to avoid the confusion of scrolling and to have tabs to go from one diagram to the other in an instant.
 
-Hopefully you could explore and experiment with the different visualizations to have an overall fun and engaging experience that could inspire or even tempt you to know more about this industry and anime in a general way.
+Hopefully you 
