@@ -78,9 +78,28 @@ To build our web application, we use the following frameworks and technologies:
 
 ## Architecture
 
+The composable nature of React components allows us to naturally separate our implementation in distinct modules. We make heavy use of [Higher-Order Components](https://reactjs.org/docs/higher-order-components.html) that allow us to easily extend any other component by wrapping it into a function call. We describe here the file structure of the project in the `app/src` root directory:
+
+- `App.js`: The entry point of our React application. It declares the router of pages and augments its components.
+- `Config.js`: Global configuration with lifecycle-aware hooks, which allows us to filter the displayed data.
+- `animation`: React components and styles related to global animations, implemented as HOC.
+- `components`: Reusable custom assets and layout React components such as loading screens, menus, content view and sidebars.
+- `pages`: React components for each page and visualization. They are described in greater detail in the following sections.
+- `utils`: Reusable functions in the project
+
 # Visualizations
 
 ## Histogram: 100 years of anime
+
+With this visualization, we want to showcase the huge amount of existing anime and the increase in volume of anime production over the years. For this visualization, we were inspired by the [Github contributions calendar](https://help.github.com/en/github/setting-up-and-managing-your-github-profile/viewing-contributions-on-your-profile#contributions-calendar) but scaled out to hold the thousands of anime titles in the dataset.
+
+The user is able to hover over every dot of the visualization to preview details about an anime, and click on one to persist it in the sidebar.
+
+We built it from scratch using only `div`s and React's state management. We fetch the data `history.json` and save it as state of the component once ready. Then, `render` is automatically triggered, and the histogram consists of container `div` of class `row` for each year, containing multiple `div`s of class `dot` for all anime produced during that year. Each `dot` is a circle which color is shaded given the following color scaling: `(maxShade - minShade) / (maxThreshold - minThreshold) * (episodeCount % maxThreshold) + minShade` given our shading function defined in `ColorUtils.shade`, with base color `#F59B00`. Each dot is registered an `onMouseEnter`, `onMouseLeave` and `onClick` listener to change its respective state in the sidebar, which will then display the selected anime details. We add CSS transition classes for additional animations when rows enter the viewport.
+
+One tricky part in the implementation was to make sure that the scrollable zones of the sidebar always behaved correctly, given the fixed scale gradient in the bottom right corner. We were worried about the performance of the browser given so many event listeners, but the production build proved to be fast enough, although somewhat CPU intensive.
+
+A feature that we did not have time to include was the ability to select year ranges on the left, which would showcase the top X animes for that time period.
 
 ## Bubble chart: 43 genres to classify them all
 
