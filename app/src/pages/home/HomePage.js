@@ -30,7 +30,7 @@ class HomePage extends React.Component {
                     </div>
                     <div className="Foreground">
                         <h1>Anime Data Visualization</h1>
-                        <p>An interactive data visualization experience based on the MyAnimeList dataset by Alexandre CHAU, Pedro TORRES DA CUNHA &amp; Joachim DUNANT for the COM-480 course</p>
+                        <p>An interactive data visualization experience based on the <a href="https://myanimelist.net/" target="_blank">MyAnimeList</a> dataset by Alexandre CHAU, Pedro TORRES DA CUNHA &amp; Joachim DUNANT for the COM-480 course</p>
 
                         <p>
                             For the best experience:

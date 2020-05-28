@@ -1,7 +1,7 @@
 import React from "react"
 import { withRouter } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
+import { faArrowRight, faArrowLeft, faBook } from "@fortawesome/free-solid-svg-icons"
 
 import "./Menu.sass"
 
@@ -75,6 +75,11 @@ const WithMenu = (Component) => {
                         </nav>
 
                         <div class="NavButtons">
+                            <a href="https://github.com/com-480-data-visualization/com-480-project-worldwideweebz/blob/master/Process_book.pdf"
+                                className="ProcessBookLink"
+                                target="_blank">
+                                <FontAwesomeIcon icon={faBook} /> Process book
+                            </a>
                             <a onClick={this.linkTo(this.findNeighbor(false))}>
                                 <FontAwesomeIcon icon={faArrowLeft} />
                             </a>
