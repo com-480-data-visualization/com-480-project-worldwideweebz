@@ -157,7 +157,7 @@ const constructChord = function (json, setActor) {
 	var buttonPop = chart.chartContainer.createChild(am4core.Button)
 	buttonPop.label.text = "Sort by\nPopularity"
 	buttonPop.contentValign = "top"
-	buttonPop.contentAlign = "center"
+	buttonPop.contentAlign = "left"
 	buttonPop.height = 50
 	buttonPop.width = 170
 	buttonPop.dx = 20
@@ -170,7 +170,7 @@ const constructChord = function (json, setActor) {
 	var buttonAO = chart.chartContainer.createChild(am4core.Button)
 	buttonAO.label.text = "Sort by\nalphabetical order"
 	buttonAO.contentValign = "top"
-	buttonAO.contentAlign = "center"
+	buttonAO.contentAlign = "left"
 	buttonAO.height = 50
 	buttonAO.width = 170
 	buttonAO.hover = true
@@ -195,6 +195,7 @@ const constructChord = function (json, setActor) {
 		var node = event.target
 
 		if (node.id !== 0) {
+			console.log(node.id)
 			setActor(actorDetails[node.id])
 		}
 
