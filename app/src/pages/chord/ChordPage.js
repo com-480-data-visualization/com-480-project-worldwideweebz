@@ -47,7 +47,7 @@ class ChordPage extends React.Component {
 				<div>
 					<h1>11292</h1>
 					<h2>voice actors giving life to characters</h2>
-					<p style={{fontStyle: "italic"}}>Who are the most known dubbers, toiling every day behind the scenes to give us all anime fans the best experience possible ? </p>
+					<p style={{fontStyle: "italic"}}>Who are the <b>seiyuus</b>, the people that work everyday behind the scenes and lend their voices to impersonate the characters? </p>
 					<p className="CallToAction"><FontAwesomeIcon icon={faMouse} color="#fff"/> Hover on an actor to learn more about her or him</p>
 					<p>This diagram shows information on the top voice actors of each language, depending on their popularity (the number of times a user added the voice actor in their favorites).</p>
 					<p>Each voice actor is shown on a node, with the links reaching others showing that they played in the same anime or movie at least once.</p>
