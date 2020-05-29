@@ -37,7 +37,8 @@ class BubblePage extends React.Component {
       showingFilter: false,
       hoveringGenre: null,
       hoveringAnime: null,
-      exit: false
+      exit: false,
+      filterHover: null
     }
 
     this.diameter = 600
@@ -305,8 +306,10 @@ class BubblePage extends React.Component {
       onClick={(e) => { this.focusGenre(genre); e.stopPropagation() }}
       onMouseEnter={() => this.setState({ hoveringGenre: genre })}
       onMouseLeave={() => this.setState({ hoveringGenre: null })}
+      
     >
-      <circle r="100" style={{ fill: `url(#${Config.detectNSFW(genre.name) ? "nsfw" : genre.name.replace(/\s/g, '')})` }}></circle>
+      <circle r="100" style={{ fill: `url(#${Config.detectNSFW(genre.name) ? "nsfw" : genre.name.replace(/\s/g, '')})` }}
+        stroke="black" strokeWidth={(this.state.filterHover && this.state.filterHover === genre.name) ? (4 / (this.state.scale * genre.r / 100)) : 0}></circle>
       <text dy=".2em"
         fontFamily="sans-serif" fontSize="20" fill="white">{genre.name}</text>
       <text dy="1.3em" fontFamily="Gill Sans" fontSize="20" fill="white">{genre.count}</text>
@@ -343,7 +346,10 @@ class BubblePage extends React.Component {
         {Object.entries(this.state.displayedGenres).map(([genre, checked]) =>
           <li className={this.state.displayedGenres[genre] ? "selected" : "not-selected"}
             key={"checkbox" + genre}
-            onClick={() => this.genreDisplayToggle(genre)}>
+            onClick={() => this.genreDisplayToggle(genre)}
+            onMouseEnter={() => this.setState({ filterHover: genre })}
+            onMouseLeave={() => this.setState({ filterHover: null })}
+          >
             {genre}
           </li>)}
       </ul>
