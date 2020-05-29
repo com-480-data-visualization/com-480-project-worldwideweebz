@@ -76,7 +76,7 @@ To build our web application, we use the following frameworks and technologies:
 
 ## Architecture
 
-The composable nature of React components allows us to naturally separate our implementation in distinct modules. We make heavy use of [Higher-Order Components](https://reactjs.org/docs/higher-order-components.html) which allow us to easily extend any other component by wrapping it into a function call. We describe here the file structure of the project in the `app/src` root directory:
+The composable nature of React components allows us to naturally separate our implementation in distinct modules. We make heavy use of [Higher-Order Components](https://reactjs.org/docs/higher-order-components.html) which allow us to easily extend any other component with custom capabilities with chained function calls. We describe here the file structure of the project in the `app/src` root directory:
 
 - `App.js`: The entry point of our React application. It declares the router of pages and augments its components.
 - `Config.js`: Global configuration with lifecycle-aware hooks, which allows us to filter the displayed data.
@@ -149,48 +149,46 @@ Sankey visualization: main                           | Sankey visualization: hov
 
 **11292 voices giving life to characters**
 
-Finally, the last diagram is about the voice actors, their popularity and links to other actresses or actors. This was done by using a chord diagram, so that we could easily have a node per actor and a link if they played in the same anime or movie at least once.
+The last diagram is about the voice actors, their popularity and the social connectivity network that relates them to each other. Using a chord diagram seems intuitive, as we can easily represent each actor with a node and trace a link between any two of them if they played in the same anime or movie at least once. Again, we used the `amcharts` library with the its associated documentation [here](https://www.amcharts.com/docs/v4/chart-types/chord-diagram/).
 
-Again, we used `amcharts` library with the documentation of the chord diagram [here](https://www.amcharts.com/docs/v4/chart-types/chord-diagram/). 
+A user can select the language in which voice actors dub in, which will update the displayed actors. We also added a dropdown menu to select the number of shown actors. They can be sorted either by the number of times they have been added as favorite by MyAnimeList users, or by their alphabetical order, with two buttons at the top of the diagram.
 
-We sorted the voice actors depending on the language they dub with a button to be able to go from one language to another, and chose the top ones after the number of `member favorites` they have. We also created a dropdown list to change the number represented, by using a dictonary on the dataset.
+The main issue with this diagram laid in the script to fetch and sort the data, so that it takes into account all possible combinations of the dropdown menus. We had to fetch the data of every anime to find the actors per language and per character, to be then able to retrieve the information per actor using the Jikan API before sorting them. Then we took the top actors per language, and checked whether any two of them played in the same anime and combined all these information for each node and each link between pairs into a JSON file. Another file was generated for the sidebar which stores the information of each voice actor, combined with the selection of the top 3 characters they dubbed (depending on the popularity of the anime the character was in).
 
-The issue with this diagram was on the script to fetch and sort the data, to take into account all possibilities of dropdowMenus. We had to fetch every anime information to find the actors per language and character, to be able to retrieve then information per actor, before sorting them, taking the different top ones per language, checking who played in the same anime than another one and putting informations on a JSON file for each node and link each pair. Another file was made for the sidebar which stores the informations for each voice actor, after finding the top 3 characters they dubbed (depending on the popularity of the anime the character was in). 
-
-Then, we thought about showing more information directly on the diagram, to have a more general view of it all. A circleBullet to show the popularity and number of anime/movies dubbed by each, as well as the possibility ot highlight every actress or actor linked to the one hovered. With all of that, someone looking at the diagram can directly see insightful information in a single glance. Finally, we added buttons to change how the diagram is sorted or which top and language we want to show, which was done by getting the right data from its dictionary (for example `top 10 -> "English" -> data`) and sorting it in a different way, as `amcharts` will create nodes depending on their appearance on the dataset.
+Then we added some additional interactive displays: first, a circle bullet with the number of anime/movies dubbed by each and shaded with the actor's popularity, as well as the possibility to highlight every actress or actor linked to the one hovered. Finally, we added the buttons to change how the diagram is sorted and the amount of actors and language we want to show. This is implemented through key-value pairs (for example `top 10 -> "English" -> data`) and sorting each value differently, as `amcharts` will create nodes depending on their appearance on the dataset.
 
 Chord visualization: main                           | Chord visualization: hover on voice actor
 :--------------------------------------------------:|:------------------------------------:
 ![Chord visualization](assets/final_chord_page.png){#id .class width=300px}  |![Chord visualization](assets/final_chord_page_dany.png){#id .class width=300px}
 
 
-# Future work and limitations
+# Future work
 
-The main issue of the visualizations is that most of them are not adapted to display correctly on mobile. We could work on it and show a modified version of the website when using a phone to avoid conflicts in the display of the charts.
+The main issue with our visualizations is that most of them are not adapted to display correctly on mobile devices. Using responsive design technologies such as media queries, we could implement layouts that would adapt to the available space and pixel density.
 
-Furthermore we used only one dataset based on a website that is more popular in some countries than other, giving biased information depending on the general anime culture of each region. For example this dataset has Poland and Brazil being on the top number of users while France is on the bottom, even though the latter is one of the top countries worldwide watching anime. We could have used more datasets coming from other platforms: [Crunchyroll](https://www.crunchyroll.com/), [ADN](https://animedigitalnetwork.fr/) or [AniList](https://anilist.co/). However, using their datasets would have been more challenging and taken more time to scrupulously gather and merge informations.
+Furthermore we only used a single dataset based on a website that is more popular in some countries than other, thus information is biased depending on the anime culture of each region. For example this dataset lists Poland and Brazil as having the top number of users while France is at the bottom, even though the latter is one of the top countries worldwide watching anime. We could combine additional datasets from other platforms: [Crunchyroll](https://www.crunchyroll.com/), [ADN](https://animedigitalnetwork.fr/) or [AniList](https://anilist.co/). However, using their datasets would have been more challenging and taken more time to scrupulously gather and merge.
 
 Each of the visualizations could be further improved by adding specific features:
 
 - Histogram:
     - Add an anime search bar so that the user can easily find the animes he is interested in.
-    - Add a year range selector to only show the range of years you are interested in.
+    - Add a year range selector to only show the range of years the user i interested in.
     - Show the top anime per year or range of years.
 
 - Bubble:
-    - Add an anime search bar to only display the genres of the chose anime.
+    - Add an anime search bar to only display the genres of the chosen anime.
 
 - Sankey:
-    - Add a list of studios and genres to choose from, to have them appear on the diagram.
+    - Add a list of studios and genres to choose from, so that a user can select which of them appear on the diagram.
 
 - Chord:
-  - Adding a threshold about the number of anime played in by two seyuus to create a link between them.
+  - Adding a minimal threshold on the number of anime played in by two seiyuus for them to be linked together, as the graphs we have are rather strongly connected depending on the selected language. Another variant could be to change the width of the link depending on this same number of common animes.
 
-Otherwise, we could show other diagrams to get more informations about  (by a worldmap, ...) or evolution of the popularity of animes through time, or for example the evolution of genres, studios, and so on.
+We could add more diagrams such as world map of users (the dataset was unfortunately too biased and imprecise), or the evolution of the popularity / studios / genres of animes through time.
 
 # Peer assessement
 
-Each member worked mainly on its main visualization(s) and the necessary data processing. We all contributed in the general visualization ideas and decisions that lead to the final website result.
+Each member mainly worked on its visualization(s) and the necessary data processing. We all contributed in the general visualization ideas and decisions that lead to the final website result.
 
 Alexandre Chau:
 
@@ -213,6 +211,6 @@ Pedro Torres Da Cunha:
 
 # Conclusion
 
-In this project we worked on different visualizations about anime and their specifity, to show how interesting and complex they can be, who are their main actors, their popularity across different metrics and to get a general view of all of them. Going for a page template across the website give us the possibility to show more detailled information about each diagram, while having a general narration between them. We preferred this approach than a single page, to avoid the confusion of scrolling and to have tabs to go from one diagram to the other in an instant.
+In this project we worked on different visualizations about anime and their particularities, to showcase their evolution through time with a histogram, how they relate to each other with a genres bubble diagram, and the people and companies behind their production with a sankey chart and a chord diagram. We opted for a web application which renders a page for each visualization rather than a single linear page. The implementation was realized with modern web technologies including ReactJS, Babel, Webpack, SASS and visualization libraries D3 and amCharts as well as custom barebone JS components.
 
-Hopefully you could explore and experiment with the different visualizations to have an overall fun and engaging experience that could inspire or even tempt you to know more about this industry and anime in a general way.
+We hope that users can explore and experiment with the different visualizations with an overall fun, elegant and engaging experience that provides them with visual insights about the animation industry.
