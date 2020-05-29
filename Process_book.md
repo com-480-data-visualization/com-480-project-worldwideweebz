@@ -123,22 +123,23 @@ Bubble chart zoom: version 1                             | Bubble chart zoom: ve
 
 Finally, depending on the bubble that the user is hovering / clicking on, information about the respective chart / genre / anime is displayed in the sidebar.
 
-![Bubble visualization](assets/final_bubble_page.png){#id .class width=300px}
+![Bubble visualization](assets/final_bubble_page.png){#id .class width=260px}
 
+\pagebreak
 
 ## Sankey diagram
 
 **711 studios captivating the world**
 
-For this diagram, the aim was to show informations about the most consequential anime studios. We thought about doing a Sankey diagram to show a nice link between the number of animes produced by the studio per genre, and then sorted per score's mean (rounded to the closest integer). This provides an insightful visualization showing directly the influence of the top studios over anime's world.
+For this diagram, the aim was to show information about the most consequential anime studios. A Sankey diagram allows us to highlight the affinity of a given studio to the genres of the animes it produces while simultaneously comparing them to their user ratings, which are sorted per score mean (rounded to the closest integer).
 
-To have a nicely interactive diagram, we used `amcharts` library, as shown [here](https://www.amcharts.com/docs/v4/chart-types/sankey-diagram/). Its API brings a lot of different ways to interact easily with the representation and offers many useful possibilities with animations handled automatically.
+For this interactive diagram, we used the `amcharts` library, as documented [here](https://www.amcharts.com/docs/v4/chart-types/sankey-diagram/). Its rich API offers us many possibilities for representation, interaction and animation of the data out-of-the-box.
 
-The main difficulty here was to show groups of links, going from a studio to the score, passing through the wanted genre. to handle it, we used an `id` for each link, with a concatanation from the name of the studio (2 first letters and last one), with the genre, and a number depending on if it goes to a genre or to a note (for example, the link going from Toei Animation to Action will have its `id=TonAc-0` and for the same studio going to a note `id=TonAc-1`). Then we can use the first part of the `id` to know if it belongs to the same group, and highlight all of them when hovering one of its links.
+The main difficulty in this implementation was to show the connection between each group of links when hovering on it, as we want to increase the opacity on one hand of the link from a studio to a genre, and at the same time from that genre to all its attached ratings on the other. To do so, we use an identifier for each link which consists of the concatanation of the name of the studio (2 first letters and the last) with the genre name and a number which discriminates if the link connects to a genre or a rating (for instance, the link going from Toei Animation to Action will have its `id=TonAc-0` and for the same studio going to a note `id=TonAc-1`). Then we can extract the first part of the `id` to know if it belongs to the same group, and highlight all the other that share the same identifier when hovering on any of the associated links.
 
-We had then to choose the number of studios and genres to show up in the diagram, and decided to go for a balance between information and performance. Indeed, each new node adds a lot of links, affecting performance directly. We went then for 10 studios (chosen on the number of animes produced) and 5 genres (depending on the number of animes), to still have enough information to make the diagram relevant.
+We arbitrarily chose the number of studios and genres present in the diagram, and stroke a balance between information density and performance. Indeed, each new node adds a sizable number of links, inherently affecting performance. After some testing, we settled on showing 10 studios (which have produced the biggest amount of anime titles) and 5 genres (which contain the most anime) to keep the diagram relevant.
 
-Like the other diagrams, we put information on the sidebar depending on what is hovered, and decided to show pertinant information for each studio and a short description for each genre.
+Similarly to the other diagrams, we put additional information in the sidebar depending on what node is hovered, and show related information for each studio and a short description for each genre.
 
 Sankey visualization: main                           | Sankey visualization: hover on studio
 :--------------------------------------------------:|:------------------------------------:
