@@ -145,7 +145,6 @@ const constructChord = function (json, setActor) {
 		var node = event.target
 
 		if (node.id !== 0) {
-			console.log(node.id)
 			setActor(actorDetails[node.id])
 		}
 
