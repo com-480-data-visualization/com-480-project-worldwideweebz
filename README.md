@@ -8,11 +8,6 @@
 
 [Milestone 1](#milestone-1-friday-3rd-april-5pm) • [Milestone 2](#milestone-2-friday-1st-may-5pm) • [Milestone 3](#milestone-3-thursday-28th-may-5pm)
 
-<p align="center">
-    <img width="400" src="assets/loading_battle.gif">
-</p>
-
-
 # Anime Data Visualization
 
 Animes have become a major source of digital entertainment, often narrating stories in beautiful or dreadful fantastical universes. Like with many works of fiction, one can escape to a different world, empathize with charismatic characters, discover a foreign culture or simply appreciate the art itself. They have grown exponentially in popularity over the years, in particular with Western audiences. The result is a rich byproduct of human creativity, globalization and commercialism.
@@ -42,6 +37,10 @@ The website can be visited with any modern web browser. For the possible best ex
 - You can refresh the homepage to see more animated backgrounds (they are selected at random).
 
 Visualization website: [https://com-480-data-visualization.github.io/com-480-project-worldwideweebz/](https://com-480-data-visualization.github.io/com-480-project-worldwideweebz/)
+
+<p align="center">
+    <img width="400" src="assets/loading_battle.gif">
+</p>
 
 ## Milestone 1 (Friday 3rd April, 5pm)
 
